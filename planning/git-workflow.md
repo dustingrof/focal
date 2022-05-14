@@ -19,6 +19,14 @@ From terminal:
 
 <<complete work>>
 
+
+- from branch, git merge main
+  - if conflicts, will show right there & fix in vscode
+  - other adv is can run code to confirm conflict 
+- this keeps us on existing branch
+- fix any conflicts
+- run code to confirm it works
+
 - check-in with team
 - git push origin <branch-name>
 
