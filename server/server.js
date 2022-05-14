@@ -2,13 +2,17 @@
 // require("dotenv").config();
 
 // Web server config
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 // const sassMiddleware = require("node-sass-middleware");
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-
+// Sockets for chat
+const socketio = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = socketio(server);
 // PostgreSQL database client/connection setup
 // const { Pool } = require("pg");
 // const dbParams = require("./lib/db.js");
@@ -77,6 +81,7 @@ app.get('/focal', (req, res) => {
   res.send('this work?');
 });
 
-app.listen(PORT, () => {
+// For sockets change from app.listen to server.listen
+server.listen(PORT, () => {
   console.log(`Focal app listening on port ${PORT}`);
 });
