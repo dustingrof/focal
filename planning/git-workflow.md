@@ -19,7 +19,6 @@ From terminal:
 
 <<complete work>>
 
-
 - from branch, git merge main
   - if conflicts, will show right there & fix in vscode
   - other adv is can run code to confirm conflict 
