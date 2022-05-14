@@ -22,6 +22,7 @@ import {
   Button,
   MantineProvider,
 } from '@mantine/core';
+import Pomodoro from './components/Pomodoro';
 
 const board = {
   columns: [
