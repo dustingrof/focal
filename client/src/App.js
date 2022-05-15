@@ -23,6 +23,7 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import Pomodoro from './components/Pomodoro';
+import VideoChat from './components/VideoChat';
 
 const board = {
   columns: [
