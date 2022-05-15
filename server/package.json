@@ -21,7 +21,9 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "pg": "^8.5.0",
-    "socket.io": "^2.2.0",
     "ws": "^7.0.0"
+  },
+  "dependencies": {
+    "socket.io": "^4.5.0"
   }
 }

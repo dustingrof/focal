@@ -8,11 +8,14 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
+
 // Sockets for chat
-const socketio = require('socket.io');
 const http = require('http');
+const { Server } = require('socket.io');
 const server = http.createServer(app);
-const io = socketio(server);
+const cors = require("cors");
+app.use(cors());
+
 // PostgreSQL database client/connection setup
 // const { Pool } = require("pg");
 // const dbParams = require("./lib/db.js");
@@ -82,6 +85,21 @@ app.get('/focal', (req, res) => {
 });
 
 // For sockets change from app.listen to server.listen
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    method: ["GET", "POST"]
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+  socket.on("sendMessage", (data) => {
+    console.log(data);
+    socket.broadcast.emit("receiveMessage", data);
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Focal app listening on port ${PORT}`);
 });

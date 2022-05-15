@@ -95,6 +95,7 @@ const board = {
 // }
 
 function App() {
+
   return (
     <MantineProvider
       withGlobalStyles
