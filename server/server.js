@@ -97,7 +97,8 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (data) => {
     // Save message to DB here?
-    io.emit("receiveMessage", data);
+
+    io.emit("receiveMessage", { message: data.message, userLS: data.userLS });
   });
 });
 

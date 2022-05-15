@@ -24,7 +24,8 @@ import {
 } from '@mantine/core';
 // import Pomodoro from './components/Pomodoro';
 // import VideoChat from './components/VideoChat';
-import Chat from './components/chat'
+import Chat from './components/Chat'
+import Login from './components/Login';
 
 const board = {
   columns: [
@@ -134,10 +135,7 @@ function App() {
         }
         header={
           <Header height={60} p='xs'>
-
-            {/* Header content */}
-            {/* <Text>Application header</Text> */}
-            <Button>Login</Button>
+            <Login></Login>
           </Header>
         }
         styles={theme => ({
@@ -148,6 +146,7 @@ function App() {
                 : theme.colors.gray[0],
           },
         })}>
+          <Chat></Chat>
         {/* Your application here */}
         <Board initialBoard={board} />
       </AppShell>
