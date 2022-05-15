@@ -1,24 +1,44 @@
+import { Center, Container, Button, ScrollArea } from '@mantine/core';
 import { useEffect, useState} from 'react'
 // Socket Connection
 import io from 'socket.io-client';
 const socket = io.connect("http://localhost:3001");
 
-function Chat() {
+const Chat = () => {
 
   const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
+  const [messageList, setList] = useState(["Hello", "Hello again"]);
+
   const sendMessage= () => {
-    socket.emit('sendMessage', {message})
+    console.log("front-end...", message)
+    socket.emit('sendMessage', { message })
   }
   
-  useEffect(() => {
+   useEffect(() => {
     socket.on("receiveMessage", (data) =>{
-      setMessageReceived(data.message);
+      setList((prev) => {
+        return [...prev, data.message ]
+      })
     })
-  }, [socket]);
+   }, [setList]);
 
+  const messageListMapped = messageList.map((mess, index) => <p key={ index + 1 }>{ mess }</p>)
+
+  return (
+    <Container>
+      <Center>
+        Chat...
+      </Center>
+      <ScrollArea style={{ height: 250 }}>
+        { messageListMapped }
+      </ScrollArea>
+      <input placeholder='Message...' onChange={ (event) => setMessage(event.target.value)}/>
+      <Button onClick={ sendMessage } color="indigo" radius="md" size="xs" compact>Send</Button>
+    </Container>
+  )
 
 }
+export default Chat;
 
 
         

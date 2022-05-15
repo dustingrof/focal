@@ -22,8 +22,9 @@ import {
   Button,
   MantineProvider,
 } from '@mantine/core';
-import Pomodoro from './components/Pomodoro';
-import VideoChat from './components/VideoChat';
+// import Pomodoro from './components/Pomodoro';
+// import VideoChat from './components/VideoChat';
+import Chat from './components/chat'
 
 const board = {
   columns: [

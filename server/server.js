@@ -94,9 +94,10 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
+
   socket.on("sendMessage", (data) => {
-    console.log(data);
-    socket.broadcast.emit("receiveMessage", data);
+    // Save message to DB here?
+    io.emit("receiveMessage", data);
   });
 });
 
