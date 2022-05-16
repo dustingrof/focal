@@ -1,16 +1,14 @@
-
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-module.exports = (db) => {
-
-  // don't need 
+module.exports = db => {
+  // don't need
   // router.get("/", (req, res) => {
   //   const boardId = req.params.id;
   //   console.log("boardId:", boardId);
   //   db.query(
   //     `
-  //     SELECT * 
+  //     SELECT *
   //     FROM tasks
   //     ORDER BY tasks.id
 
@@ -24,17 +22,6 @@ module.exports = (db) => {
   //     );
   //   });
   // });
-
-
-
-
-
-
-
-
-
-
-
 
   return router;
 };

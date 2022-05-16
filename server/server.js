@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // Web server config
 const PORT = process.env.PORT || 3322;
-const sassMiddleware = require("node-sass-middleware");
+// const sassMiddleware = require("node-sass-middleware");
 const express = require('express');
 const bodyparser = require("body-parser");
 const helmet = require("helmet");
@@ -29,9 +29,9 @@ const cors = require("cors");
 
 
 // routes
-// const users = require("./routes/users");
+const users = require("./routes/users");
 const boards = require("./routes/boards");
-// const tasks = require("./routes/tasks");
+// const tasks = require("./routes/tasks");s
 // const users_tasks = require("./routes/users_tasks");
 
 // app.use("/api", days(db));
@@ -43,9 +43,9 @@ app.use(cors());
 // app.use(helmet()); // needed?
 app.use(bodyparser.json()); // needed?
 
-// app.use("/users", users(db))
-app.use("/boards", boards(db))
-// app.use("/tasks", tasks(db))
+app.use("/users", users(db));
+app.use("/boards", boards(db));
+// app.use("/tasks", tasks(db));
 // app.use("/users_tasks", users_tasks(db))
 
 
@@ -107,9 +107,9 @@ app.use(express.static('public'));
 // const loginRouter = require("./routes/login");
 // app.use("/login", loginRouter);
 
-app.get('/', (req, res) => {
-  res.redirect('../client/src/index.js');
-});
+// app.get('/', (req, res) => {
+//   res.redirect('../client/src/index.js');
+// });
 
 // localhost:3000/focal
 app.get('/focal', (req, res) => {
