@@ -26,6 +26,7 @@ import {
 // import VideoChat from './components/VideoChat';
 import Chat from './components/Chat'
 import Login from './components/Login';
+import TaskCardFocus from './components/TaskCardFocus';
 
 const board = {
   columns: [
@@ -146,9 +147,10 @@ function App() {
                 : theme.colors.gray[0],
           },
         })}>
-          <Chat></Chat>
+          {/* <Chat></Chat> */}
         {/* Your application here */}
         <Board initialBoard={board} />
+        <TaskCardFocus></TaskCardFocus>
       </AppShell>
     </MantineProvider>
   );
