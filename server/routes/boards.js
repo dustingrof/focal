@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = db => {
+module.exports = (db) => {
   // used by navbar to render the board items in a list
   router.get('/', (req, res) => {
     db.query(
@@ -10,13 +10,13 @@ module.exports = db => {
       FROM boards
       ORDER BY boards.id
 
-    `
+    `,
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -33,13 +33,13 @@ module.exports = db => {
       VALUES ($1, $2, $3)
 
     `,
-      [boardName, boardDescription, boardImage]
+      [boardName, boardDescription, boardImage],
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -58,13 +58,13 @@ module.exports = db => {
       VALUES ($1, $2, $3, $4, $5)
 
     `,
-      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus]
+      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus],
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -79,13 +79,13 @@ module.exports = db => {
       WHERE id = $1
 
     `,
-      [boardId]
+      [boardId],
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -100,18 +100,19 @@ module.exports = db => {
       `
       SELECT *
       FROM tasks
+      JOIN users_tasks ON users_tasks.task_id = tasks.id
+      JOIN users ON users_tasks.user_id = users.id
       WHERE board_id = $1
-      AND id = $2
+      AND tasks.id = $2
       ORDER BY tasks.id
-
     `,
-      [boardId, taskId]
+      [boardId, taskId],
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -128,13 +129,13 @@ module.exports = db => {
       ORDER BY tasks.id
 
     `,
-      [boardID]
+      [boardID],
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {}
-        )
+          {},
+        ),
       );
     });
   });
@@ -161,7 +162,7 @@ module.exports = db => {
       WHERE id = $4
 
     `,
-      [boardName, boardDescription, boardImage, boardId]
+      [boardName, boardDescription, boardImage, boardId],
     )
       .then(() => {
         setTimeout(() => {
@@ -169,7 +170,7 @@ module.exports = db => {
           updateBoard(Number(req.params.id), req.body.interview);
         }, 1000);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   });
 
   // when user closes task focus view, or changes content
@@ -194,7 +195,7 @@ module.exports = db => {
       SET name = $1, description = $2, due_date = $3, board_id = $4, status = $5
       WHERE tasks.id = $6
     `,
-      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus, taskId]
+      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus, taskId],
     )
       .then(() => {
         setTimeout(() => {
@@ -202,7 +203,7 @@ module.exports = db => {
           updateTask(Number(req.params.id), req.body.interview);
         }, 1000);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   });
 
   // button on board focus view to delete board (extra confirm like scheduler?)
