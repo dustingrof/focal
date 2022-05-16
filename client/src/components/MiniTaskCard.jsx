@@ -12,7 +12,7 @@ export default function MiniTaskCard({ children: card, dragging, allowRemoveCard
   return(
     <div className={`react-kanban-card ${dragging ? 'react-kanban-card--dragging' : ''}`}>
         <div style={{ width: 'auto', margin: 'auto' }}>
-      <Card p="lg">
+      <Card p="lg" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" component="a">
       
         <Card.Section>
         <Grid position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
