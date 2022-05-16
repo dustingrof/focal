@@ -2,6 +2,7 @@ import './App.css';
 import Board from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
 import {
+  Space,
   AppShell,
   Navbar,
   Header,
@@ -26,6 +27,7 @@ import {
 import Chat from './components/Chat'
 import Login from './components/Login';
 import TaskCardFocus from './components/TaskCardFocus';
+import BoardCardFocus from './components/BoardCardFocus';
 
 const board = {
   columns: [
@@ -153,6 +155,8 @@ function App() {
 
         </Board>
         <TaskCardFocus></TaskCardFocus>
+        <Space h="xl" />
+        <BoardCardFocus></BoardCardFocus>
       </AppShell>
     </MantineProvider>
   );
