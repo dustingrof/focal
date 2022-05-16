@@ -24,10 +24,11 @@ import {
 } from '@mantine/core';
 // import Pomodoro from './components/Pomodoro';
 // import VideoChat from './components/VideoChat';
-import Chat from './components/Chat'
+// import Chat from './components/Chat'
 import Login from './components/Login';
 import TaskCardFocus from './components/TaskCardFocus';
 import BoardCardFocus from './components/BoardCardFocus';
+import MiniTaskCard from './components/MiniTaskCard';
 
 const board = {
   columns: [
@@ -150,7 +151,14 @@ function App() {
         })}>
           {/* <Chat></Chat> */}
         {/* Your application here */}
-        <Board initialBoard={board}>
+        <Board initialBoard={board}
+          renderCard={({ content }, { removeCard, dragging }) => (
+            <MiniTaskCard dragging={dragging}>
+              {content}
+              <button type="button" onClick={removeCard}>Remove Card</button>
+            </MiniTaskCard>
+          )}
+        >
 
 
         </Board>
