@@ -2,7 +2,7 @@ import { Center, Container, Button, ScrollArea, Drawer, Group } from '@mantine/c
 import { useEffect, useState} from 'react'
 // Socket Connection
 import io from 'socket.io-client';
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:3322");
 
 const Chat = () => {
 
@@ -22,6 +22,7 @@ const Chat = () => {
       })
     })
    }, [setList]);
+
   const messageListMapped = messageList.map((item, index) => {
     if(item.userLS === userLS){
        return <p key={ index + 1 } align="right">{ item.userLS }: { item.message }</p>
