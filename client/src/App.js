@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Board from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
@@ -149,7 +148,10 @@ function App() {
         })}>
           {/* <Chat></Chat> */}
         {/* Your application here */}
-        <Board initialBoard={board} />
+        <Board initialBoard={board}>
+
+
+        </Board>
         <TaskCardFocus></TaskCardFocus>
       </AppShell>
     </MantineProvider>
