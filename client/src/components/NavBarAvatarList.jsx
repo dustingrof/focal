@@ -8,6 +8,7 @@ import { SquarePlus } from 'tabler-icons-react';
 
 // TODO Polish
 // Add Button link to new board card focus edit view line 34
+// If no board selected show board name, else just show avatar
 
 
 export default function NavBarAvatarList() {
