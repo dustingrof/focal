@@ -9,9 +9,9 @@ import BoardProvider, { boardContext } from './providers/boardProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <BoardProvider> */}
+    <BoardProvider>
       <App />
-    {/* </BoardProvider> */}
+    </BoardProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

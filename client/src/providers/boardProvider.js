@@ -89,7 +89,10 @@ export default function BoardProvider(props) {
   // all components in this tree will have access to the board context
 
   // const providerData = { board, onMoveCard };
-  const providerData = { board };
+  const providerData = { board, onMoveCard };
+
+  // console.log("3h?")
+
 
   return (
     <boardContext.Provider value={providerData}>

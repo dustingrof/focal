@@ -37,10 +37,10 @@ import BoardCardFocus from './components/BoardCardFocus';
 import MiniTaskCard from './components/MiniTaskCard';
 // import NavBoardAvatar from './components/NavBarAvatar';
 import NavBarAvatarList from './components/NavBarAvatarList';
-import { useBoardTasks } from './hooks/useBoardTasks';
+// import { useBoardTasks } from './hooks/useBoardTasks';
 import { useContext } from 'react';
 import Timer from './components/Timer';
-// import BoardProvider, { boardContext } from './providers/boardProvider';
+import BoardProvider, { boardContext } from './providers/boardProvider';
 
 // const board = {
 //   columns: [
@@ -134,7 +134,8 @@ function App() {
   //   ]
   // });
 
-  const { board, onMoveCard } = useBoardTasks();
+  // const { board, onMoveCard } = useBoardTasks();
+  // const { board } = useBoardTasks();
 
   // console.log("state from useBoardTasks:", state);
 
@@ -151,34 +152,22 @@ function App() {
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
-  // const board = useContext(boardContext);
+  const { board, onMoveCard } = useContext(boardContext);
+
+  // console.log("board:",board);
+  // console.log("onMoveCard:",onMoveCard);
+
   // const onMoveCard = useContext(boardContext);
+
   return (
-    // {/* <BoardProvider> */}
+
     <ColorSchemeProvider
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{
-          colorScheme: 'light',
-          colors: {
-            // override dark colors to change them for all components
-            dark: [
-              '#d5d7e0',
-              '#acaebf',
-              '#8c8fa3',
-              '#666980',
-              '#4d4f66',
-              '#34354a',
-              '#2b2c3d',
-              '#1d1e30',
-              '#0c0d21',
-              '#01010a',
-            ],
-          },
-        }}>
+        theme={{ colorScheme }}>
         <AppShell
           padding='md'
           navbar={
@@ -235,32 +224,48 @@ function App() {
           {/* <Chat></Chat> */}
           {/* Your application here */}
           <Board
-            // initialBoard={board}
-            onCardDragEnd={(source, destination) => {
-              // console.log("source:", source);
-              // console.log("destination:", destination);
-              // console.log("card:", card);
-              const updatedBoard = moveCard(board, source, destination);
-              // onMoveCard(updatedBoard);
+            moveCard={(board, source, destination) => {
+              
             }}
-            renderCard={({ content }, { removeCard, dragging }) => (
-              <MiniTaskCard dragging={dragging}>
-                {content}
-                <button type='button' onClick={removeCard}>
-                  Remove Card
-                </button>
-              </MiniTaskCard>
-            )}>
-            {board}
-          </Board>
+            onCardDragEnd={(source, destination) => {
+              console.log("source:", source);
+              console.log("destination:", destination);
+              console.log("board:", board);
 
-          <TaskCardFocus></TaskCardFocus>
-          <Space h='xl' />
-          <BoardCardFocus></BoardCardFocus>
-        </AppShell>
-      </MantineProvider>
-    </ColorSchemeProvider>
-    // {/* </BoardProvider> */}
+              // get to here before error
+              // const updatedBoard = moveCard(board, source, destination);
+              // moveCard= {
+              //   (board, source, destination) => (console.log("print?"))
+              // };
+
+              
+              // onMoveCard(updatedBoard);
+
+
+
+
+          // console.log("updatedBoard:", updatedBoard);
+          console.log("does this happen when card is dropped?")
+            }}
+          renderCard={({ content }, { removeCard, dragging }) => (
+            <MiniTaskCard dragging={dragging}>
+              {content}
+              <button type='button' onClick={removeCard}>
+                Remove Card
+              </button>
+            </MiniTaskCard>
+          )}
+            disableColumnDrag>
+          {board}
+        </Board>
+
+        <TaskCardFocus></TaskCardFocus>
+        <Space h='xl' />
+        <BoardCardFocus></BoardCardFocus>
+      </AppShell>
+    </MantineProvider>
+    </ColorSchemeProvider >
+
   );
 }
 
