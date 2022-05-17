@@ -81,26 +81,45 @@ export default function BoardProvider(props) {
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
   }, []);
-
-
-
+  // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
-
     // console.log('onMoveCard has been called');
-    // console.log("_card:", _card);
-    // console.log("source:", source);
-    // console.log("destination:", destination);
-    
-    console.log("board before setBoard call:", board);
+
+    // console.log('_card:', _card);
+    // console.log('source:', source);
+    // console.log('destination:', destination);
+
+    const newColumnId = destination.toColumnId - 1;
+    const newPositionId = destination.toPosition;
+
+    console.log('board before setBoard call:', board);
+
     const updatedBoard = moveCard(board, source, destination);
-    console.log("updatedBoard passed to setBoard:", updatedBoard);
+    updatedBoard.columns[newColumnId].cards[newPositionId].status =
+      destination.toColumnId;
+
+    console.log('updatedBoard passed to setBoard:', updatedBoard);
+    // console.log('board after setBoard call:', board);
+
+    const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
+    // updatedCard.status = destination.toColumnId;
+    console.log('updatedCard', updatedCard);
     setBoard(updatedBoard);
-    console.log("board after setBoard call:", board);
+
+    return axios
+      .put(`boards/1/tasks/${_card.id}`, { updatedCard })
+      .then(results => {});
   };
 
+  // const { student, interviewer } = req.body.interview;
 
-
-
+  // const taskName = req.body.taskName;
+  // const taskDescription = req.body.taskDescription;
+  // const taskDueDate = req.body.taskDueDate;
+  // const taskBoardId = req.params.board_id; // this comes from address
+  // const taskStatus = req.body.taskStatus;
+  // const taskId = req.params.task_id;
+  // insert into tasks (status) values ($1) where id = task_id;
 
   // all components in this tree will have access to the board context
 
@@ -108,7 +127,6 @@ export default function BoardProvider(props) {
   const providerData = { board, onMoveCard };
 
   // console.log("3h?")
-
 
   return (
     <boardContext.Provider value={providerData}>

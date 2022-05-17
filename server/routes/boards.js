@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (db) => {
+module.exports = db => {
   // used by navbar to render the board items in a list
   router.get('/', (req, res) => {
     db.query(
@@ -10,13 +10,13 @@ module.exports = (db) => {
       FROM boards
       ORDER BY boards.id
 
-    `,
+    `
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -33,13 +33,13 @@ module.exports = (db) => {
       VALUES ($1, $2, $3)
 
     `,
-      [boardName, boardDescription, boardImage],
+      [boardName, boardDescription, boardImage]
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -58,13 +58,13 @@ module.exports = (db) => {
       VALUES ($1, $2, $3, $4, $5)
 
     `,
-      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus],
+      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus]
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -79,13 +79,13 @@ module.exports = (db) => {
       WHERE id = $1
 
     `,
-      [boardId],
+      [boardId]
     ).then(({ rows: boards }) => {
       res.json(
         boards.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -106,13 +106,13 @@ module.exports = (db) => {
       AND tasks.id = $2
       ORDER BY tasks.id
     `,
-      [boardId, taskId],
+      [boardId, taskId]
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -129,13 +129,13 @@ module.exports = (db) => {
       ORDER BY tasks.id
 
     `,
-      [boardID],
+      [boardID]
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
           (previous, current) => ({ ...previous, [current.id]: current }),
-          {},
-        ),
+          {}
+        )
       );
     });
   });
@@ -162,7 +162,7 @@ module.exports = (db) => {
       WHERE id = $4
 
     `,
-      [boardName, boardDescription, boardImage, boardId],
+      [boardName, boardDescription, boardImage, boardId]
     )
       .then(() => {
         setTimeout(() => {
@@ -170,7 +170,7 @@ module.exports = (db) => {
           updateBoard(Number(req.params.id), req.body.interview);
         }, 1000);
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   });
 
   // when user closes task focus view, or changes content
@@ -179,15 +179,10 @@ module.exports = (db) => {
       setTimeout(() => res.status(500).json({}), 1000);
       return;
     }
-    // console.log('req.body', req.body);
-    const { student, interviewer } = req.body.interview;
+    console.log('req.body', req.body);
 
-    const taskName = req.body.taskName;
-    const taskDescription = req.body.taskDescription;
-    const taskDueDate = req.body.taskDueDate;
-    const taskBoardId = req.params.board_id; // this comes from address
-    const taskStatus = req.body.taskStatus;
-    const taskId = req.params.task_id;
+    const { active, board_id, description, due_date, id, name, status } =
+      req.body.updatedCard;
 
     db.query(
       `
@@ -195,15 +190,8 @@ module.exports = (db) => {
       SET name = $1, description = $2, due_date = $3, board_id = $4, status = $5
       WHERE tasks.id = $6
     `,
-      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus, taskId],
-    )
-      .then(() => {
-        setTimeout(() => {
-          res.status(204).json({});
-          updateTask(Number(req.params.id), req.body.interview);
-        }, 1000);
-      })
-      .catch((error) => console.log(error));
+      [name, description, due_date, board_id, status, id]
+    ).catch(error => console.log(error));
   });
 
   // button on board focus view to delete board (extra confirm like scheduler?)
