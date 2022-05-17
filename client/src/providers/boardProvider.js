@@ -36,7 +36,7 @@ export default function BoardProvider(props) {
   useEffect(() => {
     console.log('anything');
     axios.get('boards/1/tasks').then(results => {
-      console.log('results:', results);
+      // console.log('results:', results);
 
       const incomingColumns = [
         {

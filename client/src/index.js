@@ -4,14 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import BoardProvider, { boardContext } from './providers/boardProvider';
-
+import BoardListProvider from './providers/boardListProvider';
 
 
 ReactDOM.render(
   <React.StrictMode>
+      <BoardListProvider>
     <BoardProvider>
-      <App />
+        <App />
     </BoardProvider>
+      </BoardListProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
