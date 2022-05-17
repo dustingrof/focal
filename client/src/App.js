@@ -154,11 +154,6 @@ function App() {
 
   const { board, onMoveCard } = useContext(boardContext);
 
-  // console.log("board:",board);
-  // console.log("onMoveCard:",onMoveCard);
-
-  // const onMoveCard = useContext(boardContext);
-
   return (
 
     <ColorSchemeProvider
@@ -224,46 +219,24 @@ function App() {
           {/* <Chat></Chat> */}
           {/* Your application here */}
           <Board
-            moveCard={(board, source, destination) => {
-              
-            }}
-            onCardDragEnd={(source, destination) => {
-              console.log("source:", source);
-              console.log("destination:", destination);
-              console.log("board:", board);
+            onCardDragEnd={onMoveCard}
+            disableColumnDrag
+            renderCard={({ content }, { removeCard, dragging }) => (
+              <MiniTaskCard dragging={dragging}>
+                {content}
+                <button type='button' onClick={removeCard}>
+                  Remove Card
+                </button>
+              </MiniTaskCard>
+            )}>
+            {board}
+          </Board>
 
-              // get to here before error
-              // const updatedBoard = moveCard(board, source, destination);
-              // moveCard= {
-              //   (board, source, destination) => (console.log("print?"))
-              // };
-
-              
-              // onMoveCard(updatedBoard);
-
-
-
-
-          // console.log("updatedBoard:", updatedBoard);
-          console.log("does this happen when card is dropped?")
-            }}
-          renderCard={({ content }, { removeCard, dragging }) => (
-            <MiniTaskCard dragging={dragging}>
-              {content}
-              <button type='button' onClick={removeCard}>
-                Remove Card
-              </button>
-            </MiniTaskCard>
-          )}
-            disableColumnDrag>
-          {board}
-        </Board>
-
-        <TaskCardFocus></TaskCardFocus>
-        <Space h='xl' />
-        <BoardCardFocus></BoardCardFocus>
-      </AppShell>
-    </MantineProvider>
+          <TaskCardFocus></TaskCardFocus>
+          <Space h='xl' />
+          <BoardCardFocus></BoardCardFocus>
+        </AppShell>
+      </MantineProvider>
     </ColorSchemeProvider >
 
   );
