@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mantine/next": "^4.2.5",
     "axios": "^0.27.2",
     "google-meet-api": "^1.0.0",
     "nodemon": "^2.0.15",

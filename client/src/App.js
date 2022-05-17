@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import Board from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
@@ -17,14 +18,18 @@ import {
   colorScheme,
   ActionIcon,
   toggleColorScheme,
-  Sun,
-  MoonStars,
   Button,
   MantineProvider,
+  useMantineColorScheme,
+  ColorSchemeProvider,
+  Grid,
 } from '@mantine/core';
+import { Sun, MoonStars } from 'tabler-icons-react';
+import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+
 // import Pomodoro from './components/Pomodoro';
 // import VideoChat from './components/VideoChat';
-import Chat from './components/Chat'
+import Chat from './components/Chat';
 import Login from './components/Login';
 import TaskCardFocus from './components/TaskCardFocus';
 
@@ -77,82 +82,80 @@ const board = {
   ],
 };
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
 function App() {
-
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    key: 'mantine-color-scheme',
+    defaultValue: 'light',
+    getInitialValueInEffect: true,
+  });
+  const dark = colorScheme === 'dark';
+  const toggleColorScheme = ColorScheme =>
+    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        colorScheme: 'light',
-        colors: {
-          // override dark colors to change them for all components
-          dark: [
-            '#d5d7e0',
-            '#acaebf',
-            '#8c8fa3',
-            '#666980',
-            '#4d4f66',
-            '#34354a',
-            '#2b2c3d',
-            '#1d1e30',
-            '#0c0d21',
-            '#01010a',
-          ],
-        },
-      }}>
-      <AppShell
-        padding='md'
-        navbar={
-          <Navbar width={{ base: 300 }} p='xs'>
-            {/* Navbar content */}
-            <Navbar.Section>{/* Header with logo */}header</Navbar.Section>
-            <Navbar.Section grow mt='md'>
-              {/* Links sections */}links
-            </Navbar.Section>
-            <Navbar.Section>footer{/* Footer with user */}</Navbar.Section>
-          </Navbar>
-        }
-        header={
-          <Header height={60} p='xs'>
-            <Login></Login>
-          </Header>
-        }
-        styles={theme => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        theme={{ colorScheme }}
+        withGlobalStyles
+        withNormalizeCSS>
+        <AppShell
+          padding='md'
+          navbar={
+            <Navbar width={{ base: 'auto' }} p='xs'>
+              {/* Navbar content */}
+              <Navbar.Section>{/* Header with logo */}header</Navbar.Section>
+              <Navbar.Section grow mt='md'>
+                {/* Links sections */}links
+              </Navbar.Section>
+              <Navbar.Section>footer{/* Footer with user */}</Navbar.Section>
+            </Navbar>
+          }
+          header={
+            <Header height={60} p='xs'>
+              <Grid justify='space-between'>
+                <Grid.Col span={3}>
+                  <Text
+                    component='span'
+                    align='center'
+                    variant='gradient'
+                    gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                    size={'xl'}
+                    weight={700}
+                    style={{ fontFamily: 'Greycliff CF, sans-serif' }}>
+                    focal
+                  </Text>
+                </Grid.Col>
+                <Grid.Col span={6}>
+                  <Login></Login>
+                </Grid.Col>
+                <Grid.Col span={1}>
+                  <ActionIcon
+                    variant='outline'
+                    color={dark ? 'yellow' : 'blue'}
+                    onClick={() => toggleColorScheme()}
+                    title='Toggle color scheme'>
+                    {dark ? <Sun size={18} /> : <MoonStars size={18} />}
+                  </ActionIcon>
+                </Grid.Col>
+              </Grid>
+            </Header>
+          }
+          styles={theme => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}>
           {/* <Chat></Chat> */}
-        {/* Your application here */}
-        <Board initialBoard={board} />
-        <TaskCardFocus></TaskCardFocus>
-      </AppShell>
-    </MantineProvider>
+          {/* Your application here */}
+          <Board initialBoard={board} />
+          <TaskCardFocus></TaskCardFocus>
+        </AppShell>
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 
