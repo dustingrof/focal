@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React from 'react';
 import NavBarAvatar from './NavBarAvatar';
 import { List, Space } from '@mantine/core';
 
@@ -6,26 +6,26 @@ import { List, Space } from '@mantine/core';
 // Add add button
 
 export default function NavBarAvatarList(props) {
-
   const { boards } = props;
   const boardsArray = Object.values(boards);
 
-  const list = boardsArray.map((board) => {
+  const list = boardsArray.map(board => {
     return (
-      <>
-        <NavBarAvatar image_url={board.image_url} name={board.name} board_id={board.id} />
-        <Space h="lg" />
-      </>);
+      <div key={board.id}>
+        <NavBarAvatar
+          image_url={board.image_url}
+          name={board.name}
+          board_id={board.id}
+        />
+        <Space h='lg' />
+      </div>
+    );
   });
-
 
   return (
     <>
-      <Space h="lg" />
-      <List>
-        {list}
-      </List>
+      <Space h='lg' />
+      <List>{list}</List>
     </>
-
   );
 }

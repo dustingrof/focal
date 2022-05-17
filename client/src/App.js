@@ -1,3 +1,5 @@
+import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import Board, { moveCard } from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
@@ -18,79 +20,75 @@ import {
   colorScheme,
   ActionIcon,
   toggleColorScheme,
-  Sun,
-  MoonStars,
   Button,
   MantineProvider,
+  useMantineColorScheme,
+  ColorSchemeProvider,
 } from '@mantine/core';
-import Pomodoro from './components/Pomodoro';
-import VideoChat from './components/VideoChat';
-import Chat from './components/Chat'
+import { Sun, MoonStars } from 'tabler-icons-react';
+import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+
+// import Pomodoro from './components/Pomodoro';
+// import VideoChat from './components/VideoChat';
+// import Chat from './components/Chat';
 import Login from './components/Login';
 import TaskCardFocus from './components/TaskCardFocus';
 import BoardCardFocus from './components/BoardCardFocus';
 import MiniTaskCard from './components/MiniTaskCard';
-import NavBoardAvatar from './components/NavBarAvatar';
+// import NavBoardAvatar from './components/NavBarAvatar';
 import NavBarAvatarList from './components/NavBarAvatarList';
-// import { useBoardTasks } from './hooks/useBoardTasks';
-import { useEffect, useState, useContext } from 'react';
+import { useBoardTasks } from './hooks/useBoardTasks';
+import { useContext } from 'react';
 import Timer from './components/Timer';
-import { boardContext } from './providers/boardProvider';
+// import BoardProvider, { boardContext } from './providers/boardProvider';
 
-
-
-const board = {
-  columns: [
-    {
-      id: 1,
-      title: 'Backlog',
-      cards: [
-        {},
-        {},
-        {}
-      ],
-    },
-    {
-      id: 2,
-      title: 'Doing',
-      cards: [
-        {
-          id: 2,
-          title: 'Drag-n-drop support',
-          description: 'Move a card between the columns',
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: 'Pending',
-      cards: [
-        {
-          id: 3,
-          title: 'Drag-n-drop support',
-          description: 'Move a card between the columns',
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: 'Complete',
-      cards: [
-        {
-          id: 4,
-          title: 'Drag-n-drop support',
-          description: 'Move a card between the columns',
-        },
-      ],
-    },
-  ],
-};
+// const board = {
+//   columns: [
+//     {
+//       id: 1,
+//       title: 'Backlog',
+//       cards: [{}, {}, {}],
+//     },
+//     {
+//       id: 2,
+//       title: 'Doing',
+//       cards: [
+//         {
+//           id: 2,
+//           title: 'Drag-n-drop support',
+//           description: 'Move a card between the columns',
+//         },
+//       ],
+//     },
+//     {
+//       id: 3,
+//       title: 'Pending',
+//       cards: [
+//         {
+//           id: 3,
+//           title: 'Drag-n-drop support',
+//           description: 'Move a card between the columns',
+//         },
+//       ],
+//     },
+//     {
+//       id: 4,
+//       title: 'Complete',
+//       cards: [
+//         {
+//           id: 4,
+//           title: 'Drag-n-drop support',
+//           description: 'Move a card between the columns',
+//         },
+//       ],
+//     },
+//   ],
+// };
 
 const boards = {
   1: {
     id: 1,
-    name:
-      'nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia',
+    name: 'BOARD 1',
     description:
       'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.',
     image_url: 'https://robohash.org/sedeumdolores.png?size=250x250&set=set1',
@@ -99,8 +97,7 @@ const boards = {
   },
   2: {
     id: 2,
-    name:
-      'faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi',
+    name: 'BOARD 2',
     description:
       'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.',
     image_url: 'https://robohash.org/isteetminima.png?size=250x250&set=set1',
@@ -110,14 +107,8 @@ const boards = {
 };
 
 function App() {
-  
-  const { board, onMoveCard } = useContext(boardContext);
-
-  
-
-
   // console.log("state:", state);
-  
+
   // const [stateChange, setStateChange] = useState({
   //   columns: [
   //     {
@@ -142,119 +133,134 @@ function App() {
   //     },
   //   ]
   // });
-  
-  // const { state, onMoveCard } = useBoardTasks();
+
+  const { board, onMoveCard } = useBoardTasks();
 
   // console.log("state from useBoardTasks:", state);
-
-
-
-
 
   // useEffect(() => {
   //   console.log("state before setStateChange:", state);
   //   setStateChange(state);
   // }, [state]);
-  
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    key: 'mantine-color-scheme',
+    defaultValue: 'light',
+    getInitialValueInEffect: true,
+  });
+  const dark = colorScheme === 'dark';
+  const toggleColorScheme = ColorScheme =>
+    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
+  // const board = useContext(boardContext);
+  // const onMoveCard = useContext(boardContext);
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        colorScheme: 'light',
-        colors: {
-          // override dark colors to change them for all components
-          dark: [
-            '#d5d7e0',
-            '#acaebf',
-            '#8c8fa3',
-            '#666980',
-            '#4d4f66',
-            '#34354a',
-            '#2b2c3d',
-            '#1d1e30',
-            '#0c0d21',
-            '#01010a',
-          ],
-        },
-      }}
-    >
-      <AppShell
-        padding="md"
-        navbar={
-          <Navbar width={{ base: 'auto' }} p="xs">
-            {/* Navbar content */}
-
-            <Navbar.Section grow mt="md">
-              <NavBarAvatarList boards={boards} />
-            </Navbar.Section>
-            <Pomodoro />
-            <Timer />
-
-            <Navbar.Section>footer{/* Footer with user */}</Navbar.Section>
-          </Navbar>
-        }
-        header={
-          <Header height={60} p="xs">
-            <Grid justify="space-between">
-              <Grid.Col span={3}>
-                <Text
-                  component="span"
-                  align="center"
-                  variant="gradient"
-                  gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
-                  size={'xl'}
-                  weight={700}
-                  style={{ fontFamily: 'Greycliff CF, sans-serif' }}
-                >
-                  focal
-                </Text>
-              </Grid.Col>
-              <Grid.Col span={5}>
-                <Login></Login>
-              </Grid.Col>
-            </Grid>
-          </Header>
-        }
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
+    // {/* <BoardProvider> */}
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: 'light',
+          colors: {
+            // override dark colors to change them for all components
+            dark: [
+              '#d5d7e0',
+              '#acaebf',
+              '#8c8fa3',
+              '#666980',
+              '#4d4f66',
+              '#34354a',
+              '#2b2c3d',
+              '#1d1e30',
+              '#0c0d21',
+              '#01010a',
+            ],
           },
-        })}
-      >
-        <Chat></Chat>
-        {/* Your application here */}
-        <Board
-          // initialBoard={board}
-          onCardDragEnd={(source, destination) => {
-            // console.log("source:", source);
-            // console.log("destination:", destination);
-            // console.log("card:", card);
-            const updatedBoard = moveCard(board, source, destination);
-            onMoveCard(updatedBoard);
+        }}>
+        <AppShell
+          padding='md'
+          navbar={
+            <Navbar width={{ base: 'auto' }} p='xs'>
+              {/* Navbar content */}
 
+              <Navbar.Section grow mt='md'>
+                <NavBarAvatarList boards={boards} />
+              </Navbar.Section>
+              {/* <Pomodoro /> */}
+              {/* <Timer /> */}
 
-          }}
-          renderCard={({ content }, { removeCard, dragging }) => (
-            <MiniTaskCard dragging={dragging}>
-              {content}
-              <button type="button" onClick={removeCard}>
-                Remove Card
-              </button>
-            </MiniTaskCard>
-          )}
-        >
-          {board}
-        </Board>
-        <TaskCardFocus></TaskCardFocus>
-        <Space h="xl" />
-        <BoardCardFocus></BoardCardFocus>
-      </AppShell>
-    </MantineProvider>
+              <Navbar.Section>footer{/* Footer with user */}</Navbar.Section>
+            </Navbar>
+          }
+          header={
+            <Header height={60} p='xs'>
+              <Grid justify='space-between'>
+                <Grid.Col span={3}>
+                  <Text
+                    component='span'
+                    align='center'
+                    variant='gradient'
+                    gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                    size={'xl'}
+                    weight={700}
+                    style={{ fontFamily: 'Greycliff CF, sans-serif' }}>
+                    focal
+                  </Text>
+                </Grid.Col>
+                <Grid.Col span={5}>
+                  <Login></Login>
+                </Grid.Col>
+                <Grid.Col span={2}>
+                  <ActionIcon
+                    variant='outline'
+                    color={dark ? 'yellow' : 'blue'}
+                    onClick={() => toggleColorScheme()}
+                    title='Toggle color scheme'>
+                    {dark ? <Sun size={18} /> : <MoonStars size={18} />}
+                  </ActionIcon>
+                </Grid.Col>
+              </Grid>
+            </Header>
+          }
+          styles={theme => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}>
+          {/* <Chat></Chat> */}
+          {/* Your application here */}
+          <Board
+            // initialBoard={board}
+            onCardDragEnd={(source, destination) => {
+              // console.log("source:", source);
+              // console.log("destination:", destination);
+              // console.log("card:", card);
+              const updatedBoard = moveCard(board, source, destination);
+              // onMoveCard(updatedBoard);
+            }}
+            renderCard={({ content }, { removeCard, dragging }) => (
+              <MiniTaskCard dragging={dragging}>
+                {content}
+                <button type='button' onClick={removeCard}>
+                  Remove Card
+                </button>
+              </MiniTaskCard>
+            )}>
+            {board}
+          </Board>
+
+          <TaskCardFocus></TaskCardFocus>
+          <Space h='xl' />
+          <BoardCardFocus></BoardCardFocus>
+        </AppShell>
+      </MantineProvider>
+    </ColorSchemeProvider>
+    // {/* </BoardProvider> */}
   );
 }
 
