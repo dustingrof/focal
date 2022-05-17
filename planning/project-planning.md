@@ -19,21 +19,21 @@ Nicole, Dustin, Iaan
 (*italics* => out-of-scope)
 - *A user can create an account and use to sign in and out*
 - A user has an account with name, avatar, *credentials*
-- A user can create a project [X]
-- A user can see all projects [X]
-- A user can create one or more task cards within a project [x]
+- A user can create a board [X]
+- A user can see all boards [X]
+- A user can create one or more task cards within a board [x]
 - A user can edit task information including status (which box) [X]
 - A user can delete a task card [X]
 - A user can start/stop a time-tracking feature on a given task card [x]
 
-- Each project
+- Each board
   - can contain multiple task cards [X]
-  - will have a project name [X]
-  - will have a project description [X]
-  - will have a project image URL [X]
+  - will have a board name [X]
+  - will have a board description [X]
+  - will have a board image URL [X]
   - from main page, click project image to open project [X]
-  - inside project view, click task card to 'focus' on that task  [x]
-  - inside project view, click project name to 'focus' on project overview [x]
+  - inside board view, click task card to 'focus' on that task  [x]
+  - inside board view, click board name to 'focus' on board overview card [x]
 
 - Each task card will have (barebones)
   - name (50 char) [X]

@@ -34,17 +34,17 @@ POST boards/:id/tasks/new
   - creates a new task using the provided request body
   - when user clicks on "add task" button
 
-PUT boards/:id/tasks/:id
+PUT boards/:board_id/tasks/:task_id
   - updates a specific task
   - when user closes task focus view
 
-GET boards/:id/tasks/:id
+GET boards/:board_id/tasks/:task_id
   - retrieves the board with the specified id
   - when user clicks on task card to open task focus view
   - is this necessary, or do we get all tasks in an object on page load
   - includes JOIN on query with users_tasks
 
-DELETE boards/:id/tasks:id
+DELETE boboards/:board_id/tasks/:task_id
   - deletes a specific task
   - when user clicks "delete" on task focus view
 

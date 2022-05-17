@@ -1,4 +1,4 @@
-import { Center, Container, Button, ScrollArea, Drawer, Group } from '@mantine/core';
+import { Center, Container, Button, ScrollArea, Drawer, Group, Input, Grid } from '@mantine/core';
 import { useEffect, useState} from 'react'
 // Socket Connection
 import io from 'socket.io-client';
@@ -34,23 +34,27 @@ const Chat = () => {
    
 
 
-<>
+    <>
       <Drawer
-        opened={opened}  onClose={() => setOpened(false)}
-        title="Register"
+        // opened={opened}  onClose={() => setOpened(false)}
+
+        withCloseButton={false}
+        opened={opened}
+        onClose={() => setOpened(false)}
+        // title="Register"
         padding="xl"
         size="xl"
         position="right"s
       >
         <Container>
-      <Center>
-        Chat...
-      </Center>
-      <ScrollArea style={{ height: 250 }}>
+  
+      <ScrollArea style={{ height: 850 }}>
         { messageListMapped }
       </ScrollArea>
-      <input placeholder='Message...' onChange={ (event) => setMessage(event.target.value)}/>
-      <Button onClick={ sendMessage } color="indigo" radius="md" size="xs" compact>Send</Button>
+        {/* <Grid.Col span={ 2 } > */}
+          <Input placeholder="Your message..." radius="lg" />
+          <Button onClick={ sendMessage } color="indigo" radius="md" size="xs" compact>Send</Button>
+        {/* </Grid.Col> */}
     </Container> 
 
 
