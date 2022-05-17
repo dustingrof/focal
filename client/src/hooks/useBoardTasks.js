@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// might need to pass in 'initial'
 export const useBoardTasks = () => {
   const [board, setBoard] = useState({
     columns: [

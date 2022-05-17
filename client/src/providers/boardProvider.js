@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { moveCard } from '@asseinfo/react-kanban';
 
 // Create a context
 export const boardContext = createContext();
@@ -81,15 +82,33 @@ export default function BoardProvider(props) {
     });
   }, []);
 
-  const onMoveCard = board => {
-    // post call first
-    console.log('onMoveCard has been called');
-    setBoard(board);
+
+
+  const onMoveCard = (_card, source, destination) => {
+
+    // console.log('onMoveCard has been called');
+    // console.log("_card:", _card);
+    // console.log("source:", source);
+    // console.log("destination:", destination);
+    
+    console.log("board before setBoard call:", board);
+    const updatedBoard = moveCard(board, source, destination);
+    console.log("updatedBoard passed to setBoard:", updatedBoard);
+    setBoard(updatedBoard);
+    console.log("board after setBoard call:", board);
   };
+
+
+
+
+
   // all components in this tree will have access to the board context
 
   // const providerData = { board, onMoveCard };
-  const providerData = { board };
+  const providerData = { board, onMoveCard };
+
+  // console.log("3h?")
+
 
   return (
     <boardContext.Provider value={providerData}>

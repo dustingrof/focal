@@ -37,10 +37,10 @@ import BoardCardFocus from './components/BoardCardFocus';
 import MiniTaskCard from './components/MiniTaskCard';
 // import NavBoardAvatar from './components/NavBarAvatar';
 import NavBarAvatarList from './components/NavBarAvatarList';
-import { useBoardTasks } from './hooks/useBoardTasks';
+// import { useBoardTasks } from './hooks/useBoardTasks';
 import { useContext } from 'react';
 import Timer from './components/Timer';
-// import BoardProvider, { boardContext } from './providers/boardProvider';
+import BoardProvider, { boardContext } from './providers/boardProvider';
 
 // const board = {
 //   columns: [
@@ -134,7 +134,8 @@ function App() {
   //   ]
   // });
 
-  const { board, onMoveCard } = useBoardTasks();
+  // const { board, onMoveCard } = useBoardTasks();
+  // const { board } = useBoardTasks();
 
   // console.log("state from useBoardTasks:", state);
 
@@ -151,34 +152,17 @@ function App() {
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
-  // const board = useContext(boardContext);
-  // const onMoveCard = useContext(boardContext);
+  const { board, onMoveCard } = useContext(boardContext);
+
   return (
-    // {/* <BoardProvider> */}
+
     <ColorSchemeProvider
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{
-          colorScheme: 'light',
-          colors: {
-            // override dark colors to change them for all components
-            dark: [
-              '#d5d7e0',
-              '#acaebf',
-              '#8c8fa3',
-              '#666980',
-              '#4d4f66',
-              '#34354a',
-              '#2b2c3d',
-              '#1d1e30',
-              '#0c0d21',
-              '#01010a',
-            ],
-          },
-        }}>
+        theme={{ colorScheme }}>
         <AppShell
           padding='md'
           navbar={
@@ -235,14 +219,8 @@ function App() {
           {/* <Chat></Chat> */}
           {/* Your application here */}
           <Board
-            // initialBoard={board}
-            onCardDragEnd={(source, destination) => {
-              // console.log("source:", source);
-              // console.log("destination:", destination);
-              // console.log("card:", card);
-              const updatedBoard = moveCard(board, source, destination);
-              // onMoveCard(updatedBoard);
-            }}
+            onCardDragEnd={onMoveCard}
+            disableColumnDrag
             renderCard={({ content }, { removeCard, dragging }) => (
               <MiniTaskCard dragging={dragging}>
                 {content}
@@ -259,8 +237,8 @@ function App() {
           <BoardCardFocus></BoardCardFocus>
         </AppShell>
       </MantineProvider>
-    </ColorSchemeProvider>
-    // {/* </BoardProvider> */}
+    </ColorSchemeProvider >
+
   );
 }
 
