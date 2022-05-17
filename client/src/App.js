@@ -1,6 +1,6 @@
-import './App.css'
-import Board from '@asseinfo/react-kanban'
-import '@asseinfo/react-kanban/dist/styles.css'
+import './App.css';
+import Board, { moveCard } from '@asseinfo/react-kanban';
+import '@asseinfo/react-kanban/dist/styles.css';
 import {
   Grid,
   Space,
@@ -22,16 +22,22 @@ import {
   MoonStars,
   Button,
   MantineProvider,
-} from '@mantine/core'
-// import Pomodoro from './components/Pomodoro';
-// import VideoChat from './components/VideoChat';
-// import Chat from './components/Chat'
-import Login from './components/Login'
-import TaskCardFocus from './components/TaskCardFocus'
-import BoardCardFocus from './components/BoardCardFocus'
-import MiniTaskCard from './components/MiniTaskCard'
-import NavBoardAvatar from './components/NavBarAvatar'
-import NavBarAvatarList from './components/NavBarAvatarList'
+} from '@mantine/core';
+import Pomodoro from './components/Pomodoro';
+import VideoChat from './components/VideoChat';
+import Chat from './components/Chat'
+import Login from './components/Login';
+import TaskCardFocus from './components/TaskCardFocus';
+import BoardCardFocus from './components/BoardCardFocus';
+import MiniTaskCard from './components/MiniTaskCard';
+import NavBoardAvatar from './components/NavBarAvatar';
+import NavBarAvatarList from './components/NavBarAvatarList';
+// import { useBoardTasks } from './hooks/useBoardTasks';
+import { useEffect, useState, useContext } from 'react';
+import Timer from './components/Timer';
+import { boardContext } from './providers/boardProvider';
+
+
 
 const board = {
   columns: [
@@ -39,11 +45,9 @@ const board = {
       id: 1,
       title: 'Backlog',
       cards: [
-        {
-          id: 1,
-          title: 'Add card',
-          description: 'Add capability to add a card in a column',
-        },
+        {},
+        {},
+        {}
       ],
     },
     {
@@ -80,8 +84,7 @@ const board = {
       ],
     },
   ],
-}
-//Testing nav bar
+};
 
 const boards = {
   1: {
@@ -104,30 +107,56 @@ const boards = {
     created_at: '2021-06-15T07:00:00.000Z',
     active: true,
   },
-}
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+};
 
 function App() {
+  
+  const { board, onMoveCard } = useContext(boardContext);
+
+  
+
+
+  // console.log("state:", state);
+  
+  // const [stateChange, setStateChange] = useState({
+  //   columns: [
+  //     {
+  //       id: 1,
+  //       title: "Backlog",
+  //       cards: []
+  //     },
+  //     {
+  //       id: 2,
+  //       title: "Doing",
+  //       cards: []
+  //     },
+  //     {
+  //       id: 3,
+  //       title: "Pending",
+  //       cards: []
+  //     },
+  //     {
+  //       id: 4,
+  //       title: "Complete",
+  //       cards: []
+  //     },
+  //   ]
+  // });
+  
+  // const { state, onMoveCard } = useBoardTasks();
+
+  // console.log("state from useBoardTasks:", state);
+
+
+
+
+
+  // useEffect(() => {
+  //   console.log("state before setStateChange:", state);
+  //   setStateChange(state);
+  // }, [state]);
+  
+
   return (
     <MantineProvider
       withGlobalStyles
@@ -160,6 +189,9 @@ function App() {
             <Navbar.Section grow mt="md">
               <NavBarAvatarList boards={boards} />
             </Navbar.Section>
+            <Pomodoro />
+            <Timer />
+
             <Navbar.Section>footer{/* Footer with user */}</Navbar.Section>
           </Navbar>
         }
@@ -179,7 +211,7 @@ function App() {
                   focal
                 </Text>
               </Grid.Col>
-              <Grid.Col span={3}>
+              <Grid.Col span={5}>
                 <Login></Login>
               </Grid.Col>
             </Grid>
@@ -194,10 +226,19 @@ function App() {
           },
         })}
       >
-        {/* <Chat></Chat> */}
+        <Chat></Chat>
         {/* Your application here */}
-        {/* <Board
-          initialBoard={board}
+        <Board
+          // initialBoard={board}
+          onCardDragEnd={(source, destination) => {
+            // console.log("source:", source);
+            // console.log("destination:", destination);
+            // console.log("card:", card);
+            const updatedBoard = moveCard(board, source, destination);
+            onMoveCard(updatedBoard);
+
+
+          }}
           renderCard={({ content }, { removeCard, dragging }) => (
             <MiniTaskCard dragging={dragging}>
               {content}
@@ -206,13 +247,15 @@ function App() {
               </button>
             </MiniTaskCard>
           )}
-        ></Board>
+        >
+          {board}
+        </Board>
         <TaskCardFocus></TaskCardFocus>
         <Space h="xl" />
-        <BoardCardFocus></BoardCardFocus> */}
+        <BoardCardFocus></BoardCardFocus>
       </AppShell>
     </MantineProvider>
-  )
+  );
 }
 
-export default App
+export default App;
