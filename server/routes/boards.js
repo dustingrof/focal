@@ -69,7 +69,7 @@ module.exports = (db) => {
     });
   });
 
-  // when a user selects a board from the navbar
+  // This is for the board focus view
   router.get('/:board_id', (req, res) => {
     const boardId = req.params.board_id;
     db.query(
