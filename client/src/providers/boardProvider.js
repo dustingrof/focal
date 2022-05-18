@@ -6,7 +6,6 @@ import { moveCard } from '@asseinfo/react-kanban';
 export const boardContext = createContext();
 export const useBoard = () => useContext(boardContext);
 
-
 const initialBoardState = {
   columns: [
     {
@@ -32,21 +31,15 @@ const initialBoardState = {
   ],
 };
 
-
-
 // Create a Component wrapper from Context.Provider
 export default function BoardProvider(props) {
-  
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
 
-
-  console.log("board:", board);
-
+  // console.log("board:", board);
 
   useEffect(() => {
     axios.get('/boards/1/tasks').then(results => {
-
       const incomingColumns = [
         {
           id: 1,
@@ -87,7 +80,6 @@ export default function BoardProvider(props) {
         }
       }
 
-
       // TODO initial board has no cards, could remove prev usage
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
@@ -96,24 +88,24 @@ export default function BoardProvider(props) {
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
-
     const newColumnId = destination.toColumnId - 1;
     const newPositionId = destination.toPosition;
 
     const updatedBoard = moveCard(board, source, destination);
-    updatedBoard.columns[newColumnId].cards[newPositionId].status = destination.toColumnId;
+    updatedBoard.columns[newColumnId].cards[newPositionId].status =
+      destination.toColumnId;
 
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call
     setBoard(updatedBoard);
-    
+
     // update backend
     // TODO add "/" before boards
     return axios
-    .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
-    .then(results => {});
+      .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
+      .then(results => {});
   };
 
   const providerData = { board, onMoveCard };
