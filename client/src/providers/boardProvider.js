@@ -36,7 +36,7 @@ const initialBoardState = {
 
 // Create a Component wrapper from Context.Provider
 export default function BoardProvider(props) {
-  
+
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
 
@@ -108,7 +108,7 @@ export default function BoardProvider(props) {
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call
     setBoard(updatedBoard);
-    
+
     // update backend
     // TODO add "/" before boards
     return axios
