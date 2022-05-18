@@ -10,8 +10,14 @@ const Chat = () => {
   const [opened, setOpened] = useState(false);
   const [messageList, setList] = useState([{ userLS: "Dustin", message: "Hello" },  {userLS: "Iaan", message: "Hello Dustin" }]);
 
+  // const inputChange = (e) => {
+  //   console.log("INPUT:", e.target.value)
+  // }
+
+
   const userLS = localStorage.getItem("name");
   const sendMessage= () => {
+
     socket.emit('sendMessage', { message, userLS })
   }
   
@@ -52,7 +58,7 @@ const Chat = () => {
         { messageListMapped }
       </ScrollArea>
         {/* <Grid.Col span={ 2 } > */}
-          <Input placeholder="Your message..." radius="lg" />
+          <Input placeholder="Your message..." radius="lg"  />
           <Button onClick={ sendMessage } color="indigo" radius="md" size="xs" compact>Send</Button>
         {/* </Grid.Col> */}
     </Container> 

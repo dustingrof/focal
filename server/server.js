@@ -119,7 +119,7 @@ app.get('/focal', (req, res) => {
 // For sockets change from app.listen to server.listen
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3006",
     method: ["GET", "POST"]
   }
 });
@@ -129,6 +129,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (data) => {
     // Save message to DB here?
+    console.log("send message, server", data);
     io.emit("receiveMessage", { message: data.message, userLS: data.userLS });
   });
   socket.on("disconnect", () => {
