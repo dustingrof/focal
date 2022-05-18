@@ -20,26 +20,26 @@ import NavBarAvatarList from './components/NavBarAvatarList';
 // import VideoChat from './components/VideoChat';
 // import Chat from './components/Chat';
 
-const boards = {
-  1: {
-    id: 1,
-    name: 'BOARD 1',
-    description:
-      'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.',
-    image_url: 'https://robohash.org/sedeumdolores.png?size=250x250&set=set1',
-    created_at: '2021-08-02T07:00:00.000Z',
-    active: true,
-  },
-  2: {
-    id: 2,
-    name: 'BOARD 2',
-    description:
-      'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.',
-    image_url: 'https://robohash.org/isteetminima.png?size=250x250&set=set1',
-    created_at: '2021-06-15T07:00:00.000Z',
-    active: true,
-  },
-};
+// const boards = {
+//   1: {
+//     id: 1,
+//     name: 'BOARD 1',
+//     description:
+//       'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.',
+//     image_url: 'https://robohash.org/sedeumdolores.png?size=250x250&set=set1',
+//     created_at: '2021-08-02T07:00:00.000Z',
+//     active: true,
+//   },
+//   2: {
+//     id: 2,
+//     name: 'BOARD 2',
+//     description:
+//       'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.',
+//     image_url: 'https://robohash.org/isteetminima.png?size=250x250&set=set1',
+//     created_at: '2021-06-15T07:00:00.000Z',
+//     active: true,
+//   }
+// };
 
 function App() {
 
@@ -76,7 +76,8 @@ function App() {
               {/* Navbar content */}
 
               <Navbar.Section grow mt='md'>
-                <NavBarAvatarList boards={boards} />
+                 <NavBarAvatarList />
+                             
               </Navbar.Section>
               {/* <Pomodoro /> */}
               {/* <Timer /> */}

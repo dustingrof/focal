@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { } from 'react';
 import NavBarAvatar from './NavBarAvatar';
-import { List, Space } from '@mantine/core';
+import { List, Space, Center } from '@mantine/core';
+import {  useBoardList } from '../providers/boardListProvider';
+import { SquarePlus } from 'tabler-icons-react';
+
+
 
 // TODO Polish
-// Add add button
+// Add Button link to new board card focus edit view line 34
 
-export default function NavBarAvatarList(props) {
-  const { boards } = props;
-  const boardsArray = Object.values(boards);
+
+export default function NavBarAvatarList() {
+  
+  const { boardList } = useBoardList();
+
+  const boardsArray = Object.values(boardList);
 
   const list = boardsArray.map(board => {
     return (
@@ -24,6 +31,9 @@ export default function NavBarAvatarList(props) {
 
   return (
     <>
+      <Center target="_blank" href={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'} component="a" >
+        <SquarePlus size={40} strokeWidth={2} color={'#228be6'} />
+      </Center>
       <Space h='lg' />
       <List>{list}</List>
     </>
