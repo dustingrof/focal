@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   Button,
@@ -9,18 +9,23 @@ import {
   List,
   ThemeIcon,
   Text,
+  Input
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import { CircleDashed, BrandGithub, Flag3 } from 'tabler-icons-react';
+import { boardContext } from '../providers/boardProvider';
+
 
 export default function TaskCardFocus(props) {
-  const { cardData } = props;
+  const { onFocusModalClose } = useContext(boardContext);
+  const { cardData } = props;      // onFocusModalClose(cardData);
+
   // console.log('Card Data', cardData);
-  const initialValue = cardData.description;
+  const initialTextValue = cardData.description;
 
   const [opened, setOpened] = useState(false);
-  const [value, onChange] = useState(initialValue);
+  const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
   const theme = useMantineTheme();
 
   // console.log('props:', props);
@@ -48,12 +53,41 @@ export default function TaskCardFocus(props) {
         .catch(() => reject(new Error('Upload failed')));
     });
 
+
+  // console.log("richTextValue during initialize", richTextValue);
+
+  const modalClose = function () {
+
+    // console.log("cardData:", cardData);
+
+    const cardDataToUpdate = {
+      board_id: cardData.board_id,
+      description: richTextValue,
+      due_date: cardData.due_date,
+      id: cardData.id,
+      title: cardData.title,
+      status: cardData.status,
+    }
+
+    
+
+    // console.log("richTextValue inside closeModal before state change", richTextValue);
+    const setModalState = (() => setOpened(false));
+
+    setModalState();
+    // console.log("richTextValue inside closeModal after state change", richTextValue);
+    onFocusModalClose(cardDataToUpdate);
+
+  };
+
+
+
   return (
     <>
       <Modal
         withCloseButton={false}
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={modalClose}
         overlayColor={
           theme.colorScheme === 'dark'
             ? theme.colors.dark[9]
@@ -67,7 +101,13 @@ export default function TaskCardFocus(props) {
         transitionTimingFunction='ease'>
         <Grid>
           <Grid.Col span={6}>
+            {/* <RichTextEditor
+          controls={[['']]}
+          value={cardData.title}
+          onChange={onRichTextValueChange}
+        /> */}
             <h3>{cardData.title}</h3>
+
             <List
               spacing='xs'
               size='sm'
@@ -108,8 +148,8 @@ export default function TaskCardFocus(props) {
             ['unorderedList', 'unorderedList'],
             ['link', 'image'],
           ]}
-          value={value}
-          onChange={onChange}
+          value={richTextValue}
+          onChange={onRichTextValueChange}
           onImageUpload={handleImageUpload}
         />
         <Space h='xl' />

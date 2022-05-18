@@ -182,7 +182,7 @@ module.exports = db => {
     }
     // console.log('req.body:', req.body);
 
-    const { active, board_id, description, due_date, id, title, status } =
+    const { board_id, description, due_date, id, title, status } =
       req.body.updatedCard;
 
     db.query(

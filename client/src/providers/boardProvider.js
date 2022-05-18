@@ -38,7 +38,7 @@ export default function BoardProvider(props) {
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
-  console.log('urlBoardId', urlBoardId);
+  // console.log('urlBoardId', urlBoardId);
 
   // console.log("board:", board);
   // console.log('when is this called');
@@ -101,6 +101,10 @@ export default function BoardProvider(props) {
 
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
+
+    // console.log("UPDATED CARD EXAMPLE:", updatedCard);
+
+
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call
     setBoard(updatedBoard);
@@ -109,10 +113,26 @@ export default function BoardProvider(props) {
     // TODO add "/" before boards
     return axios
       .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
-      .then(results => {});
+      .then(results => { });
   };
 
-  const providerData = { board, onMoveCard };
+  const onFocusModalClose = (updatedCard) => {
+
+    // deconstruct updatedCard here
+    // use new values to create updatedCard
+    // perform axios put with updatedCard like below
+
+    console.log("updatedCard:", updatedCard);
+
+    const card_id = updatedCard.id;
+
+    return axios
+      .put(`/boards/1/tasks/${card_id}`, { updatedCard })
+      .then(results => { });
+  };
+
+
+  const providerData = { board, onMoveCard, onFocusModalClose  };
 
   return (
     <boardContext.Provider value={providerData}>
