@@ -65,6 +65,7 @@ export default function BoardProvider(props) {
           title: 'Complete',
           cards: [],
         },
+        urlBoardId,
       ];
 
       // TODO update to use if/else-if
@@ -88,7 +89,7 @@ export default function BoardProvider(props) {
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
-  }, [setUrlBoardId]);
+  }, [urlBoardId]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
@@ -102,6 +103,7 @@ export default function BoardProvider(props) {
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
 
+    const board_id = _card.board_id;
     // console.log("UPDATED CARD EXAMPLE:", updatedCard);
 
 
@@ -112,27 +114,23 @@ export default function BoardProvider(props) {
     // update backend
     // TODO add "/" before boards
     return axios
-      .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
+      .put(`/boards/${board_id}/tasks/${_card.id}`, { updatedCard })
       .then(results => { });
   };
 
   const onFocusModalClose = (updatedCard) => {
 
-    // deconstruct updatedCard here
-    // use new values to create updatedCard
-    // perform axios put with updatedCard like below
-
-    console.log("updatedCard:", updatedCard);
-
     const card_id = updatedCard.id;
 
+    const board_id = updatedCard.board_id;
+
     return axios
-      .put(`/boards/1/tasks/${card_id}`, { updatedCard })
+      .put(`/boards/${board_id}/tasks/${card_id}`, { updatedCard })
       .then(results => { });
   };
 
 
-  const providerData = { board, onMoveCard, onFocusModalClose  };
+  const providerData = { setUrlBoardId, board, onMoveCard, onFocusModalClose };
 
   return (
     <boardContext.Provider value={providerData}>

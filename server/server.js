@@ -37,7 +37,7 @@ const boards = require("./routes/boards");
 // app.use("/api", days(db));
 
 
-
+app.use(morgan('dev'))
 
 app.use(cors());
 // app.use(helmet()); // needed?
@@ -136,7 +136,7 @@ io.on("connection", (socket) => {
     console.log("Disconnected...");
     socket.disconnect();
   });
-  // socket.disconnect(); // This line to be commented out when chat is used.
+  socket.disconnect(); // This line to be commented out when chat is used.
 });
 
 server.listen(PORT, () => {

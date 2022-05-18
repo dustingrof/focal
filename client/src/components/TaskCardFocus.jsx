@@ -9,11 +9,14 @@ import {
   List,
   ThemeIcon,
   Text,
-  Input
+  Input,
+  ActionIcon,
+  Collapse,
+ 
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import { CircleDashed, BrandGithub, Flag3 } from 'tabler-icons-react';
+import { CircleDashed, BrandGithub, Flag3,  Adjustments, } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 
 
@@ -68,13 +71,13 @@ export default function TaskCardFocus(props) {
       title: cardData.title,
       status: cardData.status,
     }
-
-    
+   
 
     // console.log("richTextValue inside closeModal before state change", richTextValue);
     const setModalState = (() => setOpened(false));
-
     setModalState();
+
+
     // console.log("richTextValue inside closeModal after state change", richTextValue);
     onFocusModalClose(cardDataToUpdate);
 
@@ -101,11 +104,8 @@ export default function TaskCardFocus(props) {
         transitionTimingFunction='ease'>
         <Grid>
           <Grid.Col span={6}>
-            {/* <RichTextEditor
-          controls={[['']]}
-          value={cardData.title}
-          onChange={onRichTextValueChange}
-        /> */}
+
+
             <h3>{cardData.title}</h3>
 
             <List
@@ -178,3 +178,19 @@ export default function TaskCardFocus(props) {
     </>
   );
 }
+
+
+
+          //   {/* <ActionIcon
+          //   variant='outline'
+          // color={'blue'}
+          // title='Open Chat'
+          // onClick={() => setOpened(o => !o)}>
+          //   <Adjustments />
+          //   </ActionIcon> </h3> */}
+            
+
+          //   {/* <Collapse in={opened}>
+          //     {/* content... */}
+          //     <Input placeholder="Enter new task name" />
+          //   </Collapse> */}

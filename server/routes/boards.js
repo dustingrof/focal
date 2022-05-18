@@ -94,7 +94,7 @@ module.exports = db => {
   // - is this necessary, or do we get all tasks in an object on page load
   // - includes JOIN on query with users_tasks
   router.get('/:board_id/tasks/:task_id', (req, res) => {
-    console.log("params:", req.params);
+    // console.log("params:", req.params);
     const boardId = req.params.board_id;
     const taskId = req.params.task_id;
     db.query(
@@ -120,8 +120,11 @@ module.exports = db => {
 
   // when a board is clicked on, load all associated tasks
   router.get('/:board_id/tasks', (req, res) => {
-    const boardID = req.params.board_id;
+    
+    const boardID = Number(req.params.board_id);
 
+    // console.log("req.params",req.params);
+    
     db.query(
       `
       SELECT *

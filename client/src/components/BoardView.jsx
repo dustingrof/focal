@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import MiniTaskCard from './MiniTaskCard';
 import Board from '@asseinfo/react-kanban';
 import { boardContext } from '../providers/boardProvider';
@@ -31,9 +31,16 @@ export default function BoardView() {
   // const navigate = useNavigate();
 
   const params = useParams();
-  console.log('THESE PARAMS', params);
+  // console.log('THESE PARAMS', params);
 
-  const { board, onMoveCard } = useContext(boardContext);
+  const { board, onMoveCard, setUrlBoardId } = useContext(boardContext);
+
+  
+  useEffect(() => {
+    setUrlBoardId(params.board_id);
+  }, [setUrlBoardId, params.board_id]);
+
+
 
   // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);

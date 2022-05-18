@@ -13,16 +13,6 @@ export default function ColourSchemeProvider(props) {
     getInitialValueInEffect: true,
   });
 
-  // If statement checks if object has been rendered yet
-  // useEffect(() => {
-  //   if (Object.keys(boardList).length === 0) {
-  //     axios.get('/boards/').then(results => {
-  //       const listOfBoards = results.data;
-  //       setBoardList(listOfBoards);
-  //     });
-  //   }
-  // }, [boardList]);
-
   const exportedValues = { colorScheme, setColorScheme };
 
   return (

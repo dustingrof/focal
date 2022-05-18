@@ -34,7 +34,7 @@ export const useBoardTasks = () => {
   };
 
   useEffect(() => {
-    axios.get('boards/1/tasks').then(results => {
+    axios.get('/boards/1/tasks').then(results => {
       console.log('results:', results);
 
       const incomingColumns = [
