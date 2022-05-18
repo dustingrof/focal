@@ -31,10 +31,11 @@ export default function BoardView() {
   // const navigate = useNavigate();
 
   const params = useParams();
-  console.log('THESE PARAMS', params);
+  // console.log('THESE PARAMS', params);
 
   const { board, onMoveCard } = useContext(boardContext);
 
+  // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
@@ -67,23 +68,21 @@ export default function BoardView() {
             porttitor et diam accumsan, dictum gravida odio. Donec ultricies
             finibus nibh non gravida.{' '}
           </Text>
+          <BoardCardFocus></BoardCardFocus>
           <Space h='lg' />
           <Board
             onCardDragEnd={onMoveCard}
             disableColumnDrag
             renderCard={(cardData, { dragging }) => {
               // console.log('arguments:', arguments)
-              // console.log('content:', cardData)
+              // console.log('content:', cardData);
               return (
                 <MiniTaskCard dragging={dragging} cardData={{ ...cardData }} />
               );
             }}>
             {board}
           </Board>
-
-          <TaskCardFocus></TaskCardFocus>
           <Space h='xl' />
-          <BoardCardFocus></BoardCardFocus>
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>
