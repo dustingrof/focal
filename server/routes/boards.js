@@ -54,7 +54,7 @@ module.exports = db => {
 
     db.query(
       `
-      INSERT INTO tasks (name, description, due_date, board_id, status)
+      INSERT INTO tasks (title, description, due_date, board_id, status)
       VALUES ($1, $2, $3, $4, $5)
 
     `,
@@ -94,6 +94,7 @@ module.exports = db => {
   // - is this necessary, or do we get all tasks in an object on page load
   // - includes JOIN on query with users_tasks
   router.get('/:board_id/tasks/:task_id', (req, res) => {
+    console.log("params:", req.params);
     const boardId = req.params.board_id;
     const taskId = req.params.task_id;
     db.query(

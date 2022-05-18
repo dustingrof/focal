@@ -45,7 +45,7 @@ export default function BoardProvider(props) {
 
 
   useEffect(() => {
-    axios.get('/boards/1/tasks').then(results => {
+    axios.get('http://localhost:3322/boards/1/tasks').then(results => {
 
       const incomingColumns = [
         {

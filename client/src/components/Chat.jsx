@@ -13,6 +13,14 @@ const Chat = () => {
   // Gets user name from local storage for sendMessage function
   const userLS = localStorage.getItem("name");
 
+  // Handles input
+  const inputHandler = ((e) => {
+    if(e.target.value === "Enter"){
+      console.log("in if statement")
+      return socket.emit('sendMessage', { message, userLS });
+    }
+    setMessage(e.target.value);
+  })
   // On click sends message and user to server
   const sendMessage = () => {
     socket.emit('sendMessage', { message, userLS });
@@ -50,7 +58,7 @@ const Chat = () => {
             {messageListMapped}
           </ScrollArea>
           {/* <Grid.Col span={ 2 } > */}
-          <Input placeholder="Your message..." radius="lg" onChange={(e) => setMessage(e.target.value)} />
+          <Input placeholder="Your message..." radius="lg" onChange={inputHandler} />
           <Button onClick={sendMessage} color="indigo" radius="md" size="xs" compact>Send</Button>
           {/* </Grid.Col> */}
         </Container>

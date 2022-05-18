@@ -6,7 +6,7 @@ import { Flag3 } from 'tabler-icons-react';
 export default function MiniTaskCard(props) {
 
 
-  console.log("props:", props);
+  // console.log("props:", props);
 
 
   const { cardData, dragging, allowRemoveCard, onCardRemove } = props;
