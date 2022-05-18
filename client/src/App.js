@@ -1,89 +1,24 @@
-import logo from './logo.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Board, { moveCard } from '@asseinfo/react-kanban';
+import Board from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
-import {
-  Grid,
-  Space,
-  AppShell,
-  Navbar,
-  Header,
-  Footer,
-  Aside,
-  Text,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  Group,
-  Logo,
-  colorScheme,
-  ActionIcon,
-  toggleColorScheme,
-  Button,
-  MantineProvider,
-  useMantineColorScheme,
-  ColorSchemeProvider,
-} from '@mantine/core';
-import { Sun, MoonStars } from 'tabler-icons-react';
-import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
-// import Pomodoro from './components/Pomodoro';
-// import VideoChat from './components/VideoChat';
-// import Chat from './components/Chat';
+import { Grid, Space, AppShell, Navbar, Header, Text, ActionIcon, MantineProvider, ColorSchemeProvider } from '@mantine/core';
+import { Sun, MoonStars } from 'tabler-icons-react';
+import { useLocalStorage } from '@mantine/hooks';
+import { useContext } from 'react';
+import { boardContext } from './providers/boardProvider';
+
 import Login from './components/Login';
 import TaskCardFocus from './components/TaskCardFocus';
 import BoardCardFocus from './components/BoardCardFocus';
 import MiniTaskCard from './components/MiniTaskCard';
-// import NavBoardAvatar from './components/NavBarAvatar';
 import NavBarAvatarList from './components/NavBarAvatarList';
-// import { useBoardTasks } from './hooks/useBoardTasks';
-import { useContext } from 'react';
-import Timer from './components/Timer';
-import BoardProvider, { boardContext } from './providers/boardProvider';
-
-// const board = {
-//   columns: [
-//     {
-//       id: 1,
-//       title: 'Backlog',
-//       cards: [{}, {}, {}],
-//     },
-//     {
-//       id: 2,
-//       title: 'Doing',
-//       cards: [
-//         {
-//           id: 2,
-//           title: 'Drag-n-drop support',
-//           description: 'Move a card between the columns',
-//         },
-//       ],
-//     },
-//     {
-//       id: 3,
-//       title: 'Pending',
-//       cards: [
-//         {
-//           id: 3,
-//           title: 'Drag-n-drop support',
-//           description: 'Move a card between the columns',
-//         },
-//       ],
-//     },
-//     {
-//       id: 4,
-//       title: 'Complete',
-//       cards: [
-//         {
-//           id: 4,
-//           title: 'Drag-n-drop support',
-//           description: 'Move a card between the columns',
-//         },
-//       ],
-//     },
-//   ],
-// };
+// import NavBoardAvatar from './components/NavBarAvatar';
+// import Timer from './components/Timer';
+// import Pomodoro from './components/Pomodoro';
+// import VideoChat from './components/VideoChat';
+// import Chat from './components/Chat';
 
 const boards = {
   1: {
@@ -107,52 +42,23 @@ const boards = {
 };
 
 function App() {
-  // console.log("state:", state);
 
-  // const [stateChange, setStateChange] = useState({
-  //   columns: [
-  //     {
-  //       id: 1,
-  //       title: "Backlog",
-  //       cards: []
-  //     },
-  //     {
-  //       id: 2,
-  //       title: "Doing",
-  //       cards: []
-  //     },
-  //     {
-  //       id: 3,
-  //       title: "Pending",
-  //       cards: []
-  //     },
-  //     {
-  //       id: 4,
-  //       title: "Complete",
-  //       cards: []
-  //     },
-  //   ]
-  // });
-
-  // const { board, onMoveCard } = useBoardTasks();
-  // const { board } = useBoardTasks();
-
-  // console.log("state from useBoardTasks:", state);
-
-  // useEffect(() => {
-  //   console.log("state before setStateChange:", state);
-  //   setStateChange(state);
-  // }, [state]);
   const [colorScheme, setColorScheme] = useLocalStorage({
     key: 'mantine-color-scheme',
     defaultValue: 'light',
     getInitialValueInEffect: true,
   });
+
   const dark = colorScheme === 'dark';
-  const toggleColorScheme = ColorScheme =>
-    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+
+  const toggleColorScheme = ColorScheme => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
   const { board, onMoveCard } = useContext(boardContext);
+
+
+  // const { content } = useContext(boardContext);
+
+  // TODO move providers (mantine etc) to index.js
 
   return (
 
@@ -221,14 +127,12 @@ function App() {
           <Board
             onCardDragEnd={onMoveCard}
             disableColumnDrag
-            renderCard={({ content }, { removeCard, dragging }) => (
-              <MiniTaskCard dragging={dragging}>
-                {content}
-                <button type='button' onClick={removeCard}>
-                  Remove Card
-                </button>
-              </MiniTaskCard>
-            )}>
+            renderCard={(cardData, { dragging }) => {
+              console.log("arguments:", arguments);
+              console.log("content:", cardData);
+             return <MiniTaskCard dragging={dragging} cardData={{ ...cardData }} />
+            }}
+          >
             {board}
           </Board>
 
@@ -241,5 +145,9 @@ function App() {
 
   );
 }
+
+// {card}
+// <button type="button" onClick={removeCard}>Remove Card</button>
+// </MiniTaskCard>
 
 export default App;

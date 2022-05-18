@@ -181,16 +181,16 @@ module.exports = db => {
     }
     console.log('req.body', req.body);
 
-    const { active, board_id, description, due_date, id, name, status } =
+    const { active, board_id, description, due_date, id, title, status } =
       req.body.updatedCard;
 
     db.query(
       `
       UPDATE tasks
-      SET name = $1, description = $2, due_date = $3, board_id = $4, status = $5
+      SET title = $1, description = $2, due_date = $3, board_id = $4, status = $5
       WHERE tasks.id = $6
     `,
-      [name, description, due_date, board_id, status, id]
+      [title, description, due_date, board_id, status, id]
     ).catch(error => console.log(error));
   });
 
