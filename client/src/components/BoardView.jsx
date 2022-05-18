@@ -21,7 +21,6 @@ import { Sun, MoonStars } from 'tabler-icons-react'
 
 import Login from './Login'
 
-import TaskCardFocus from './TaskCardFocus'
 import BoardCardFocus from './BoardCardFocus'
 import NavBarAvatarList from './NavBarAvatarList'
 // import NavBoardAvatar from './NavBarAvatar';
@@ -114,14 +113,15 @@ export default function BoardView() {
               // console.log('arguments:', arguments)
               // console.log('content:', cardData)
               return (
-                <MiniTaskCard dragging={dragging} cardData={{ ...cardData }} />
+                <MiniTaskCard dragging={dragging} cardData={{ ...cardData }}>
+                  
+                </MiniTaskCard>
               )
             }}
           >
             {board}
           </Board>
             <Chat />
-          <TaskCardFocus></TaskCardFocus>
           <Space h="xl" />
           <BoardCardFocus></BoardCardFocus>
         </AppShell>

@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
-import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon } from '@mantine/core';
+import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon, Text } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import { CircleDashed, BrandGithub, Flag3 } from 'tabler-icons-react';
 
 
-export default function TaskCardFocus() {
+export default function TaskCardFocus(props) {
 
-  const initialValue = '<p>Your initial <b>html value</b> or an empty string to init editor without value</p>';
+
+  const { cardData } = props;
+
+  const initialValue = cardData.description;
   const [opened, setOpened] = useState(false);
   const [value, onChange] = useState(initialValue);
   const theme = useMantineTheme();
+
+  console.log("props:", props);
+
+
+  // calculate days remaining on task
+  console.log("Date(cardData.due_date):", Date(cardData.due_date));
+  const today = new Date();
+  console.log("Date(today.toISOString()):", Date(today.toISOString()));
+
+
+
+
+
 
   // Image uploader
   const handleImageUpload = (file) =>
@@ -26,7 +42,6 @@ export default function TaskCardFocus() {
         .then((result) => resolve(result.data.url))
         .catch(() => reject(new Error('Upload failed')));
     });
-
 
 
   return (
@@ -47,7 +62,7 @@ export default function TaskCardFocus() {
 
           <Grid.Col span={6}>
             <h3>
-              Task Name
+              {cardData.title}
             </h3>
             <List
               spacing="xs"
@@ -115,11 +130,14 @@ export default function TaskCardFocus() {
           </Grid.Col>
 
         </Grid>
+        <Space h="xl" />
+
+        <Text size="sm" color="grey">Press Esc to go back - changes will be automatically saved.</Text>
 
       </Modal>
 
       <Group position="center">
-        <Button onClick={() => setOpened(true)}>Task Card</Button>
+        <Button onClick={() => setOpened(true)}>Details</Button>
       </Group>
     </>
   );
