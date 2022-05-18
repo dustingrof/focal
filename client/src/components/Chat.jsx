@@ -58,7 +58,7 @@ const Chat = () => {
         { messageListMapped }
       </ScrollArea>
         {/* <Grid.Col span={ 2 } > */}
-          <Input placeholder="Your message..." radius="lg"  />
+          <Input placeholder="Your message..." radius="lg" onChange={(e) => setMessage(e.target.value)} />
           <Button onClick={ sendMessage } color="indigo" radius="md" size="xs" compact>Send</Button>
         {/* </Grid.Col> */}
     </Container> 
