@@ -136,7 +136,7 @@ io.on("connection", (socket) => {
     console.log("Disconnected...");
     socket.disconnect();
   });
-  // socket.disconnect(); // NO CHAT COMMENT IN THIS LINE
+  // socket.disconnect(); // This line to be commented out when chat is used.
 });
 
 server.listen(PORT, () => {
