@@ -1,5 +1,5 @@
 import { List, Avatar } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // TODO if statement for text/no text dependant on view
 // Polishing

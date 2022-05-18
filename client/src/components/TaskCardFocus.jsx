@@ -16,7 +16,7 @@ import { CircleDashed, BrandGithub, Flag3 } from 'tabler-icons-react';
 
 export default function TaskCardFocus(props) {
   const { cardData } = props;
-  console.log('Card Data', cardData);
+  // console.log('Card Data', cardData);
   const initialValue = cardData.description;
 
   const [opened, setOpened] = useState(false);

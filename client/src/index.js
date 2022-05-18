@@ -5,7 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import BoardProvider from './providers/boardProvider';
 import BoardListProvider from './providers/boardListProvider';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import UrlProvider from './providers/UrlBoardIdProvider';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useParams,
+} from 'react-router-dom';
+
 import {
   Grid,
   Space,
@@ -22,13 +30,15 @@ import ColourSchemeProvider from './providers/colourSchemeProvider';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ColourSchemeProvider>
-        <BoardListProvider>
-          <BoardProvider>
-            <App />
-          </BoardProvider>
-        </BoardListProvider>
-      </ColourSchemeProvider>
+      <UrlProvider>
+        <ColourSchemeProvider>
+          <BoardListProvider>
+            <BoardProvider>
+              <App />
+            </BoardProvider>
+          </BoardListProvider>
+        </ColourSchemeProvider>
+      </UrlProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

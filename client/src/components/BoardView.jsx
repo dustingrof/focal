@@ -31,7 +31,7 @@ export default function BoardView() {
   // const navigate = useNavigate();
 
   const params = useParams();
-  // console.log('THESE PARAMS', params);
+  console.log('THESE PARAMS', params);
 
   const { board, onMoveCard } = useContext(boardContext);
 

@@ -1,8 +1,13 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
 
-import '@asseinfo/react-kanban/dist/styles.css'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import '@asseinfo/react-kanban/dist/styles.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from 'react-router-dom';
 // import {
 //   Grid,
 //   Space,
@@ -18,11 +23,10 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 
 // import { useContext } from 'react'
 
-
 // import Login from './components/Login'
-import TaskCardFocus from './components/TaskCardFocus'
+import TaskCardFocus from './components/TaskCardFocus';
 // import BoardCardFocus from './components/BoardCardFocus'
-import BoardView from './components/BoardView'
+import BoardView from './components/BoardView';
 // import NavBarAvatarList from './components/NavBarAvatarList'
 // import NavBoardAvatar from './components/NavBarAvatar';
 // import Timer from './components/Timer';
@@ -49,39 +53,31 @@ const boards = {
     created_at: '2021-06-15T07:00:00.000Z',
     active: true,
   },
-}
+};
 
 function App() {
-
-
-  
-
-
   // const { content } = useContext(boardContext);
 
   // TODO move providers (mantine etc) to index.js
 
   return (
-  <>
-         {/* {TODO create board component, index} */}
+    <>
+      {/* {TODO create board component, index} */}
       <Routes>
         {/* <Route index element={<Index />}/> */}
-        <Route path="/boards/:board_id" element={<BoardView />} />
+        <Route path='/boards/:board_id' element={<BoardView />} />
         <Route
-          path="/boards/:board_id/tasks/:task_id"
-          element={<TaskCardFocus />}
+          path='/boards/:board_id/tasks/:task_id'
+          element={<Navigate to='/boards/:board_id/tasks/:task_id' />}
         />
-        <Route path="*" element={<h2>Page not found!</h2>} />
-        
-      </Routes> 
-
-  </>
-  
-  )
+        <Route path='*' element={<h2>Page not found!</h2>} />
+      </Routes>
+    </>
+  );
 }
 
 // {card}
 // <button type="button" onClick={removeCard}>Remove Card</button>
 // </MiniTaskCard>
 
-export default App
+export default App;

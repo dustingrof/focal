@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { moveCard } from '@asseinfo/react-kanban';
+import { useParams, useNavigate } from 'react-router-dom';
+import { UrlBoardIdContext } from './UrlBoardIdProvider';
 
 // Create a context
 export const boardContext = createContext();
@@ -35,11 +37,13 @@ const initialBoardState = {
 export default function BoardProvider(props) {
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
+  const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
+  console.log('urlBoardId', urlBoardId);
 
   // console.log("board:", board);
-
+  // console.log('when is this called');
   useEffect(() => {
-    axios.get('/boards/1/tasks').then(results => {
+    axios.get(`/boards/${urlBoardId}/tasks`).then(results => {
       const incomingColumns = [
         {
           id: 1,
@@ -84,7 +88,7 @@ export default function BoardProvider(props) {
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
-  }, []);
+  }, [setUrlBoardId]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
