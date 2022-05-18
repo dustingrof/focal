@@ -47,7 +47,7 @@ export default function MiniTaskCard(props) {
         <Card.Section>
         <Grid>
           <Grid.Col span={ 6 }>
-            <Avatar src="avatar.png" alt="it's me" size="sm"/>
+            {/* <Avatar src="avatar.png" alt="it's me" size="sm"/> */}
           </Grid.Col>
      
           <Grid.Col span={ 6 }>

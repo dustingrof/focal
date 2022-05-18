@@ -180,7 +180,7 @@ module.exports = db => {
       setTimeout(() => res.status(500).json({}), 1000);
       return;
     }
-    console.log('req.body:', req.body);
+    // console.log('req.body:', req.body);
 
     const { active, board_id, description, due_date, id, title, status } =
       req.body.updatedCard;

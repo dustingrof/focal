@@ -28,7 +28,7 @@ import NavBarAvatarList from './NavBarAvatarList'
 // import Timer from './Timer';
 // import Pomodoro from './Pomodoro';
 // import VideoChat from './VideoChat';
-// import Chat from './Chat'
+import Chat from './Chat'
 
 export default function BoardView() {
   const { board, onMoveCard } = useContext(boardContext)
@@ -58,7 +58,7 @@ export default function BoardView() {
           navbar={
             <Navbar width={{ base: 'auto' }} p="xs">
               <Navbar.Section grow mt="md">
-                {/* <NavBarAvatarList /> */}
+                <NavBarAvatarList />
               </Navbar.Section>
               {/* <Pomodoro /> */}
               {/* <Timer /> */}
@@ -120,7 +120,7 @@ export default function BoardView() {
           >
             {board}
           </Board>
-
+            <Chat />
           <TaskCardFocus></TaskCardFocus>
           <Space h="xl" />
           <BoardCardFocus></BoardCardFocus>
