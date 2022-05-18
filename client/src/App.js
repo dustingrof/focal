@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Board from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Grid, Space, AppShell, Navbar, Header, Text, ActionIcon, MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { Sun, MoonStars } from 'tabler-icons-react';
 import { useLocalStorage } from '@mantine/hooks';
