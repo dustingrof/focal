@@ -112,7 +112,7 @@ export default function BoardProvider(props) {
     // update backend
     // TODO add "/" before boards
     return axios
-    .put(`boards/1/tasks/${_card.id}`, { updatedCard })
+    .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
     .then(results => {});
   };
 

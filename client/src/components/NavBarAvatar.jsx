@@ -1,4 +1,5 @@
 import { List, Avatar } from '@mantine/core';
+import { Link } from "react-router-dom";
 
 // TODO if statement for text/no text dependant on view
 // Polishing
@@ -8,10 +9,11 @@ import { List, Avatar } from '@mantine/core';
 export default function NavBarAvatar(props) {
   const boardURL = `/boards/${props.board_id} `;
   return (
-
-    <List.Item icon={<Avatar radius="md" size="lg" src={props.image_url} href={boardURL} component="a"/>}>
-      {props.name}
-    </List.Item>
+    <Link to={boardURL}>
+      <List.Item icon={<Avatar radius="md" size="lg" src={props.image_url} />}>
+        {props.name}
+      </List.Item>
+    </Link>
 
   );
 };

@@ -6,7 +6,7 @@ import { Flag3 } from 'tabler-icons-react';
 export default function MiniTaskCard(props) {
 
 
-  console.log("props:", props);
+  // console.log("props:", props);
 
 
   const { cardData, dragging, allowRemoveCard, onCardRemove } = props;
@@ -47,7 +47,7 @@ export default function MiniTaskCard(props) {
         <Card.Section>
         <Grid>
           <Grid.Col span={ 6 }>
-            <Avatar src="avatar.png" alt="it's me" size="sm"/>
+            {/* <Avatar src="avatar.png" alt="it's me" size="sm"/> */}
           </Grid.Col>
      
           <Grid.Col span={ 6 }>
