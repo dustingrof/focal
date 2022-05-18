@@ -1,18 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import BoardProvider from './providers/boardProvider';
-import BoardListProvider from './providers/boardListProvider';
-import UrlProvider from './providers/UrlBoardIdProvider';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+import BoardProvider from './providers/boardProvider'
+import BoardListProvider from './providers/boardListProvider'
+import UrlProvider from './providers/UrlBoardIdProvider'
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Link,
   useParams,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
 import {
   Grid,
@@ -24,27 +24,30 @@ import {
   ActionIcon,
   MantineProvider,
   ColorSchemeProvider,
-} from '@mantine/core';
-import ColourSchemeProvider from './providers/colourSchemeProvider';
+} from '@mantine/core'
+import { NotificationsProvider } from '@mantine/notifications'
+import ColourSchemeProvider from './providers/colourSchemeProvider'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <UrlProvider>
         <ColourSchemeProvider>
-          <BoardListProvider>
-            <BoardProvider>
-              <App />
-            </BoardProvider>
-          </BoardListProvider>
+          <NotificationsProvider position="top-center" limit={ 1 } >
+            <BoardListProvider>
+              <BoardProvider>
+                <App />
+              </BoardProvider>
+            </BoardListProvider>
+          </NotificationsProvider>
         </ColourSchemeProvider>
       </UrlProvider>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root')
-);
+  document.getElementById('root'),
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()
