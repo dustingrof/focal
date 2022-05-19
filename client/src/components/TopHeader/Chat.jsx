@@ -46,8 +46,8 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
   const [messageList, setList] = useState([
-    { userLS: 'Dustin', message: 'Hello' },
-    { userLS: 'Iaan', message: 'Hello Dustin' },
+    { userLS: 'Dustin', message: 'Hello', key: 1 },
+    { userLS: 'Iaan', message: 'Hello Dustin', key: 2 },
   ]);
 
   // Gets user name from local storage for sendMessage function
@@ -61,7 +61,8 @@ const Chat = () => {
   // On enter sends message and user to server
   const enterHandler = e => {
     if (e.key === 'Enter' && e.target.value !== "") {
-      socket.emit('sendMessage', { message, userLS });
+      const key = messageList.length + 1;
+      socket.emit('sendMessage', { message, userLS, key });
       setMessage('');
     }
   };
@@ -69,17 +70,18 @@ const Chat = () => {
   // When message is received from server updates message list with new message
   useEffect(() => {
     socket.on('receiveMessage', data => {
-     
-      if(data.userLS !== userLS ){
-        showNotification({title: 'Message notification', message: `Hey there, ${data.userLS} just sent a message! ` }); }
-
         setList(prev => {
         return [...prev, data];
       });
     });
   }, []);
 
-
+useEffect(() => {
+  socket.on("notification",  (data) => {
+    if(data.userLS !== userLS ){
+      showNotification({title: 'Message notification', message: `Hey there, ${data.userLS} just sent a message! ` }); }
+  });
+}, [userLS])
 
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
@@ -153,6 +155,7 @@ const Chat = () => {
           onKeyUp={enterHandler}
           justify="flex-end"
           value={message}
+          multiline={true}
         />
 
       </Drawer>

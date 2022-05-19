@@ -130,8 +130,9 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", (data) => {
     // Save message to DB here?
     console.log("send message, server", data);
-    io.emit("receiveMessage", { message: data.message, userLS: data.userLS });
-    // io.broadcast("notification", {userLS: data.userLS});
+    io.emit("receiveMessage", { message: data.message, userLS: data.userLS, key: data.key });
+    
+    io.emit("notification", {userLS: data.userLS});
   });
 
   socket.on("disconnect", () => {
