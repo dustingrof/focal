@@ -118,15 +118,27 @@ io.on('connection', socket => {
   console.log('User connected:', socket.id);
 
   socket.on('sendMessage', data => {
-    // Save message to DB here?
-    console.log('send message, server', data);
-    io.emit('receiveMessage', { message: data.message, userLS: data.userLS });
+    const { message, userLS } = data;
+
+    db.query(`insert into messages (userLS, message) values ($1, $2);`, [
+      userLS,
+      message,
+    ]).then(
+      db.query(`SELECT * FROM messages;`).then(response => {
+        const allMessages = response.rows;
+
+        io.emit('allMessages', { allMessages });
+      })
+    );
+
+    io.emit('notification', { userLS: data.userLS });
   });
+
   socket.on('disconnect', () => {
     console.log('Disconnected...');
     socket.disconnect();
   });
-  socket.disconnect(); // This line to be commented out when chat is used.
+  // socket.disconnect(); // This line to be commented out when chat is used.
 });
 
 server.listen(PORT, () => {

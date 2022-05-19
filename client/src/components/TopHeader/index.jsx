@@ -47,7 +47,9 @@ export default function TopHeader() {
             title='Toggle color scheme'>
             {dark ? <Sun size={18} /> : <MoonStars size={18} />}
           </ActionIcon>
-          <Chat />
+          <Chat 
+          
+          />
         </Grid.Col>
       </Grid>
     </Header>
