@@ -35,40 +35,42 @@ export default function TaskCardFocus() {
         withCloseButton={false}
         opened={opened}
         onClose={() => setOpened(false)}
-        overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+        overlayColor={
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
         overlayOpacity={0.55}
         overlayBlur={3}
-        size="lg"
-        transition="pop"
+        size='lg'
+        transition='pop'
         transitionDuration={200}
-        transitionTimingFunction="ease"
-
-      >
+        transitionTimingFunction='ease'>
         <Grid>
-
           <Grid.Col span={6}>
-            <h3>
-              Board Name
-            </h3>
+            <h3>Board Name</h3>
           </Grid.Col>
           <Grid.Col span={6}>
-           
-            <ThemeIcon color="dark" variant="light" size={48} radius="xs">
+            <ThemeIcon color='dark' variant='light' size={48} radius='xs'>
               <ClipboardCheck size={36} />
             </ThemeIcon>
           </Grid.Col>
         </Grid>
-        <Space h="xl" />
-        <Space h="xl" />
-        <RichTextEditor 
+        <Space h='xl' />
+        <Space h='xl' />
+        <RichTextEditor
           controls={[
             ['bold', 'italic', 'underline'],
             ['unorderedList', 'unorderedList'],
-            ['link', 'image']
-          ]}        value={value} onChange={onChange} onImageUpload={handleImageUpload} />
+            ['link', 'image'],
+          ]}
+          value={value}
+          onChange={onChange}
+          onImageUpload={handleImageUpload}
+        />
       </Modal>
 
-      <Group position="center">
+      <Group position='center'>
         <Button onClick={() => setOpened(true)}>Board Card</Button>
       </Group>
     </>

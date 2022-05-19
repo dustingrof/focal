@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Modal,
   Button,
@@ -9,18 +9,36 @@ import {
   List,
   ThemeIcon,
   Text,
+  Input,
+  ActionIcon,
+  Collapse,
+  Textarea,
+  TextInput,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import { CircleDashed, BrandGithub, Flag3 } from 'tabler-icons-react';
+import {
+  CircleDashed,
+  BrandGithub,
+  Flag3,
+  Adjustments,
+  Edit,
+} from 'tabler-icons-react';
+import { boardContext } from '../providers/boardProvider';
 
 export default function TaskCardFocus(props) {
-  const { cardData } = props;
+  const { onFocusModalClose } = useContext(boardContext);
+  const { cardData } = props; // onFocusModalClose(cardData);
+
   // console.log('Card Data', cardData);
-  const initialValue = cardData.description;
+  const initialTextValue = cardData.description;
 
   const [opened, setOpened] = useState(false);
-  const [value, onChange] = useState(initialValue);
+  const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
+  const [editOpened, setEditOpen] = useState(false);
+  const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
+  const [dateToUpdate, setDateToUpdate] = useState(cardData.due_date);
+
   const theme = useMantineTheme();
 
   // console.log('props:', props);
@@ -48,12 +66,34 @@ export default function TaskCardFocus(props) {
         .catch(() => reject(new Error('Upload failed')));
     });
 
+  // console.log("richTextValue during initialize", richTextValue);
+
+  const modalClose = function () {
+    // console.log("cardData:", cardData);
+
+    const cardDataToUpdate = {
+      board_id: cardData.board_id,
+      description: richTextValue,
+      due_date: dateToUpdate,
+      id: cardData.id,
+      title: titleToUpdate,
+      status: cardData.status,
+    };
+
+    // console.log("richTextValue inside closeModal before state change", richTextValue);
+    const setModalState = () => setOpened(false);
+    setModalState();
+
+    // console.log("richTextValue inside closeModal after state change", richTextValue);
+    onFocusModalClose(cardDataToUpdate);
+  };
+
   return (
     <>
       <Modal
         withCloseButton={false}
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={modalClose}
         overlayColor={
           theme.colorScheme === 'dark'
             ? theme.colors.dark[9]
@@ -67,7 +107,26 @@ export default function TaskCardFocus(props) {
         transitionTimingFunction='ease'>
         <Grid>
           <Grid.Col span={6}>
-            <h3>{cardData.title}</h3>
+            <h3>
+              {titleToUpdate}
+              <Edit onClick={() => setEditOpen(o => !o)} />
+            </h3>
+            <Collapse in={editOpened}>
+              <TextInput
+                variant='unstyled'
+                placeholder={'Please enter a new title'}
+                size='xl'
+                value={titleToUpdate}
+                onChange={event => setTitleToUpdate(event.currentTarget.value)}
+              />
+              <Button
+                variant='outline'
+                compact
+                onClick={() => setEditOpen(o => !o)}>
+                Save Changes
+              </Button>
+            </Collapse>
+
             <List
               spacing='xs'
               size='sm'
@@ -89,7 +148,13 @@ export default function TaskCardFocus(props) {
             <ThemeIcon color='dark' variant='light' size={24} radius='xs'>
               <Flag3 size={16} />
             </ThemeIcon>
-            <DatePicker placeholder='Pick date' label='Event date' required />
+            <DatePicker
+              placeholder={cardData.due_date.slice(0, 10)}
+              value={dateToUpdate}
+              // defaultValue={dateToUpdate}
+              onChange={setDateToUpdate}
+              label='Due Date:'
+            />
           </Grid.Col>
         </Grid>
         <Space h='xl' />
@@ -108,8 +173,8 @@ export default function TaskCardFocus(props) {
             ['unorderedList', 'unorderedList'],
             ['link', 'image'],
           ]}
-          value={value}
-          onChange={onChange}
+          value={richTextValue}
+          onChange={onRichTextValueChange}
           onImageUpload={handleImageUpload}
         />
         <Space h='xl' />

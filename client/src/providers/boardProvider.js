@@ -37,11 +37,19 @@ const initialBoardState = {
 export default function BoardProvider(props) {
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
+  const [focusIsClosed, setFocusIsClosed] = useState(false);
+
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
-  console.log('urlBoardId', urlBoardId);
+  // console.log('urlBoardId', urlBoardId);
 
   // console.log("board:", board);
   // console.log('when is this called');
+  console.log('urlBoardId', urlBoardId);
+
+  // useEffect(() => {
+  //   console.log('board', board);
+  // }, [board]);
+
   useEffect(() => {
     axios.get(`/boards/${urlBoardId}/tasks`).then(results => {
       const incomingColumns = [
@@ -88,7 +96,7 @@ export default function BoardProvider(props) {
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
-  }, [setUrlBoardId]);
+  }, [urlBoardId, focusIsClosed]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
@@ -101,6 +109,9 @@ export default function BoardProvider(props) {
 
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
+    const board_id = _card.board_id;
+    // console.log("UPDATED CARD EXAMPLE:", updatedCard);
+
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call
     setBoard(updatedBoard);
@@ -108,11 +119,24 @@ export default function BoardProvider(props) {
     // update backend
     // TODO add "/" before boards
     return axios
-      .put(`/boards/1/tasks/${_card.id}`, { updatedCard })
+      .put(`/boards/${board_id}/tasks/${_card.id}`, { updatedCard })
       .then(results => {});
   };
 
-  const providerData = { board, onMoveCard };
+  const onFocusModalClose = updatedCard => {
+    const card_id = updatedCard.id;
+
+    const board_id = updatedCard.board_id;
+
+    return axios
+      .put(`/boards/${board_id}/tasks/${card_id}`, { updatedCard })
+      .then(results => {
+        setUrlBoardId(board_id);
+        setFocusIsClosed(true);
+      });
+  };
+
+  const providerData = { setUrlBoardId, board, onMoveCard, onFocusModalClose };
 
   return (
     <boardContext.Provider value={providerData}>
