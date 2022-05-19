@@ -37,6 +37,7 @@ export default function TaskCardFocus(props) {
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
   const [editOpened, setEditOpen] = useState(false);
   const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
+  const [dateToUpdate, setDateToUpdate] = useState(cardData.due_date);
 
   const theme = useMantineTheme();
 
@@ -73,7 +74,7 @@ export default function TaskCardFocus(props) {
     const cardDataToUpdate = {
       board_id: cardData.board_id,
       description: richTextValue,
-      due_date: cardData.due_date,
+      due_date: dateToUpdate,
       id: cardData.id,
       title: titleToUpdate,
       status: cardData.status,
@@ -151,7 +152,13 @@ export default function TaskCardFocus(props) {
             <ThemeIcon color='dark' variant='light' size={24} radius='xs'>
               <Flag3 size={16} />
             </ThemeIcon>
-            <DatePicker placeholder='Pick date' label='Event date' required />
+            <DatePicker
+              placeholder={cardData.due_date.slice(0, 10)}
+              value={dateToUpdate}
+              // defaultValue={dateToUpdate}
+              onChange={setDateToUpdate}
+              label='Due Date'
+            />
           </Grid.Col>
         </Grid>
         <Space h='xl' />
