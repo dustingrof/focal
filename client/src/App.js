@@ -66,10 +66,11 @@ function App() {
       <Routes>
         {/* <Route index element={<Index />}/> */}
         <Route path='/boards/:board_id' element={<BoardView />} />
-        <Route
+
+        {/* <Route
           path='/boards/:board_id/tasks/:task_id'
-          element={<Navigate to='/boards/:board_id/tasks/:task_id' />}
-        />
+          element={<BoardView />}
+        /> */}
         <Route path='*' element={<h2>Page not found!</h2>} />
       </Routes>
     </>

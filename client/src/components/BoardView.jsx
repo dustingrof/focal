@@ -35,12 +35,9 @@ export default function BoardView() {
 
   const { board, onMoveCard, setUrlBoardId } = useContext(boardContext);
 
-  
   useEffect(() => {
     setUrlBoardId(params.board_id);
   }, [setUrlBoardId, params.board_id]);
-
-
 
   // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);

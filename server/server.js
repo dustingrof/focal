@@ -1,18 +1,17 @@
 // load .env data into process.env
-require("dotenv").config();
+require('dotenv').config();
 
 // Web server config
 const PORT = process.env.PORT || 3322;
 // const sassMiddleware = require("node-sass-middleware");
 const express = require('express');
-const bodyparser = require("body-parser");
-const helmet = require("helmet");
+const bodyparser = require('body-parser');
+const helmet = require('helmet');
 const app = express();
 
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-const db = require("./db");
-
+const db = require('./db');
 
 // // PostgreSQL database client/connection setup
 // const { Pool } = require("pg");
@@ -24,35 +23,26 @@ const db = require("./db");
 const http = require('http');
 const { Server } = require('socket.io');
 const server = http.createServer(app);
-const cors = require("cors");
-
-
+const cors = require('cors');
 
 // routes
-const users = require("./routes/users");
-const boards = require("./routes/boards");
+const users = require('./routes/users');
+const boards = require('./routes/boards');
 // const tasks = require("./routes/tasks");s
 // const users_tasks = require("./routes/users_tasks");
 
 // app.use("/api", days(db));
 
-
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 app.use(cors());
 // app.use(helmet()); // needed?
 app.use(bodyparser.json()); // needed?
 
-app.use("/users", users(db));
-app.use("/boards", boards(db));
+app.use('/users', users(db));
+app.use('/boards', boards(db));
 // app.use("/tasks", tasks(db));
 // app.use("/users_tasks", users_tasks(db))
-
-
-
-
-
-
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -119,21 +109,21 @@ app.get('/focal', (req, res) => {
 // For sockets change from app.listen to server.listen
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3006",
-    method: ["GET", "POST"]
-  }
+    origin: 'http://localhost:3006',
+    method: ['GET', 'POST'],
+  },
 });
 
-io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+io.on('connection', socket => {
+  console.log('User connected:', socket.id);
 
-  socket.on("sendMessage", (data) => {
+  socket.on('sendMessage', data => {
     // Save message to DB here?
-    console.log("send message, server", data);
-    io.emit("receiveMessage", { message: data.message, userLS: data.userLS });
+    console.log('send message, server', data);
+    io.emit('receiveMessage', { message: data.message, userLS: data.userLS });
   });
-  socket.on("disconnect", () => {
-    console.log("Disconnected...");
+  socket.on('disconnect', () => {
+    console.log('Disconnected...');
     socket.disconnect();
   });
   socket.disconnect(); // This line to be commented out when chat is used.

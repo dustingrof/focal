@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Modal,
   Button,
@@ -12,23 +12,32 @@ import {
   Input,
   ActionIcon,
   Collapse,
- 
+  Textarea,
+  TextInput,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import { CircleDashed, BrandGithub, Flag3,  Adjustments, } from 'tabler-icons-react';
+import {
+  CircleDashed,
+  BrandGithub,
+  Flag3,
+  Adjustments,
+  Edit,
+} from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
-
 
 export default function TaskCardFocus(props) {
   const { onFocusModalClose } = useContext(boardContext);
-  const { cardData } = props;      // onFocusModalClose(cardData);
+  const { cardData } = props; // onFocusModalClose(cardData);
 
   // console.log('Card Data', cardData);
   const initialTextValue = cardData.description;
 
   const [opened, setOpened] = useState(false);
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
+  const [editOpened, setEditOpen] = useState(false);
+  const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
+
   const theme = useMantineTheme();
 
   // console.log('props:', props);
@@ -56,11 +65,9 @@ export default function TaskCardFocus(props) {
         .catch(() => reject(new Error('Upload failed')));
     });
 
-
   // console.log("richTextValue during initialize", richTextValue);
 
   const modalClose = function () {
-
     // console.log("cardData:", cardData);
 
     const cardDataToUpdate = {
@@ -68,22 +75,21 @@ export default function TaskCardFocus(props) {
       description: richTextValue,
       due_date: cardData.due_date,
       id: cardData.id,
-      title: cardData.title,
+      title: titleToUpdate,
       status: cardData.status,
-    }
-   
+    };
 
     // console.log("richTextValue inside closeModal before state change", richTextValue);
-    const setModalState = (() => setOpened(false));
+    const setModalState = () => setOpened(false);
     setModalState();
-
 
     // console.log("richTextValue inside closeModal after state change", richTextValue);
     onFocusModalClose(cardDataToUpdate);
-
   };
 
-
+  // useEffect(() => {
+  //   setTitleToUpdate('Hello');
+  // }, []);
 
   return (
     <>
@@ -104,9 +110,25 @@ export default function TaskCardFocus(props) {
         transitionTimingFunction='ease'>
         <Grid>
           <Grid.Col span={6}>
-
-
-            <h3>{cardData.title}</h3>
+            <h3>
+              {titleToUpdate}
+              <Edit onClick={() => setEditOpen(o => !o)} />
+            </h3>
+            <Collapse in={editOpened}>
+              <TextInput
+                variant='unstyled'
+                placeholder={'Please enter a new title'}
+                size='xl'
+                value={titleToUpdate}
+                onChange={event => setTitleToUpdate(event.currentTarget.value)}
+              />
+              <Button
+                variant='outline'
+                compact
+                onClick={() => setEditOpen(o => !o)}>
+                Save Changes
+              </Button>
+            </Collapse>
 
             <List
               spacing='xs'
@@ -178,19 +200,3 @@ export default function TaskCardFocus(props) {
     </>
   );
 }
-
-
-
-          //   {/* <ActionIcon
-          //   variant='outline'
-          // color={'blue'}
-          // title='Open Chat'
-          // onClick={() => setOpened(o => !o)}>
-          //   <Adjustments />
-          //   </ActionIcon> </h3> */}
-            
-
-          //   {/* <Collapse in={opened}>
-          //     {/* content... */}
-          //     <Input placeholder="Enter new task name" />
-          //   </Collapse> */}

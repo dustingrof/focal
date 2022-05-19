@@ -120,11 +120,10 @@ module.exports = db => {
 
   // when a board is clicked on, load all associated tasks
   router.get('/:board_id/tasks', (req, res) => {
-    
     const boardID = Number(req.params.board_id);
 
-    // console.log("req.params",req.params);
-    
+    console.log('req.params', req.params);
+
     db.query(
       `
       SELECT *
@@ -196,6 +195,7 @@ module.exports = db => {
     `,
       [title, description, due_date, board_id, status, id]
     ).catch(error => console.log(error));
+    res.send('fire 3');
   });
 
   // button on board focus view to delete board (extra confirm like scheduler?)
