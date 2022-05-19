@@ -195,7 +195,7 @@ module.exports = db => {
     `,
       [title, description, due_date, board_id, status, id]
     ).catch(error => console.log(error));
-    res.send('fire 3');
+    res.send(''); //needed this because our .then in board provider wasn't firing
   });
 
   // button on board focus view to delete board (extra confirm like scheduler?)
