@@ -1,0 +1,15 @@
+insert into messages (id, userLS, message, created_at, active) values (1, 'Nicole', 'mi sit amet', '8/5/2021', true);
+insert into messages (id, userLS, message, created_at, active) values (2,'Nicole','nulla dapibus','5/29/2021',true);
+insert into messages (id, userLS, message, created_at, active) values (3,'Dustin','erat nulla tempus','3/26/2022',true);
+-- insert into messages (id, userLS, message, created_at, active) values (4,'Dustin','velit donec diam neque vestibulum','7/26/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (5,'Iaan','platea','8/10/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (6,'Nicole','commodo placerat praesent blandit nam','9/5/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (7,'Dustin','dui vel sem sed sagittis','9/11/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (8,'Dustin','vivamus vestibulum sagittis sapien cum','1/21/2022',true);
+-- insert into messages (id, userLS, message, created_at, active) values (9,'Iaan','curae duis','3/19/2022',true);
+-- insert into messages (id, userLS, message, created_at, active) values (10,'Nicole','rhoncus aliquam lacus','12/10/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (11,'Dustin','proin leo','10/15/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (12,'Dustin','nascetur ridiculus mus vivamus','4/25/2022',true);
+-- insert into messages (id, userLS, message, created_at, active) values (13,'Iaan','eros viverra','2/16/2022',true);
+-- insert into messages (id, userLS, message, created_at, active) values (14,'Dustin','tellus in','8/11/2021',true);
+-- insert into messages (id, userLS, message, created_at, active) values (15,'Dustin','est et tempus','12/22/2021',true);
