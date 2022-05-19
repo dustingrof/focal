@@ -5,15 +5,16 @@ import {
   ScrollArea,
   Drawer,
   Group,
-  Input,
+  TextInput,
   ActionIcon,
   ThemeIcon,
-  createStyles
+  createStyles,
+  useMantineTheme
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
 import { BrandHipchat } from 'tabler-icons-react';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 
 // Socket Connection
 import io from 'socket.io-client';
@@ -46,10 +47,10 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
   const [messageList, setList] = useState([
-    { userLS: 'Dustin', message: 'Hello', key: 1 },
-    { userLS: 'Iaan', message: 'Hello Dustin', key: 2 },
+    { userLS: 'Dustin', message: 'Hello' },
+    { userLS: 'Iaan', message: 'Hello Dustin' },
   ]);
-
+  const theme = useMantineTheme();
   // Gets user name from local storage for sendMessage function
   const userLS = localStorage.getItem('name');
 
@@ -61,20 +62,30 @@ const Chat = () => {
   // On enter sends message and user to server
   const enterHandler = e => {
     if (e.key === 'Enter' && e.target.value !== "") {
-      const key = messageList.length + 1;
-      socket.emit('sendMessage', { message, userLS, key });
+      socket.emit('sendMessage', { message, userLS });
       setMessage('');
     }
   };
 
-  // When message is received from server updates message list with new message
+  //get all messages
   useEffect(() => {
-    socket.on('receiveMessage', data => {
-        setList(prev => {
-        return [...prev, data];
-      });
-    });
-  }, []);
+    socket.on("allMessages", data => {
+     
+      const updatedmessages = data.allMessages
+      setList(updatedmessages)
+    })
+  })
+
+
+
+  // When message is received from server updates message list with new message
+  // useEffect(() => {
+  //   socket.on('receiveMessage', data => {
+  //       setList(prev => {
+  //       return [...prev, data];
+  //     });
+  //   });
+  // }, []);
 
 useEffect(() => {
   socket.on("notification",  (data) => {
@@ -86,7 +97,8 @@ useEffect(() => {
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-    if (item.userLS === userLS) {
+  
+    if (item.userls === userLS) {
       return (
         <>
           <ListItem key={index + 1} align='right'
@@ -95,7 +107,7 @@ useEffect(() => {
                 <UserCircle size={16} />
               </ThemeIcon>
             }>
-            {item.userLS}: {item.message}
+            {item.userls}: {item.message}
           </ListItem>
           <Space h="sm" />
         </>
@@ -112,12 +124,26 @@ useEffect(() => {
 
 
         >
-          {item.userLS}: {item.message}
+          {item.userls}: {item.message}
         </ListItem >
         <Space h="sm" />
       </>
     );
   });
+
+  // const openChat = function() {
+  //   const nothing = (() => setOpened(o => !o));
+  //   nothing();
+  //   scrollToBottom();
+
+  // }
+
+
+  // const viewport = useRef(".mantine-ScrollArea-root");
+  // const viewport = useRef();
+
+  // const scrollToBottom = () =>
+  //   viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
@@ -130,12 +156,21 @@ useEffect(() => {
         padding='xl'
         size='md'
         position='right'
-        transition="slide-left"
-        duration={400}
-        timingFunction="ease">
+        transition='pop'
+        transitionDuration={200}
+        transitionTimingFunction='ease'
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        overlayColor={
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        >
 
         <ScrollArea
           className={classes.container} style={{ height: 850 }}>
+          {/* viewportRef={viewport} */}
           <List
             spacing="xs"
             size="sm"
@@ -147,7 +182,7 @@ useEffect(() => {
 
         {/* <Grid.Col span={ 2 } > */}
         <Space h="lg" />
-        <Input
+        <TextInput
           id='chat-message-input'
           placeholder='Hit enter to send your message...'
           radius='lg'
@@ -156,6 +191,7 @@ useEffect(() => {
           justify="flex-end"
           value={message}
           multiline={true}
+          autoComplete='off'
         />
 
       </Drawer>
