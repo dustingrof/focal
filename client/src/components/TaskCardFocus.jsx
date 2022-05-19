@@ -88,10 +88,6 @@ export default function TaskCardFocus(props) {
     onFocusModalClose(cardDataToUpdate);
   };
 
-  // useEffect(() => {
-  //   setTitleToUpdate('Hello');
-  // }, []);
-
   return (
     <>
       <Modal
@@ -157,7 +153,7 @@ export default function TaskCardFocus(props) {
               value={dateToUpdate}
               // defaultValue={dateToUpdate}
               onChange={setDateToUpdate}
-              label='Due Date'
+              label='Due Date:'
             />
           </Grid.Col>
         </Grid>
