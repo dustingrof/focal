@@ -91,7 +91,7 @@ export default function Pomodoro() {
     setBreakSecondsLeft(breakSeconds);
   };
   const convertWorkTimeToISO = new Date(workSecondsLeft * 1000).toISOString().slice(14, 19); 
-  const convertBreakTimeToISO = new Date(breakSecondsLeft * 1000).toISOString().slice(14, 19); 
+  const convertBreakTimeToISO = new Date(breakSecondsLeft * 1000).toISOString().slice(15, 19); 
 
   return (
     <>
@@ -116,7 +116,7 @@ export default function Pomodoro() {
 
  
       <div>Work: {convertWorkTimeToISO}</div>
-      <div>Break: {convertBreakTimeToISO}</div>
+      <div>Break:  {convertBreakTimeToISO}</div>
       <Space m="sm"/>
       <Grid>
       <Button

@@ -64,6 +64,7 @@ const Login = () => {
   // Removes current user from local storage
   const removeUserFromLocalState = () => {
     localStorage.removeItem('name');
+    localStorage.removeItem('avatar');
   };
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
