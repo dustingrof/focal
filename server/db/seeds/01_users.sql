@@ -4,3 +4,4 @@ insert into users (id, first_name, last_name, email, avatar, phone_number) value
 insert into users (id, first_name, last_name, email, avatar, phone_number) values (3, 'Trueman', 'Gibard', 'tgibard2@patch.com', 'https://robohash.org/etminimaconsequuntur.png?size=250x250&set=set1', '888-771-9808');
 insert into users (id, first_name, last_name, email, avatar, phone_number) values (4, 'Moss', 'Vanichkin', 'mvanichkin3@bluehost.com', 'https://robohash.org/nobisremnatus.png?size=250x250&set=set1', '895-258-5264');
 insert into users (id, first_name, last_name, email, avatar, phone_number) values (5, 'Major', 'Boeck', 'mboeck4@irs.gov', 'https://robohash.org/doloremqueminimaex.png?size=250x250&set=set1', '477-535-1429');
+ALTER SEQUENCE users_id_seq RESTART WITH 6;

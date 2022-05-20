@@ -3,3 +3,6 @@ insert into boards (id, name, description, image_url, created_at, active) values
 insert into boards (id, name, description, image_url, created_at, active) values (3, 'est quam', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 'https://robohash.org/eossitdignissimos.png?size=250x250&set=set1', '2022-02-21', true);
 insert into boards (id, name, description, image_url, created_at, active) values (4, 'in lacus', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 'https://robohash.org/inventoreestut.png?size=250x250&set=set1', '2021-06-08', true);
 insert into boards (id, name, description, image_url, created_at, active) values (5, 'vestibulum', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 'https://robohash.org/etconsequaturrem.png?size=250x250&set=set1', '2021-06-13', true);
+ALTER SEQUENCE boards_id_seq RESTART WITH 6;
+
+

@@ -15,6 +15,7 @@ import Chat from './Chat';
 import Login from './Login';
 import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
+import NewTaskCardFocus from './NewTaskCardFocus';
 
 export default function TopHeader() {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -39,6 +40,9 @@ export default function TopHeader() {
         </Grid.Col>
         <Grid.Col span={1} offset={6}></Grid.Col>
         <Grid.Col span={2} style={iconSpacing}>
+
+          <NewTaskCardFocus />
+
           <Login />
           <TimerDisplay />
           <ActionIcon
