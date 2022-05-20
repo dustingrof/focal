@@ -13,6 +13,7 @@ import {
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
 import Login from './Login';
+import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 
 export default function TopHeader() {
@@ -39,7 +40,7 @@ export default function TopHeader() {
         <Grid.Col span={1} offset={6}></Grid.Col>
         <Grid.Col span={2} style={iconSpacing}>
           <Login />
-
+          <TimerDisplay />
           <ActionIcon
             variant='outline'
             color={dark ? 'yellow' : 'blue'}
