@@ -17,6 +17,8 @@ import Pomodoro from './Pomodoro';
 import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 import NewTaskCardFocus from './NewTaskCardFocus';
+import NewBoardCardFocus from './NewBoardCardFocus';
+import HeaderAvatar from './HeaderAvatar';
 
 export default function TopHeader() {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -39,13 +41,20 @@ export default function TopHeader() {
             <a href='/'>focal</a>
           </Text>
         </Grid.Col>
-        <Grid.Col span={1} offset={4}></Grid.Col>
-        <Grid.Col span={4} style={iconSpacing}>
+
+
+        <Grid.Col span={1} offset={5} />
+        <Grid.Col span={1}>
+        <HeaderAvatar />
+
+        </Grid.Col>
+        <Grid.Col span={2} style={iconSpacing}>
           <Pomodoro />
+
           <NewTaskCardFocus />
+          <TimerDisplay />
 
           <Login />
-          <TimerDisplay />
           <ActionIcon
             variant='outline'
             color={dark ? 'yellow' : 'blue'}

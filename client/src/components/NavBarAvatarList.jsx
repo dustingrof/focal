@@ -18,6 +18,7 @@ export default function NavBarAvatarList() {
     return (
       // <div key={board.id}>
       <NavBarAvatar
+        key={board.image_url}
         image_url={board.image_url}
         // name={board.name} //TODO dynamically show this line
         board_id={board.id}
