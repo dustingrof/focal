@@ -13,9 +13,12 @@ import TaskCardFocus from './TaskCardFocus';
 export default function MiniTaskCard(props) {
   const { cardData, dragging, allowRemoveCard, onCardRemove } = props;
 
+
   // simple ISO due date
-  const importedDate = cardData.due_date;
-  const dueDate = importedDate.slice(0, 10);
+  let dueDate = null;
+  if (cardData.due_date) {
+    dueDate = cardData.due_date.slice(0, 10);
+  }
 
   // console.log("dueDate:", dueDate);
 
@@ -28,9 +31,8 @@ export default function MiniTaskCard(props) {
 
   return (
     <div
-      className={`react-kanban-card ${
-        dragging ? 'react-kanban-card--dragging' : ''
-      }`}>
+      className={`react-kanban-card ${dragging ? 'react-kanban-card--dragging' : ''
+        }`}>
       <div style={{ width: 'auto', margin: 'auto' }}>
         <Card p='lg' target='_blank' component='a'>
           <Card.Section>
@@ -59,8 +61,12 @@ export default function MiniTaskCard(props) {
               </Grid.Col>
 
               <Grid.Col span={6}>
-                <Text size='xs'>Due date:</Text>
-                <Text size='sm'>{dueDate}</Text>
+              <Text>
+                  {dueDate ? "Due date:" : null}
+                </Text>
+                <Text>
+                  {dueDate ? dueDate : null}
+                </Text>
               </Grid.Col>
             </Grid>
           </Card.Section>

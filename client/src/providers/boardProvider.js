@@ -120,10 +120,12 @@ export default function BoardProvider(props) {
     // TODO add "/" before boards
     return axios
       .put(`/boards/${board_id}/tasks/${_card.id}`, { updatedCard })
-      .then(results => {});
+      .then(results => { });
   };
 
   const onFocusModalClose = updatedCard => {
+    
+    
     const card_id = updatedCard.id;
 
     const board_id = updatedCard.board_id;
@@ -136,7 +138,26 @@ export default function BoardProvider(props) {
       });
   };
 
-  const providerData = { setUrlBoardId, board, onMoveCard, onFocusModalClose };
+
+  const onNewFocusModalClose = newCard => {
+
+
+    // console.log("made it to axios call function");
+    // console.log("newCard:", newCard);
+
+    // const card_id = newCard.id; // don't need this, new ID should be assigned in DB
+
+    const board_id = newCard.board_id;
+
+    return axios
+      .post(`/boards/${board_id}/tasks/new`, { newCard })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setFocusIsClosed(true);
+      });
+  };
+
+  const providerData = { urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose };
 
   return (
     <boardContext.Provider value={providerData}>

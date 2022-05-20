@@ -28,8 +28,19 @@ import { timerContext, useTimer } from '../providers/timerProvider';
 
 
 export default function TaskCardFocus(props) {
-  const { onFocusModalClose } = useContext(boardContext);
   const { cardData } = props; // onFocusModalClose(cardData);
+
+  // simple ISO due date
+  let dueDate = null;
+  if (cardData.due_date) {
+    dueDate = cardData.due_date.slice(0, 10);
+  }
+
+
+
+  const { onFocusModalClose } = useContext(boardContext);
+
+  // console.log('Card Data', cardData);
   const { sec, min, hrs, timerActive, setHrs, setMin, setSec, setTimerActive, reset,  stop } = useContext(timerContext)
   
   const initialTextValue = cardData.description;
@@ -38,14 +49,11 @@ export default function TaskCardFocus(props) {
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
   const [editOpened, setEditOpen] = useState(false);
   const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
-  const [dateToUpdate, setDateToUpdate] = useState(cardData.due_date);
+  const [dateToUpdate, setDateToUpdate] = useState(dueDate);
   const [ timeUpdated, setTimeUpdated ] = useState(cardData.total_time_sec);
 
   const theme = useMantineTheme();
 
-
-  const today = new Date();
- 
 
   // Image uploader
   const handleImageUpload = file =>
@@ -77,6 +85,10 @@ export default function TaskCardFocus(props) {
       stop();
     };
   
+
+
+
+
 
   const modalClose = function () {
 
@@ -160,7 +172,7 @@ export default function TaskCardFocus(props) {
               <Flag3 size={16} />
             </ThemeIcon>
             <DatePicker
-              placeholder={cardData.due_date.slice(0, 10)}
+              placeholder={dueDate}
               value={dateToUpdate}
               // defaultValue={dateToUpdate}
               onChange={setDateToUpdate}
