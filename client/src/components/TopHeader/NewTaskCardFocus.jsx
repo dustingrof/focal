@@ -35,25 +35,19 @@ export default function NewTaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
 
   console.log('Card Data', cardData);
-  // const initialTextValue = cardData.description;
 
   const [opened, setOpened] = useState(false);
   const [richTitleValue, setRichTitleValueChange] = useState("Enter title here");
   const [richTextValue, setRichTextValueChange] = useState("Enter description here");
-  // const [editOpened, setEditOpen] = useState(false);
-  // const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
   const [dateToSave, setDateToSave] = useState(null);
 
 
   // TODO add default chip selection for task status and task board
-
   const [newTaskStatus, setNewTaskStatus] = useState();
   const [newTaskBoard, setNewTaskBoard] = useState();
-
   const theme = useMantineTheme();
 
-
-
+  // modal close without save
   const newModalCloseNoSave = function () {
 
     // update modal prop
@@ -66,12 +60,9 @@ export default function NewTaskCardFocus(props) {
     setDateToSave(null);
     setNewTaskStatus();
     setNewTaskBoard();
-
   };
 
-
-
-
+  // modal close with save
   const newModalClose = function () {
 
     // build new card
@@ -83,11 +74,9 @@ export default function NewTaskCardFocus(props) {
       status: Number(newTaskStatus),
     };
 
-
     // update modal prop
     const setModalState = () => setOpened(false);
     setModalState();
-
 
     // reset states
     setRichTitleValueChange("Enter title here");
@@ -95,7 +84,6 @@ export default function NewTaskCardFocus(props) {
     setDateToSave();
     setNewTaskStatus();
     setNewTaskBoard();
-
 
     if (cardDataToAdd.board_id && cardDataToAdd.description && cardDataToAdd.title && cardDataToAdd.status) {
       // pass new card and make axios request (in boardProvider.js)
@@ -136,95 +124,43 @@ export default function NewTaskCardFocus(props) {
         transition='pop'
         transitionDuration={200}
         transitionTimingFunction='ease'>
-
-
-
         <h2>Create a new task</h2>
-
-
-
         <h4>Title:</h4>
         <Textarea
           onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
           placeholder="Enter text"
         />
-
-        {/* <RichTextEditor
-          controls={[[]]}
-          value={richTitleValue}
-          onChange={setRichTitleValueChange}
-        /> */}newTaskBoard
-
         <Space h='xl' />
-
-
-
-
         <h4>Description:</h4>
         <Textarea
           onChange={(event) => setRichTextValueChange(event.currentTarget.value)}
           placeholder="Enter text"
         />
-
-        {/* <RichTextEditor
-          controls={[
-            ['bold', 'italic', 'underline'],
-            ['unorderedList', 'unorderedList'],
-            ['link', 'image'],
-          ]}
-          value={richTextValue}
-          onChange={setRichTextValueChange}
-        /> */}
-
         <Space h='xl' />
-
-
-
-
-
         <h4>Select due date:</h4>
         <DatePicker
           placeholder={"Select date"}
           value={dateToSave}
           onChange={setDateToSave}
         />
-
         <Space h='xl' />
-
-
-
-
-
-
         <h4>Select board:</h4>
-
         <Chips multiple={false} defaultValue={newTaskBoard} onChange={setNewTaskBoard}>
           {boardChipList}
         </Chips>
-
         <Space h='xl' />
-
-
-
         <h4>Select initial status:</h4>
-
         <Chips multiple={false} value={newTaskStatus} onChange={setNewTaskStatus}>
           <Chip value="1">Backlog</Chip>
           <Chip value="2">Doing</Chip>
           <Chip value="3">Pending</Chip>
           <Chip value="4">Complete</Chip>
         </Chips>
-
         <Space h='xl' />
         <Space h='xl' />
         <Space h='xl' />
-
-
-
         <Grid>
-
           <Grid.Col span={6}>
-
             <Center>
               <Button
                 color="gray"
@@ -232,12 +168,8 @@ export default function NewTaskCardFocus(props) {
               >
                 Discard
               </Button>
-
             </Center>
-
-
           </Grid.Col>
-
           <Grid.Col span={6}>
             <Center>
               <Button
@@ -246,32 +178,17 @@ export default function NewTaskCardFocus(props) {
               >
                 Create
               </Button>
-
             </Center>
-
-
           </Grid.Col>
-
-
-
-
-
-
-
         </Grid>
         <Space h='xl' />
         <Space h='xl' />
-
         <Center>
           <Text size='sm' color='grey'>
             Must click Create or Discard to exit this view
           </Text>
-
         </Center>
-
       </Modal>
-
-
       <Group position='center'>
         <Button onClick={() => setOpened(true)}>New Task</Button>
       </Group>
