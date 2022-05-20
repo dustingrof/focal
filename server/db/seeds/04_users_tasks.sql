@@ -38,3 +38,4 @@ insert into users_tasks (id, user_id, task_id, created_at, active) values (37, 4
 insert into users_tasks (id, user_id, task_id, created_at, active) values (38, 4, 16, '2021-06-21', true);
 insert into users_tasks (id, user_id, task_id, created_at, active) values (39, 1, 23, '2022-01-27', false);
 insert into users_tasks (id, user_id, task_id, created_at, active) values (40, 5, 3, '2021-09-21', false);
+ALTER SEQUENCE users_tasks_id_seq RESTART WITH 41;

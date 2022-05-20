@@ -27,8 +27,17 @@ import {
 import { boardContext } from '../providers/boardProvider';
 
 export default function TaskCardFocus(props) {
-  const { onFocusModalClose } = useContext(boardContext);
   const { cardData } = props; // onFocusModalClose(cardData);
+
+  // simple ISO due date
+  let dueDate = null;
+  if (cardData.due_date) {
+    dueDate = cardData.due_date.slice(0, 10);
+  }
+
+
+
+  const { onFocusModalClose } = useContext(boardContext);
 
   // console.log('Card Data', cardData);
   const initialTextValue = cardData.description;
@@ -37,7 +46,7 @@ export default function TaskCardFocus(props) {
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
   const [editOpened, setEditOpen] = useState(false);
   const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
-  const [dateToUpdate, setDateToUpdate] = useState(cardData.due_date);
+  const [dateToUpdate, setDateToUpdate] = useState(dueDate);
 
   const theme = useMantineTheme();
 
@@ -67,6 +76,10 @@ export default function TaskCardFocus(props) {
     });
 
   // console.log("richTextValue during initialize", richTextValue);
+
+
+
+
 
   const modalClose = function () {
     // console.log("cardData:", cardData);
@@ -149,7 +162,7 @@ export default function TaskCardFocus(props) {
               <Flag3 size={16} />
             </ThemeIcon>
             <DatePicker
-              placeholder={cardData.due_date.slice(0, 10)}
+              placeholder={dueDate}
               value={dateToUpdate}
               // defaultValue={dateToUpdate}
               onChange={setDateToUpdate}

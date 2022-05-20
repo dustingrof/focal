@@ -46,11 +46,19 @@ module.exports = db => {
 
   // when user clicks on "add task" button
   router.post('/:board_id/tasks/new', (req, res) => {
-    const taskName = req.body.taskName;
-    const taskDescription = req.body.taskDescription;
-    const taskDueDate = req.body.taskDueDate;
-    const taskBoardId = req.params.board_id; // this comes from address
-    const taskStatus = req.body.taskStatus;
+    
+    console.log("PLEASE GET HERE");
+    console.log("req.body:", req.body);
+    
+    
+    const title = req.body.newCard.title;
+    const description = req.body.newCard.description;
+    const due_date = req.body.newCard.due_date;
+    const board_id = Number(req.params.board_id); // this comes from address
+    // const board_id = req.params.board_id; // this comes from address
+    const status = req.body.newCard.status;
+
+    console.log("title:",title);
 
     db.query(
       `
@@ -58,7 +66,7 @@ module.exports = db => {
       VALUES ($1, $2, $3, $4, $5)
 
     `,
-      [taskName, taskDescription, taskDueDate, taskBoardId, taskStatus]
+      [title, description, due_date, board_id, status]
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
@@ -184,7 +192,8 @@ module.exports = db => {
     }
     // console.log('req.body:', req.body);
 
-    const { board_id, description, due_date, id, title, status } =
+    
+      const { description, due_date, id, title, status } =
       req.body.updatedCard;
 
     db.query(
