@@ -35,7 +35,7 @@ ReactDOM.render(
       <UrlProvider>
         <ColourSchemeProvider>
           <TimerProvider>
-            <NotificationsProvider position="top-center" limit={1}>
+            <NotificationsProvider position='bottom-left' limit={1}>
               <BoardListProvider>
                 <BoardProvider>
                   <App />
@@ -47,7 +47,7 @@ ReactDOM.render(
       </UrlProvider>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
