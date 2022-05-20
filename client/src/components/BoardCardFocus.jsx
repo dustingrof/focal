@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon } from '@mantine/core';
+import React, { useState, useContext } from 'react';
+import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon, Center } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import { CircleDashed, ClipboardCheck, Flag3 } from 'tabler-icons-react';
+import { boardContext } from '../providers/boardProvider';
 
 
 export default function TaskCardFocus() {
+  const { urlBoardId, onBoardDelete } = useContext(boardContext);
 
   const initialValue = '<p>Your initial <b>html value</b> or an empty string to init editor without value</p>';
   const [opened, setOpened] = useState(false);
@@ -28,6 +30,31 @@ export default function TaskCardFocus() {
     });
 
 
+
+
+
+
+    const deleteBoard = function () {
+
+      // cardToDelete must contain board_id
+      const boardToDelete = {
+        board_id: urlBoardId,
+      };
+  
+      // console.log("cardToDelete:", cardToDelete);
+  
+      // // update modal prop
+      const setModalState = () => setOpened(false);
+      setModalState();
+  
+      if (boardToDelete.board_id) {
+        // pass new card and make axios request (in boardProvider.js)
+        onBoardDelete(boardToDelete);
+      } else {
+        console.log("DELETE BOARD REQUEST NOT SENT");
+      }
+  
+    };
 
   return (
     <>
@@ -68,6 +95,16 @@ export default function TaskCardFocus() {
           onChange={onChange}
           onImageUpload={handleImageUpload}
         />
+        <Space h='xl' />
+         <Center>
+              <Button
+                color="red"
+                onClick={deleteBoard}
+              >
+                Delete
+              </Button>
+
+            </Center>
       </Modal>
 
       <Group position='center'>

@@ -1,4 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { SquarePlus } from 'tabler-icons-react';
+import { Link } from 'react-router-dom';
+
 import {
   Center,
   Modal,
@@ -30,15 +33,18 @@ import {
 import { boardContext } from '../../providers/boardProvider';
 import { useBoardList } from '../../providers/boardListProvider';
 
-export default function NewTaskCardFocus(props) {
-  const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
+export default function NewBoardCardFocus(props) {
+  const { onNewFocusModalClose, urlBoardId, onNewBoard } = useContext(boardContext);
   const { cardData } = props; // onFocusModalClose(cardData);
 
   // console.log('Card Data', cardData);
 
   const [opened, setOpened] = useState(false);
-  const [richTitleValue, setRichTitleValueChange] = useState("Enter title here");
-  const [richTextValue, setRichTextValueChange] = useState("Enter description here");
+
+  const [boardName, setBoardName] = useState();
+  const [boardDescription, setBoardDescription] = useState();
+  const [boardImageUrl, setBoardImageUrl] = useState();
+
   const [dateToSave, setDateToSave] = useState(null);
 
 
@@ -48,61 +54,63 @@ export default function NewTaskCardFocus(props) {
   const theme = useMantineTheme();
 
   // modal close without save
-  const newModalCloseNoSave = function () {
+  const newBoardNoSave = function () {
 
     // update modal prop
     const setModalState = () => setOpened(false);
     setModalState();
 
     // reset states
-    setRichTitleValueChange("Enter title here");
-    setRichTextValueChange("Enter description here");
-    setDateToSave(null);
-    setNewTaskStatus();
-    setNewTaskBoard();
+    setBoardName();
+    setBoardDescription();
+    setBoardImageUrl();
   };
 
-  // modal close with save
-  const newModalClose = function () {
+  // new board with save
+  const newBoardSave = function () {
 
-    // build new card
-    const cardDataToAdd = {
-      board_id: newTaskBoard, // placeholder, to update
-      description: richTextValue,
-      due_date: dateToSave, // start with placeholder & add date later 
-      title: richTitleValue,
-      status: Number(newTaskStatus),
+    // build new board
+    const boardToAdd = {
+      name: boardName,
+      description: boardDescription,
+      image_url: boardImageUrl,
     };
+
+
+    if (!boardToAdd.image_url) {
+      boardToAdd.image_url = null;
+    }
+    // console.log("boardToAdd:", boardToAdd);
+
 
     // update modal prop
     const setModalState = () => setOpened(false);
     setModalState();
 
     // reset states
-    setRichTitleValueChange("Enter title here");
-    setRichTextValueChange("Enter description here");
-    setDateToSave();
-    setNewTaskStatus();
-    setNewTaskBoard();
+    setBoardName();
+    setBoardDescription();
+    setBoardImageUrl();
 
-    if (cardDataToAdd.board_id && cardDataToAdd.description && cardDataToAdd.title && cardDataToAdd.status) {
+    // send to backend
+    if (boardToAdd.name) {
       // pass new card and make axios request (in boardProvider.js)
-      onNewFocusModalClose(cardDataToAdd);
+      onNewBoard(boardToAdd);
     } else {
-      console.log("NEW CARD REQUEST NOT SENT");
+      console.log("NEW BOARD REQUEST NOT SENT");
     }
 
   };
 
-  const { boardList } = useBoardList();
-  const boardsArray = Object.values(boardList);
-  const boardChipList = boardsArray.map(board => {
-    const boardId = board.id;
-    const boardTitle = board.name;
-    return (
-      <Chip value={String(boardId)}>{boardTitle}</Chip>
-    );
-  });
+  // const { boardList } = useBoardList();
+  // const boardsArray = Object.values(boardList);
+  // const boardChipList = boardsArray.map(board => {
+  //   const boardId = board.id;
+  //   const boardTitle = board.name;
+  //   return (
+  //     <Chip value={String(boardId)}>{boardTitle}</Chip>
+  //   );
+  // });
 
 
   return (
@@ -112,7 +120,7 @@ export default function NewTaskCardFocus(props) {
         closeOnEscape={true}
         closeOnClickOutside={true}
         opened={opened}
-        onClose={newModalCloseNoSave}
+        onClose={newBoardNoSave}
         overlayColor={
           theme.colorScheme === 'dark'
             ? theme.colors.dark[9]
@@ -124,38 +132,27 @@ export default function NewTaskCardFocus(props) {
         transition='pop'
         transitionDuration={200}
         transitionTimingFunction='ease'>
-        <h2>Create a new task</h2>
-        <h4>Title: *</h4>
+        <h2>Create a new board</h2>
+        <h4>Board name:</h4>
         <Textarea
-          onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
+          onChange={(event) => setBoardName(event.currentTarget.value)}
           placeholder="Enter text"
         />
         <Space h='xl' />
         <h4>Description:</h4>
         <Textarea
-          onChange={(event) => setRichTextValueChange(event.currentTarget.value)}
+          onChange={(event) => setBoardDescription(event.currentTarget.value)}
           placeholder="Enter text"
         />
         <Space h='xl' />
-        <h4>Select due date:</h4>
-        <DatePicker
-          placeholder={"Select date"}
-          value={dateToSave}
-          onChange={setDateToSave}
+        <h4>Image URL:</h4>
+        <Textarea
+          onChange={(event) => setBoardImageUrl(event.currentTarget.value)}
+          placeholder="Enter text"
         />
         <Space h='xl' />
-        <h4>Select board: *</h4>
-        <Chips multiple={false} defaultValue={newTaskBoard} onChange={setNewTaskBoard}>
-          {boardChipList}
-        </Chips>
-        <Space h='xl' />
-        <h4>Select initial status: *</h4>
-        <Chips multiple={false} value={newTaskStatus} onChange={setNewTaskStatus}>
-          <Chip value="1">Backlog</Chip>
-          <Chip value="2">Doing</Chip>
-          <Chip value="3">Pending</Chip>
-          <Chip value="4">Complete</Chip>
-        </Chips>
+
+
         <Space h='xl' />
         <Space h='xl' />
         <Space h='xl' />
@@ -164,7 +161,7 @@ export default function NewTaskCardFocus(props) {
             <Center>
               <Button
                 color="gray"
-                onClick={newModalCloseNoSave}
+                onClick={newBoardNoSave}
               >
                 Discard
               </Button>
@@ -174,7 +171,7 @@ export default function NewTaskCardFocus(props) {
             <Center>
               <Button
                 color="green"
-                onClick={newModalClose}
+                onClick={newBoardSave}
               >
                 Create
               </Button>
@@ -185,12 +182,13 @@ export default function NewTaskCardFocus(props) {
         <Space h='xl' />
         <Center>
           <Text size='sm' color='grey'>
-            * denotes manadatory field
+            Must click Create or Discard to exit this view
           </Text>
         </Center>
       </Modal>
+
       <Group position='center'>
-        <Button onClick={() => setOpened(true)}>New Task</Button>
+        <Button onClick={() => setOpened(true)}>New Board</Button>
       </Group>
     </>
 

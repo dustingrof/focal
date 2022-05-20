@@ -38,6 +38,7 @@ export default function BoardProvider(props) {
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
   const [focusIsClosed, setFocusIsClosed] = useState(false);
+  const [userAvatar, setUserAvatar] = useState();
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
   // console.log('urlBoardId', urlBoardId);
@@ -96,7 +97,7 @@ export default function BoardProvider(props) {
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
-  }, [urlBoardId, focusIsClosed]);
+  }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard ]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
@@ -123,13 +124,39 @@ export default function BoardProvider(props) {
       .then(results => { });
   };
 
+
+
+  const onTaskDelete = taskToDelete => {
+    const task_id = taskToDelete.task_id;
+    const board_id = taskToDelete.board_id;
+    return axios
+      .delete(`/boards/${board_id}/tasks/${task_id}`, { task_id })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setUrlBoardId(board_id);
+        setFocusIsClosed(true);
+      });
+  };
+
+
+
+  const onBoardDelete = boardToDelete => {
+    const board_id = boardToDelete.board_id;
+    return axios
+      .delete(`/boards/${board_id}`, { board_id })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setUrlBoardId(board_id);
+        setFocusIsClosed(true);
+      });
+  };
+
+
+
+
   const onFocusModalClose = updatedCard => {
-    
-    
     const card_id = updatedCard.id;
-
     const board_id = updatedCard.board_id;
-
     return axios
       .put(`/boards/${board_id}/tasks/${card_id}`, { updatedCard })
       .then(results => {
@@ -140,24 +167,52 @@ export default function BoardProvider(props) {
 
 
   const onNewFocusModalClose = newCard => {
-
-
-    // console.log("made it to axios call function");
-    // console.log("newCard:", newCard);
-
-    // const card_id = newCard.id; // don't need this, new ID should be assigned in DB
-
     const board_id = newCard.board_id;
-
     return axios
       .post(`/boards/${board_id}/tasks/new`, { newCard })
       .then(results => {
-        // setUrlBoardId(board_id);
         setFocusIsClosed(true);
       });
   };
 
-  const providerData = { urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose };
+
+  const onNewBoard = boardToAdd => {
+    return axios
+      .post(`/boards/new`, { boardToAdd })
+      .then(results => {
+        console.log(results);
+        // setUrlBoardId(boardToAdd);
+        setFocusIsClosed(true);
+      });
+  };
+
+
+  const onUserAvatar = (user) => {
+
+    let avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw2zIMQkX0ve8QO5B5Hk8TC8&ust=1653112270774000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDktJ-x7fcCFQAAAAAdAAAAABAD";
+
+    switch (user) {
+      case "Dustin":
+        avatar = "https://media-exp1.licdn.com/dms/image/C5603AQG9TyKFm-53iw/profile-displayphoto-shrink_800_800/0/1646679014931?e=1658361600&v=beta&t=RwhvswjhtXKHoO_UIjWTi84w2qmp6zBFNai3HVmU8Bw";
+        break;
+      case "Nicole":
+        avatar = "https://media-exp1.licdn.com/dms/image/C5603AQEUSRGk43oeGA/profile-displayphoto-shrink_800_800/0/1652991046562?e=1658361600&v=beta&t=ORJ1H2_Qk_V8_xJe3w6ia0mfAYo4mdg8TxLaWuRrt5g";
+        break;
+      case "Iaan":
+        avatar = "https://media-exp1.licdn.com/dms/image/C5603AQHwuNX81FzwEQ/profile-displayphoto-shrink_400_400/0/1646859896622?e=1658361600&v=beta&t=nioiZ7kph-nU2N1P97Y7xTeZXJl9OAqUSi0esu6SMu0";
+        break;
+      default:
+        avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw2zIMQkX0ve8QO5B5Hk8TC8&ust=1653112270774000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDktJ-x7fcCFQAAAAAdAAAAABAD";
+    }
+
+    setUserAvatar(avatar);
+
+
+
+  };
+
+
+  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete, onNewBoard, onUserAvatar, onBoardDelete };
 
   return (
     <boardContext.Provider value={providerData}>

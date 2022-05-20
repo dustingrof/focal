@@ -23,9 +23,9 @@ module.exports = db => {
 
   // when user clicks "add board" button to create a new board
   router.post('/new', (req, res) => {
-    const boardName = req.body.boardName; // use boardName or change here
-    const boardDescription = req.body.boardDescription; // use boardDescription or change here
-    const boardImage = req.body.boardImage; // use boardImage or change here
+    const boardName = req.body.boardToAdd.name; // use boardName or change here
+    const boardDescription = req.body.boardToAdd.description; // use boardDescription or change here
+    const boardImage = req.body.boardToAdd.image_url; // use boardImage or change here
 
     db.query(
       `
@@ -213,13 +213,14 @@ module.exports = db => {
 
     const boardId = req.params.board_id;
 
-    db.query(`DELETE FROM interviews WHERE appointment_id = $1::integer`, [
+    db.query(`DELETE FROM boards WHERE id = $1`, [
       boardId,
     ]).then(() => {
-      setTimeout(() => {
-        res.status(204).json({});
-        updateBoard(Number(req.params.id), null);
-      }, 1000);
+      res.status(204).json({});
+      // setTimeout(() => {
+      //   res.status(204).json({});
+      //   updateBoard(Number(req.params.id), null);
+      // }, 1000);
     });
   });
 
@@ -232,11 +233,12 @@ module.exports = db => {
 
     const taskId = req.params.task_id;
 
-    db.query(`DELETE FROM tasks WHERE tasks. = $1`, [taskId]).then(() => {
-      setTimeout(() => {
-        res.status(204).json({});
-        updateTask(Number(req.params.id), null);
-      }, 1000);
+    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId])
+    .then(() => {
+      res.status(204).json({});
+      // setTimeout(() => {
+      //   // updateTask(Number(req.params.id), null);
+      // }, 1000);
     });
   });
 

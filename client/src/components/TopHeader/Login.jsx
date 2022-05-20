@@ -11,11 +11,27 @@ import {
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
 import { colourListContext } from '../../providers/colourSchemeProvider';
+import { boardContext } from '../../providers/boardProvider';
 
 const Login = () => {
   const [user, setUser] = useState();
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const { onUserAvatar } = useContext(boardContext);
+
+  const userChange = function () {
+
+    const userSetting = event => {
+      setUser(event);
+      onUserAvatar(event);
+    }
+    
+    userSetting();
+
+  };
+
+
+
 
   // Sets user from <Select> dropdown to local storage
   const addUserToLocalState = () => {
@@ -48,7 +64,7 @@ const Login = () => {
       <Group position='center' spacing='sm'>
         <Select
           placeholder='Login as ...'
-          onChange={event => setUser(event)}
+          onChange={userChange}
           size='xs'
           data={[
             { value: 'Dustin', label: 'Dustin' },
@@ -63,7 +79,7 @@ const Login = () => {
         className='login-btn'
         onClick={addUserToLocalState}
         style={{ marginTop: 10, marginRight: 10 }}>
-        Login {}
+        Login { }
       </Button>
       <Button compact className='logout-btn' onClick={removeUserFromLocalState}>
         Logout
