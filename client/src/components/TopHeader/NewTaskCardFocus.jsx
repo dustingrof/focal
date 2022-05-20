@@ -34,7 +34,7 @@ export default function NewTaskCardFocus(props) {
   const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
   const { cardData } = props; // onFocusModalClose(cardData);
 
-  console.log('Card Data', cardData);
+  // console.log('Card Data', cardData);
 
   const [opened, setOpened] = useState(false);
   const [richTitleValue, setRichTitleValueChange] = useState("Enter title here");
@@ -47,7 +47,11 @@ export default function NewTaskCardFocus(props) {
   const [newTaskBoard, setNewTaskBoard] = useState();
   const theme = useMantineTheme();
 
-  // modal close without save
+
+
+
+  // modal close - NO SAVE
+  ////////////////////////////////////////////////////////////////////////////////////////////
   const newModalCloseNoSave = function () {
 
     // update modal prop
@@ -62,7 +66,9 @@ export default function NewTaskCardFocus(props) {
     setNewTaskBoard();
   };
 
-  // modal close with save
+
+  // modal close - SAVE
+  ////////////////////////////////////////////////////////////////////////////////////////////
   const newModalClose = function () {
 
     // build new card
@@ -91,28 +97,32 @@ export default function NewTaskCardFocus(props) {
     } else {
       console.log("NEW CARD REQUEST NOT SENT");
     }
-
   };
 
+
+
+  // generate board chips for new task card
+  ////////////////////////////////////////////////////////////////////////////////////////////
   const { boardList } = useBoardList();
   const boardsArray = Object.values(boardList);
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
     return (
-      <Chip value={String(boardId)}>{boardTitle}</Chip>
+      <Chip key={String(boardId)} value={String(boardId)}>{boardTitle}</Chip>
     );
   });
+
 
 
   return (
     <>
       <Modal
         withCloseButton={false}
-        closeOnEscape={false}
-        closeOnClickOutside={false}
+        closeOnEscape={true}
+        closeOnClickOutside={true}
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={newModalCloseNoSave}
         overlayColor={
           theme.colorScheme === 'dark'
             ? theme.colors.dark[9]
@@ -123,9 +133,9 @@ export default function NewTaskCardFocus(props) {
         size='lg'
         transition='pop'
         transitionDuration={200}
-        transitionTimingFunction='ease'>
+        >
         <h2>Create a new task</h2>
-        <h4>Title:</h4>
+        <h4>Title: *</h4>
         <Textarea
           onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
           placeholder="Enter text"
@@ -144,17 +154,17 @@ export default function NewTaskCardFocus(props) {
           onChange={setDateToSave}
         />
         <Space h='xl' />
-        <h4>Select board:</h4>
+        <h4>Select board: *</h4>
         <Chips multiple={false} defaultValue={newTaskBoard} onChange={setNewTaskBoard}>
           {boardChipList}
         </Chips>
         <Space h='xl' />
-        <h4>Select initial status:</h4>
+        <h4>Select initial status: *</h4>
         <Chips multiple={false} value={newTaskStatus} onChange={setNewTaskStatus}>
-          <Chip value="1">Backlog</Chip>
-          <Chip value="2">Doing</Chip>
-          <Chip value="3">Pending</Chip>
-          <Chip value="4">Complete</Chip>
+          <Chip key={-1} value="1">Backlog</Chip>
+          <Chip key={-2} value="2">Doing</Chip>
+          <Chip key={-3} value="3">Pending</Chip>
+          <Chip key={-4} value="4">Complete</Chip>
         </Chips>
         <Space h='xl' />
         <Space h='xl' />
@@ -173,7 +183,7 @@ export default function NewTaskCardFocus(props) {
           <Grid.Col span={6}>
             <Center>
               <Button
-                color="red"
+                color="green"
                 onClick={newModalClose}
               >
                 Create
@@ -185,7 +195,7 @@ export default function NewTaskCardFocus(props) {
         <Space h='xl' />
         <Center>
           <Text size='sm' color='grey'>
-            Must click Create or Discard to exit this view
+            * denotes manadatory field
           </Text>
         </Center>
       </Modal>

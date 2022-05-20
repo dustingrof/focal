@@ -38,12 +38,10 @@ export default function BoardProvider(props) {
   // here is our shared state object
   const [board, setBoard] = useState(initialBoardState);
   const [focusIsClosed, setFocusIsClosed] = useState(false);
+  const [userAvatar, setUserAvatar] = useState();
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
-  // console.log('urlBoardId', urlBoardId);
 
-  // console.log("board:", board);
-  // console.log('when is this called');
   console.log('urlBoardId', urlBoardId);
 
   // useEffect(() => {
@@ -95,8 +93,9 @@ export default function BoardProvider(props) {
       // TODO initial board has no cards, could remove prev usage
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
+      // setBoard({ ...board, columns: incomingColumns });
     });
-  }, [urlBoardId, focusIsClosed]);
+  }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
@@ -123,41 +122,77 @@ export default function BoardProvider(props) {
       .then(results => { });
   };
 
+
+  const onTaskDelete = taskToDelete => {
+    const task_id = taskToDelete.task_id;
+    const board_id = taskToDelete.board_id;
+    setFocusIsClosed(true);
+    return axios
+      .delete(`/boards/${board_id}/tasks/${task_id}`, { task_id })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setFocusIsClosed(false);
+        setUrlBoardId(board_id);
+      });
+  };
+
+
+  // const onBoardDelete = boardToDelete => {
+  //   const board_id = boardToDelete.board_id;
+  //   setFocusIsClosed(true);
+  //   return axios
+  //     .delete(`/boards/${board_id}`, { board_id })
+  //     .then(results => {
+  //       // setUrlBoardId(board_id);
+  //       setFocusIsClosed(false);
+  //       const moveToBoard = board_id - 1;
+  //       setUrlBoardId(moveToBoard);
+
+  //       // TODO re-direct to home page here?
+
+
+  //     });
+  // };
+
+
   const onFocusModalClose = updatedCard => {
-    
-    
     const card_id = updatedCard.id;
-
     const board_id = updatedCard.board_id;
-
+    setFocusIsClosed(true);
     return axios
       .put(`/boards/${board_id}/tasks/${card_id}`, { updatedCard })
       .then(results => {
         setUrlBoardId(board_id);
-        setFocusIsClosed(true);
+        setFocusIsClosed(false);
       });
   };
 
 
   const onNewFocusModalClose = newCard => {
-
-
-    // console.log("made it to axios call function");
-    // console.log("newCard:", newCard);
-
-    // const card_id = newCard.id; // don't need this, new ID should be assigned in DB
-
     const board_id = newCard.board_id;
-
+    setFocusIsClosed(true);
     return axios
-      .post(`/boards/${board_id}/tasks/new`, { newCard })
-      .then(results => {
-        // setUrlBoardId(board_id);
-        setFocusIsClosed(true);
+    .post(`/boards/${board_id}/tasks/new`, { newCard })
+    .then(results => {
+        setFocusIsClosed(false);
       });
   };
 
-  const providerData = { urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose };
+
+  // const onNewBoard = boardToAdd => {
+  //   setFocusIsClosed(true);
+
+  //   return axios
+  //     .post(`/boards/new`, { boardToAdd })
+  //     .then(results => {
+  //       setFocusIsClosed(false);
+        
+  //     });
+  // };
+
+
+
+  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete };
 
   return (
     <boardContext.Provider value={providerData}>
