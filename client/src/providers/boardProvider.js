@@ -110,7 +110,7 @@ export default function BoardProvider(props) {
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
     const board_id = _card.board_id;
-    // console.log("UPDATED CARD EXAMPLE:", updatedCard);
+    console.log("UPDATED CARD EXAMPLE:", updatedCard);
 
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call

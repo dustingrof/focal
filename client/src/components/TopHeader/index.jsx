@@ -13,6 +13,7 @@ import {
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
 import Login from './Login';
+import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 import NewTaskCardFocus from './NewTaskCardFocus';
 
@@ -43,7 +44,7 @@ export default function TopHeader() {
           <NewTaskCardFocus />
 
           <Login />
-
+          <TimerDisplay />
           <ActionIcon
             variant='outline'
             color={dark ? 'yellow' : 'blue'}

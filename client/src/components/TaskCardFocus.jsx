@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   Button,
@@ -9,22 +9,23 @@ import {
   List,
   ThemeIcon,
   Text,
-  Input,
-  ActionIcon,
   Collapse,
-  Textarea,
   TextInput,
+  Center,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import {
-  CircleDashed,
   BrandGithub,
   Flag3,
-  Adjustments,
   Edit,
 } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
+import Timer from './TopHeader/Timer';
+import axios from "axios";
+import { timerContext, useTimer } from '../providers/timerProvider';
+
+
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -40,6 +41,8 @@ export default function TaskCardFocus(props) {
   const { onFocusModalClose } = useContext(boardContext);
 
   // console.log('Card Data', cardData);
+  const { sec, min, hrs, timerActive, setHrs, setMin, setSec, setTimerActive, reset,  stop } = useContext(timerContext)
+  
   const initialTextValue = cardData.description;
 
   const [opened, setOpened] = useState(false);
@@ -47,15 +50,10 @@ export default function TaskCardFocus(props) {
   const [editOpened, setEditOpen] = useState(false);
   const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
   const [dateToUpdate, setDateToUpdate] = useState(dueDate);
+  const [ timeUpdated, setTimeUpdated ] = useState(cardData.total_time_sec);
 
   const theme = useMantineTheme();
 
-  // console.log('props:', props);
-
-  // calculate days remaining on task
-  // console.log('Date(cardData.due_date):', Date(cardData.due_date));
-  const today = new Date();
-  // console.log('Date(today.toISOString()):', Date(today.toISOString()));
 
   // Image uploader
   const handleImageUpload = file =>
@@ -75,14 +73,24 @@ export default function TaskCardFocus(props) {
         .catch(() => reject(new Error('Upload failed')));
     });
 
-  // console.log("richTextValue during initialize", richTextValue);
+
+    const addTimeToTask = function() {
+      let returnSecs  = 0;
+      returnSecs += sec;
+      returnSecs += Math.round(min * 60);
+      returnSecs += Math.round(hrs * 60) * 60;
+      const newTime = timeUpdated + returnSecs;
+      setTimeUpdated(newTime);
+      reset();
+      stop();
+    };
+  
 
 
 
 
 
   const modalClose = function () {
-    // console.log("cardData:", cardData);
 
     const cardDataToUpdate = {
       board_id: cardData.board_id,
@@ -91,15 +99,17 @@ export default function TaskCardFocus(props) {
       id: cardData.id,
       title: titleToUpdate,
       status: cardData.status,
+      total_time_sec: timeUpdated
     };
 
-    // console.log("richTextValue inside closeModal before state change", richTextValue);
     const setModalState = () => setOpened(false);
     setModalState();
 
-    // console.log("richTextValue inside closeModal after state change", richTextValue);
     onFocusModalClose(cardDataToUpdate);
   };
+
+  const convertTotalTimeToISO = new Date(timeUpdated * 1000).toISOString().slice(11, 19);
+
 
   return (
     <>
@@ -176,7 +186,8 @@ export default function TaskCardFocus(props) {
             <Button>Schedule a Meeting</Button>
           </Grid.Col>
           <Grid.Col span={6}>
-            <Button>Track time</Button>
+            <Center>Current time on task: { convertTotalTimeToISO }</Center>
+            <Timer task={cardData} addTimeToTask={addTimeToTask}/>
           </Grid.Col>
         </Grid>
         <Space h='xl' />

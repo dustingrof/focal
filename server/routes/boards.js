@@ -190,19 +190,16 @@ module.exports = db => {
       setTimeout(() => res.status(500).json({}), 1000);
       return;
     }
-    // console.log('req.body:', req.body);
 
-    
-      const { description, due_date, id, title, status } =
-      req.body.updatedCard;
+    const { description, due_date, id, title, status, total_time_sec, board_id } =req.body.updatedCard;
 
     db.query(
       `
       UPDATE tasks
-      SET title = $1, description = $2, due_date = $3, board_id = $4, status = $5
+      SET title = $1, description = $2, due_date = $3, board_id = $4, status = $5, total_time_sec = $7
       WHERE tasks.id = $6
     `,
-      [title, description, due_date, board_id, status, id]
+      [title, description, due_date,  board_id, status, id, total_time_sec ]
     ).catch(error => console.log(error));
     res.send(''); //needed this because our .then in board provider wasn't firing
   });
