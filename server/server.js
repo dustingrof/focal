@@ -124,20 +124,21 @@ io.on('connection', socket => {
   });
 
   socket.on('sendMessage', data => {
-    const { message, userLS } = data;
+    const { message, userLS, user_ls_avatar } = data;
 
-    db.query(`insert into messages (userLS, message) values ($1, $2);`, [
+    db.query(`insert into messages (userLS, message, user_ls_avatar) values ($1, $2, $3);`, [
       userLS,
       message,
+      user_ls_avatar
     ]).then(
       db.query(`SELECT * FROM messages;`).then(response => {
         const allMessages = response.rows;
-
+        
         io.emit('allMessages', { allMessages });
       })
     );
 
-    io.emit('notification', { userLS: data.userLS });
+    io.emit('notification', { userLS: data.userLS, user_ls_avatar: data.user_ls_avatar });
   });
 
   socket.on('disconnect', () => {

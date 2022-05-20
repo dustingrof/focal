@@ -9,7 +9,8 @@ import {
   ActionIcon,
   ThemeIcon,
   createStyles,
-  useMantineTheme
+  useMantineTheme, 
+  Avatar
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
@@ -39,6 +40,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
       backgroundColor: theme.colors.violet[6],
     },
   },
+
 }));
 
 
@@ -53,6 +55,8 @@ const Chat = () => {
   const theme = useMantineTheme();
   // Gets user name from local storage for sendMessage function
   const userLS = localStorage.getItem('name');
+  const user_ls_avatar = localStorage.getItem('avatar');
+
 
   // Handles input
   const inputHandler = e => {
@@ -62,7 +66,7 @@ const Chat = () => {
   // On enter sends message and user to server
   const enterHandler = e => {
     if (e.key === 'Enter' && e.target.value !== "") {
-      socket.emit('sendMessage', { message, userLS });
+      socket.emit('sendMessage', { message, userLS, user_ls_avatar });
       setMessage('');
     }
   };
@@ -72,6 +76,7 @@ const Chat = () => {
     socket.on("allMessages", data => {
      
       const updatedmessages = data.allMessages
+      console.log("updatedmessages:", updatedmessages)
       setList(updatedmessages)
     })
   })
@@ -90,23 +95,24 @@ const Chat = () => {
 useEffect(() => {
   socket.on("notification",  (data) => {
     if(data.userLS !== userLS ){
-      showNotification({title: 'Message notification', message: `Hey there, ${data.userLS} just sent a message! ` }); }
+      showNotification({title: 'Message notification', message: `Hey there, ${data.userLS} just sent a message! `, icon: `${ data.user_ls_avatar}`}); }
   });
 }, [userLS])
 
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-  
+    console.log("Avatar from DB", item.user_ls_avatar);
     if (item.userls === userLS) {
       return (
         <>
           <ListItem key={index + 1} align='right'
+          className='current-user'
             icon={
-              <ThemeIcon color="teal" size={24} radius="xl">
-                <UserCircle size={16} />
-              </ThemeIcon>
-            }>
+              <Avatar  radius="xl" src={item.user_ls_avatar}>
+        
+      </Avatar>}
+      >
             {item.userls}: {item.message}
           </ListItem>
           <Space h="sm" />
@@ -116,12 +122,11 @@ useEffect(() => {
     return (
       <>
         <ListItem key={index + 1} align='left'
+          className='not-current-user'
           icon={
-            <ThemeIcon color="blue" size={24} radius="xl">
-              <UserCircle size={16} />
-            </ThemeIcon>
-          }
-
+            <Avatar  radius="xl" src={item.user_ls_avatar}>
+      
+    </Avatar>}
 
         >
           {item.userls}: {item.message}
