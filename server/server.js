@@ -117,6 +117,12 @@ const io = new Server(server, {
 io.on('connection', socket => {
   console.log('User connected:', socket.id);
 
+  db.query(`SELECT * FROM messages;`).then(response => {
+    const allMessages = response.rows;
+
+    io.emit('allMessages', { allMessages });
+  });
+
   socket.on('sendMessage', data => {
     const { message, userLS } = data;
 
