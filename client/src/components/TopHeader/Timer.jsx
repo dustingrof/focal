@@ -14,6 +14,7 @@ const Timer = (props) => {
   //Timer component
   return (
     <>
+    
       <Container size={ 100 } px={ 0 }  >
         <Center>{ hrs < 10 ? "0" + hrs : hrs}:{ min < 10 ? "0" + min : min}:{ sec < 10 ? "0" + sec : sec }</Center>
         <SimpleGrid cols={1} spacing="xs">
