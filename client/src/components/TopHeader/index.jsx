@@ -13,6 +13,7 @@ import {
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
 import Login from './Login';
+import Pomodoro from './Pomodoro';
 import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 import NewTaskCardFocus from './NewTaskCardFocus';
@@ -38,9 +39,9 @@ export default function TopHeader() {
             <a href='/'>focal</a>
           </Text>
         </Grid.Col>
-        <Grid.Col span={1} offset={6}></Grid.Col>
-        <Grid.Col span={2} style={iconSpacing}>
-
+        <Grid.Col span={1} offset={4}></Grid.Col>
+        <Grid.Col span={4} style={iconSpacing}>
+          <Pomodoro />
           <NewTaskCardFocus />
 
           <Login />
@@ -52,9 +53,7 @@ export default function TopHeader() {
             title='Toggle color scheme'>
             {dark ? <Sun size={18} /> : <MoonStars size={18} />}
           </ActionIcon>
-          <Chat 
-          
-          />
+          <Chat />
         </Grid.Col>
       </Grid>
     </Header>
