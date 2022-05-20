@@ -20,6 +20,7 @@ import {
   TextInput,
   Chips,
   Chip,
+  Drawer,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
@@ -31,27 +32,22 @@ import {
   Edit,
 } from 'tabler-icons-react';
 import { boardContext } from '../../providers/boardProvider';
-import { useBoardList } from '../../providers/boardListProvider';
+import { boardListContext } from '../../providers/boardListProvider';
 
 export default function NewBoardCardFocus(props) {
-  const { onNewFocusModalClose, urlBoardId, onNewBoard } = useContext(boardContext);
-  const { cardData } = props; // onFocusModalClose(cardData);
+  const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
 
-  // console.log('Card Data', cardData);
+  const { onNewBoard } = useContext(boardListContext);
+
 
   const [opened, setOpened] = useState(false);
-
   const [boardName, setBoardName] = useState();
   const [boardDescription, setBoardDescription] = useState();
   const [boardImageUrl, setBoardImageUrl] = useState();
 
-  const [dateToSave, setDateToSave] = useState(null);
-
-
   // TODO add default chip selection for task status and task board
-  const [newTaskStatus, setNewTaskStatus] = useState();
-  const [newTaskBoard, setNewTaskBoard] = useState();
-  const theme = useMantineTheme();
+  // const [newTaskStatus, setNewTaskStatus] = useState();
+  // const [newTaskBoard, setNewTaskBoard] = useState();
 
   // modal close without save
   const newBoardNoSave = function () {
@@ -115,7 +111,7 @@ export default function NewBoardCardFocus(props) {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         withCloseButton={false}
         closeOnEscape={true}
         closeOnClickOutside={true}
@@ -131,7 +127,15 @@ export default function NewBoardCardFocus(props) {
         size='lg'
         transition='pop'
         transitionDuration={200}
-        transitionTimingFunction='ease'>
+        transitionTimingFunction='ease'> */}
+
+<Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Register"
+        padding="xl"
+        size="xl"
+      >
         <h2>Create a new board</h2>
         <h4>Board name:</h4>
         <Textarea
@@ -185,7 +189,8 @@ export default function NewBoardCardFocus(props) {
             Must click Create or Discard to exit this view
           </Text>
         </Center>
-      </Modal>
+        </Drawer>
+      {/* </Modal> */}
 
       <Group position='center'>
         <Button onClick={() => setOpened(true)}>New Board</Button>

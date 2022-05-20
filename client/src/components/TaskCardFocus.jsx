@@ -127,7 +127,7 @@ export default function TaskCardFocus(props) {
 
   const modalClose = function () {
 
-    // use this when feature "edit status / edit board" is implemented
+    // // use this when feature "edit status / edit board" is implemented
     // const cardDataToUpdate = {
     //   board_id: taskBoard,
     //   description: richTextValue,
@@ -194,7 +194,7 @@ export default function TaskCardFocus(props) {
         size='lg'
         transition='pop'
         transitionDuration={200}
-        transitionTimingFunction='ease'>
+        >
         <Grid>
           <Grid.Col span={6}>
             <h3>

@@ -1,18 +1,22 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon, Center } from '@mantine/core';
+import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon, Center, Drawer } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import { CircleDashed, ClipboardCheck, Flag3 } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
+import { boardListContext } from '../providers/boardListProvider';
 
 
 export default function TaskCardFocus() {
-  const { urlBoardId, onBoardDelete } = useContext(boardContext);
+  const { urlBoardId } = useContext(boardContext);
+  const { onBoardDelete } = useContext(boardListContext);
 
   const initialValue = '<p>Your initial <b>html value</b> or an empty string to init editor without value</p>';
   const [opened, setOpened] = useState(false);
   const [value, onChange] = useState(initialValue);
   const theme = useMantineTheme();
+
+  
 
   // Image uploader
   const handleImageUpload = (file) =>
@@ -30,7 +34,7 @@ export default function TaskCardFocus() {
     });
 
 
-
+    
 
 
 
@@ -58,7 +62,7 @@ export default function TaskCardFocus() {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         withCloseButton={false}
         opened={opened}
         onClose={() => setOpened(false)}
@@ -67,12 +71,21 @@ export default function TaskCardFocus() {
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }
+        
         overlayOpacity={0.55}
         overlayBlur={3}
         size='lg'
         transition='pop'
         transitionDuration={200}
-        transitionTimingFunction='ease'>
+        transitionTimingFunction='ease'> */}
+
+<Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Register"
+        padding="xl"
+        size="xl"
+      >
         <Grid>
           <Grid.Col span={6}>
             <h3>Board Name</h3>
@@ -101,11 +114,12 @@ export default function TaskCardFocus() {
                 color="red"
                 onClick={deleteBoard}
               >
-                Delete
+                Delete Board
               </Button>
 
             </Center>
-      </Modal>
+            </Drawer>
+      {/* </Modal> */}
 
       <Group position='center'>
         <Button onClick={() => setOpened(true)}>Board Card</Button>

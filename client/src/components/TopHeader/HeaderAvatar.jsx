@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { List, Avatar } from '@mantine/core';
 import { Link, useNavigate } from 'react-router-dom';
-import { boardContext } from '../../providers/boardProvider';
+// import { boardContext } from '../../providers/boardProvider';
 
 // TODO if statement for text/no text dependant on view
 // Polishing
@@ -9,7 +9,9 @@ import { boardContext } from '../../providers/boardProvider';
 // Better icon images to check view
 
 export default function HeaderAvatar() {
-  const { userAvatar } = useContext(boardContext);
+  // const { userAvatar } = useContext(boardContext);
+
+  const userAvatar = localStorage.getItem('avatar');
 
   return (
 

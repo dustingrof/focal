@@ -3,30 +3,64 @@ import axios from 'axios';
 
 // Create a context
 export const boardListContext = createContext();
+export const useBoardList = () => useContext(boardListContext);
 
 // Create a Component wrapper from Context.Provider
 export default function BoardListProvider(props) {
   // here is our shared state object
   const [boardList, setBoardList] = useState({});
-
+  const [focusIsClosed, setFocusIsClosed] = useState(false);
 
   // If statement checks if object has been rendered yet
 
-    useEffect(() => {
-      if(Object.keys(boardList).length === 0){
-        axios.get('/boards/').then(results => {
-          const listOfBoards = results.data;
-          setBoardList(listOfBoards);
-        });
-      }
-    },[boardList])
-  
-  const exportedValues = { boardList };
+  useEffect(() => {
+    axios.get('/boards/').then(results => {
+      const listOfBoards = results.data;
+      setBoardList(listOfBoards);
+    });
+  }, [focusIsClosed, setFocusIsClosed]);
+
+
+  const onBoardDelete = boardToDelete => {
+    const board_id = boardToDelete.board_id;
+    setFocusIsClosed(true);
+    return axios
+      .delete(`/boards/${board_id}`, { board_id })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setFocusIsClosed(false);
+        // const moveToBoard = board_id - 1;
+        // setUrlBoardId(moveToBoard);
+
+        // TODO re-direct to home page here?
+
+
+      });
+  };
+
+
+
+
+  const onNewBoard = boardToAdd => {
+    setFocusIsClosed(true);
+
+
+    return axios
+      .post(`/boards/new`, { boardToAdd })
+      .then(results => {
+        setFocusIsClosed(false);     
+      });
+  };
+
+
+
+
+  const providerData = { onBoardDelete, boardList, onNewBoard, setBoardList };
+  // const providerData = { boardList };
 
   return (
-    <boardListContext.Provider value={ exportedValues }>
+    <boardListContext.Provider value={providerData}>
       {props.children}
     </boardListContext.Provider>
   );
 }
-export const useBoardList = () => useContext(boardListContext);
