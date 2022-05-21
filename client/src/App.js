@@ -34,7 +34,8 @@ import HomeView from './components/HomeView';
 // import Timer from './components/Timer';
 // import Pomodoro from './components/Pomodoro';
 // import VideoChat from './components/VideoChat';
-// import Chat from './components/Chat'
+// import Chat from './components/Chat';
+import WeatherProvider from './providers/weatherProvider';
 
 const boards = {
   1: {
@@ -66,7 +67,11 @@ function App() {
     <>
       {/* {TODO create board component, index} */}
       <Routes>
-        <Route index element={<HomeView />} />
+        <Route index element={
+        <WeatherProvider>
+          <HomeView />
+        </WeatherProvider>
+        } />
         <Route path='/boards/:board_id' element={<BoardView />} />
         <Route path='/about' element={<BetaFeedback />} />
 
