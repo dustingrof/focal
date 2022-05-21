@@ -153,28 +153,21 @@ module.exports = db => {
       return;
     }
 
-
-    console.log('req.body', req.body);
-
-
     const boardName = req.body.boardDataToUpdate.name; // use boardName or change here
     const boardDescription = req.body.boardDataToUpdate.description; // use boardDescription or change here
+    const boardImageUrl = req.body.boardDataToUpdate.image_url;
 
     const boardId = req.body.boardDataToUpdate.id;
-
-console.log('boardName', boardName);
-console.log('boardDescription', boardDescription);
-console.log('boardId', boardId);
 
 
     db.query(
       `
       UPDATE boards
-      SET name = $1, description = $2
-      WHERE boards.id = $3
+      SET name = $1, description = $2, image_url = $3
+      WHERE boards.id = $4
 
     `,
-      [boardName, boardDescription, boardId]
+      [boardName, boardDescription, boardImageUrl, boardId]
     )
       // .then(() => {
       // setTimeout(() => {
