@@ -4,6 +4,7 @@ import NavBarAvatar from './NavBarAvatar';
 import { List, Space, Center } from '@mantine/core';
 import { useBoardList } from '../../providers/boardListProvider';
 import { SquarePlus } from 'tabler-icons-react';
+import NewBoardCardFocus from './NewBoardCardFocus';
 
 // TODO Polish
 // Add Button link to new board card focus edit view line 34
@@ -36,39 +37,31 @@ export default function NavBarAvatarList() {
         component='a'>
       </Center> */}
       {/* <Space h='lg' /> */}
-      <Link to={'#'}>
-        <List.Item
-          icon={
-            <SquarePlus
-              size={56}
-              strokeWidth={1}
-              color={'#228be6'}
-              style={{
-                borderWidth: 1,
-                borderRadius: 10,
-                borderStyle: 'solid',
-                borderColor: 'gray',
-                margin: 3,
-              }}
-            />
-            // <Avatar
-            //   radius='md'
-            //   size='lg'
-            //   alt={props.name}
-            //   src={props.image_url}
-            // style={{
-            //   borderWidth: 1,
-            //   borderRadius: 10,
-            //   borderStyle: 'solid',
-            //   borderColor: 'gray',
-            //   margin: 3,
-            // }}
-            // />
-          }>
-          {/* {props.name} */}
-        </List.Item>
-      </Link>
-      <List>{list}</List>
+
+      <List>
+        <NewBoardCardFocus />
+        {list}
+      </List>
     </>
   );
 }
+
+// {/* <Link to={'#'}>
+//   <List.Item
+//     icon={
+//       <SquarePlus
+//         size={56}
+//         strokeWidth={1}
+//         color={'#228be6'}
+//         style={{
+//           borderWidth: 1,
+//           borderRadius: 10,
+//           borderStyle: 'solid',
+//           borderColor: 'gray',
+//           margin: 3,
+//         }}
+//       />
+//     }>
+//     {/* {props.name} */}
+//   </List.Item>
+// </Link>; */}

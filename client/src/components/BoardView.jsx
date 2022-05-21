@@ -28,16 +28,13 @@ import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
 export default function BoardView(props) {
-
- 
   // const navigate = useNavigate();
-  
+
   const params = useParams();
   // console.log('THESE PARAMS', params);
-  
-  const { board, onMoveCard, setUrlBoardId, boardInfo } = useContext(boardContext);
 
-
+  const { board, onMoveCard, setUrlBoardId, boardInfo } =
+    useContext(boardContext);
 
   useEffect(() => {
     setUrlBoardId(params.board_id);
@@ -70,17 +67,10 @@ export default function BoardView(props) {
           })}>
           {/* Your application here */}
 
-
-
-
-
           <Title order={1}>{boardInfo['name']}</Title>
           <Text size='md'>{boardInfo['description']}</Text>
 
-
-
-
-          <BoardCardFocus props={boardInfo}/>
+          <BoardCardFocus props={boardInfo} />
           <Space h='lg' />
           <Board
             onCardDragEnd={onMoveCard}

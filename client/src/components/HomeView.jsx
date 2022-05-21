@@ -15,20 +15,11 @@ import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
 export default function BoardView(props) {
-  // const navigate = useNavigate();
-
-  // const params = useParams();
-
-  // const { board, onMoveCard, setUrlBoardId, boardInfo } =
-  //   useContext(boardContext);
-
-  // useEffect(() => {
-  //   setUrlBoardId(params.board_id);
-  // }, [setUrlBoardId, params.board_id]);
-
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+
+    
 
   return (
     <ColorSchemeProvider

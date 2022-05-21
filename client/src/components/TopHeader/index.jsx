@@ -17,7 +17,7 @@ import Pomodoro from './Pomodoro';
 import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 import NewTaskCardFocus from './NewTaskCardFocus';
-import NewBoardCardFocus from './NewBoardCardFocus';
+import NewBoardCardFocus from '../LeftNavbar/NewBoardCardFocus';
 import HeaderAvatar from './HeaderAvatar';
 
 export default function TopHeader() {
