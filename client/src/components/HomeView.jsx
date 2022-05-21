@@ -7,7 +7,7 @@ import { useWeather } from '../providers/weatherProvider'
 
 import {
   Space,
-  Box,
+  Card,
   AppShell,
   MantineProvider,
   ColorSchemeProvider,
@@ -50,8 +50,8 @@ export default function BoardView(props) {
             },
           })}>
           {weather? 
-            <Box 
-              style={{ marginTop: 10, maxHeight:50, maxWidth:200 }}
+            <Card 
+              style={{ marginTop: 10, maxHeight:200, maxWidth:200 }}
               sx={(theme) => ({
                 backgroundColor: theme.colors.gray[0],
                   '&:hover': {
@@ -63,7 +63,7 @@ export default function BoardView(props) {
               <Avatar src={weather.current.condition.icon} alt="it's me" />
               {weather.current.condition.text}
               {weather.current.temp_c}
-            </Box> : <div/>}
+            </Card> : <div/>}
 
           <Space h='xl' />
         </AppShell>

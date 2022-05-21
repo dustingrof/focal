@@ -19,14 +19,21 @@ import { colourListContext } from '../../providers/colourSchemeProvider';
 import NewTaskCardFocus from './NewTaskCardFocus';
 import NewBoardCardFocus from '../LeftNavbar/NewBoardCardFocus';
 import HeaderAvatar from './HeaderAvatar';
+import HeaderProvider, { headerContext } from '../../providers/headerProvider';
 
 export default function TopHeader() {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
+
   const dark = colorScheme === 'dark';
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
   const iconSpacing = { display: 'flex', justifyContent: 'space-evenly' };
+  
+
+
   return (
+    <HeaderProvider>
+
     <Header height={60} p='xs'>
       <Grid>
         <Grid.Col span={3}>
@@ -66,5 +73,6 @@ export default function TopHeader() {
         </Grid.Col>
       </Grid>
     </Header>
+    </HeaderProvider>
   );
 }

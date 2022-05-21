@@ -8,8 +8,6 @@ export default function WeatherProvider(props) {
 
   useEffect(() => {
     let ip;
-
-    
   axios.get(`https://api.ipify.org/?format=json`)
   .then((response)=>{
     console.log("respose ip", response.data.ip)
@@ -19,6 +17,7 @@ export default function WeatherProvider(props) {
     axios.get(`http://api.weatherapi.com/v1/current.json?key=51641ca1ab964713a31131450222105&q=${ip}&aqi=no`).then((response) => {
       console.log("weather api",response.data);
       setWeather(response.data);
+      console.log("weather", weather);
     })
   })
   .catch(function (error) {
