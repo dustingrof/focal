@@ -40,7 +40,7 @@ ReactDOM.render(
               <BoardListProvider>
                 <BoardProvider>
                   {/* <WeatherProvider> */}
-                    <App />
+                  <App />
                   {/* </WeatherProvider> */}
                 </BoardProvider>
               </BoardListProvider>
