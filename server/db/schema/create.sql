@@ -33,7 +33,8 @@ CREATE TABLE tasks (
   due_date DATE,
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
   active BOOLEAN NOT NULL DEFAULT TRUE,
-  total_time_sec integer DEFAULT 0
+  total_time_sec integer DEFAULT 0,
+  array_of_users VARCHAR(255)
 );
 
 CREATE TABLE users_tasks (
@@ -48,6 +49,7 @@ CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   userLS VARCHAR(255) NOT NULL,
   message TEXT,
+  user_ls_avatar VARCHAR(255),
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
   active BOOLEAN NOT NULL DEFAULT TRUE
 );

@@ -1,7 +1,7 @@
 -- Users table seeds here (Example)
-insert into users (id, first_name, last_name, email, avatar, phone_number) values (1, 'Rolf', 'Chaimson', 'rchaimson0@dropbox.com', 'https://robohash.org/sintquisquamut.png?size=250x250&set=set1', '180-870-8453');
-insert into users (id, first_name, last_name, email, avatar, phone_number) values (2, 'Tim', 'Calvert', 'tcalvert1@nba.com', 'https://robohash.org/iustoutaspernatur.png?size=250x250&set=set1', '706-727-1268');
-insert into users (id, first_name, last_name, email, avatar, phone_number) values (3, 'Trueman', 'Gibard', 'tgibard2@patch.com', 'https://robohash.org/etminimaconsequuntur.png?size=250x250&set=set1', '888-771-9808');
-insert into users (id, first_name, last_name, email, avatar, phone_number) values (4, 'Moss', 'Vanichkin', 'mvanichkin3@bluehost.com', 'https://robohash.org/nobisremnatus.png?size=250x250&set=set1', '895-258-5264');
-insert into users (id, first_name, last_name, email, avatar, phone_number) values (5, 'Major', 'Boeck', 'mboeck4@irs.gov', 'https://robohash.org/doloremqueminimaex.png?size=250x250&set=set1', '477-535-1429');
-ALTER SEQUENCE users_id_seq RESTART WITH 6;
+insert into users (id, first_name, last_name, email, avatar, phone_number) values (1, 'Dustin', 'Grof', 'dustin@gmail.com', 'https://media-exp1.licdn.com/dms/image/C5603AQG9TyKFm-53iw/profile-displayphoto-shrink_800_800/0/1646679014931?e=1658361600&v=beta&t=RwhvswjhtXKHoO_UIjWTi84w2qmp6zBFNai3HVmU8Bw', '180-870-8453');
+insert into users (id, first_name, last_name, email, avatar, phone_number) values (2, 'Iaan', 'Johnston', 'iaan@gmail.com', 'https://media-exp1.licdn.com/dms/image/C5603AQHwuNX81FzwEQ/profile-displayphoto-shrink_400_400/0/1646859896622?e=1658361600&v=beta&t=nioiZ7kph-nU2N1P97Y7xTeZXJl9OAqUSi0esu6SMu0', '706-727-1268');
+insert into users (id, first_name, last_name, email, avatar, phone_number) values (3, 'Nicole', 'MacLean', 'nicole@gmail.com', 'https://media-exp1.licdn.com/dms/image/C5603AQEUSRGk43oeGA/profile-displayphoto-shrink_800_800/0/1652991046562?e=1658361600&v=beta&t=ORJ1H2_Qk_V8_xJe3w6ia0mfAYo4mdg8TxLaWuRrt5g', '888-771-9808');
+insert into users (id, first_name, last_name, email, avatar, phone_number) values (4, 'Moss', 'Vanichkin', 'mvanichkin3@bluehost.com', 'https://robohash.org/nobisremnatus.png', '895-258-5264');
+insert into users (id, first_name, last_name, email, avatar, phone_number) values (5, 'Major', 'Boeck', 'mboeck4@irs.gov', 'https://robohash.org/doloremqueminimaex.png', '477-535-1429');
+ALTER SEQUENCE users_id_seq RESTART WITH 4;
