@@ -27,6 +27,7 @@ import {
 import TaskCardFocus from './components/TaskCardFocus';
 // import BoardCardFocus from './components/BoardCardFocus'
 import BoardView from './components/BoardView';
+import HomeView from './components/HomeView';
 // import NavBarAvatarList from './components/NavBarAvatarList'
 // import NavBoardAvatar from './components/NavBarAvatar';
 // import Timer from './components/Timer';
@@ -64,7 +65,7 @@ function App() {
     <>
       {/* {TODO create board component, index} */}
       <Routes>
-        {/* <Route index element={<Index />}/> */}
+        <Route index element={<HomeView />} />
         <Route path='/boards/:board_id' element={<BoardView />} />
 
         {/* <Route

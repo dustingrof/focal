@@ -39,7 +39,6 @@ export default function NewBoardCardFocus(props) {
 
   const { onNewBoard } = useContext(boardListContext);
 
-
   const [opened, setOpened] = useState(false);
   const [boardName, setBoardName] = useState();
   const [boardDescription, setBoardDescription] = useState();
@@ -51,7 +50,6 @@ export default function NewBoardCardFocus(props) {
 
   // modal close without save
   const newBoardNoSave = function () {
-
     // update modal prop
     const setModalState = () => setOpened(false);
     setModalState();
@@ -64,7 +62,6 @@ export default function NewBoardCardFocus(props) {
 
   // new board with save
   const newBoardSave = function () {
-
     // build new board
     const boardToAdd = {
       name: boardName,
@@ -72,12 +69,10 @@ export default function NewBoardCardFocus(props) {
       image_url: boardImageUrl,
     };
 
-
     if (!boardToAdd.image_url) {
       boardToAdd.image_url = null;
     }
     // console.log("boardToAdd:", boardToAdd);
-
 
     // update modal prop
     const setModalState = () => setOpened(false);
@@ -93,9 +88,8 @@ export default function NewBoardCardFocus(props) {
       // pass new card and make axios request (in boardProvider.js)
       onNewBoard(boardToAdd);
     } else {
-      console.log("NEW BOARD REQUEST NOT SENT");
+      console.log('NEW BOARD REQUEST NOT SENT');
     }
-
   };
 
   // const { boardList } = useBoardList();
@@ -107,7 +101,6 @@ export default function NewBoardCardFocus(props) {
   //     <Chip value={String(boardId)}>{boardTitle}</Chip>
   //   );
   // });
-
 
   return (
     <>
@@ -129,33 +122,31 @@ export default function NewBoardCardFocus(props) {
         transitionDuration={200}
         transitionTimingFunction='ease'> */}
 
-<Drawer
+      <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Register"
-        padding="xl"
-        size="xl"
-      >
+        title='Register'
+        padding='xl'
+        size='xl'>
         <h2>Create a new board</h2>
         <h4>Board name:</h4>
         <Textarea
-          onChange={(event) => setBoardName(event.currentTarget.value)}
-          placeholder="Enter text"
+          onChange={event => setBoardName(event.currentTarget.value)}
+          placeholder='Enter text'
         />
         <Space h='xl' />
         <h4>Description:</h4>
         <Textarea
-          onChange={(event) => setBoardDescription(event.currentTarget.value)}
-          placeholder="Enter text"
+          onChange={event => setBoardDescription(event.currentTarget.value)}
+          placeholder='Enter text'
         />
         <Space h='xl' />
         <h4>Image URL:</h4>
         <Textarea
-          onChange={(event) => setBoardImageUrl(event.currentTarget.value)}
-          placeholder="Enter text"
+          onChange={event => setBoardImageUrl(event.currentTarget.value)}
+          placeholder='Enter text'
         />
         <Space h='xl' />
-
 
         <Space h='xl' />
         <Space h='xl' />
@@ -163,20 +154,14 @@ export default function NewBoardCardFocus(props) {
         <Grid>
           <Grid.Col span={6}>
             <Center>
-              <Button
-                color="gray"
-                onClick={newBoardNoSave}
-              >
+              <Button color='gray' onClick={newBoardNoSave}>
                 Discard
               </Button>
             </Center>
           </Grid.Col>
           <Grid.Col span={6}>
             <Center>
-              <Button
-                color="green"
-                onClick={newBoardSave}
-              >
+              <Button color='green' onClick={newBoardSave}>
                 Create
               </Button>
             </Center>
@@ -189,13 +174,25 @@ export default function NewBoardCardFocus(props) {
             Must click Create or Discard to exit this view
           </Text>
         </Center>
-        </Drawer>
+      </Drawer>
       {/* </Modal> */}
 
-      <Group position='center'>
-        <Button onClick={() => setOpened(true)}>New Board</Button>
-      </Group>
+      <List.Item
+        icon={
+          <SquarePlus
+            size={56}
+            strokeWidth={1}
+            color={'#228be6'}
+            onClick={() => setOpened(true)}
+            style={{
+              borderWidth: 1,
+              borderRadius: 10,
+              borderStyle: 'solid',
+              borderColor: 'gray',
+              margin: 3,
+            }}
+          />
+        }></List.Item>
     </>
-
   );
 }
