@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, forwardRef, useEffect } from 'react';
 import {
   Modal,
   Button,
@@ -14,23 +14,20 @@ import {
   Center,
   Chips,
   Chip,
+  Avatar,
   Accordion,
+  MultiSelect,
+  SelectItem,
   Textarea,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import {
-  BrandGithub,
-  Flag3,
-  Edit,
-} from 'tabler-icons-react';
+import { BrandGithub, Flag3, Edit } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import Timer from './TopHeader/Timer';
-import axios from "axios";
+import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
-
-
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -40,16 +37,11 @@ export default function TaskCardFocus(props) {
   if (cardData.due_date) {
     dueDate = cardData.due_date.slice(0, 10);
   }
-
-
-
-  const { onFocusModalClose, onTaskDelete } = useContext(boardContext);
-
-  // console.log('Card Data', cardData);
-  const { sec, min, hrs, timerActive, setHrs, setMin, setSec, setTimerActive, reset, stop } = useContext(timerContext);
-
   const initialTextValue = cardData.description;
 
+  const { onFocusModalClose, onTaskDelete } = useContext(boardContext);
+  const { listOfUsers } = useBoardList();
+  const { sec, min, hrs, reset, stop } = useContext(timerContext);
   const [opened, setOpened] = useState(false);
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
   const [editOpened, setEditOpen] = useState(false);
@@ -57,16 +49,31 @@ export default function TaskCardFocus(props) {
   const [dateToUpdate, setDateToUpdate] = useState(dueDate);
   const [timeUpdated, setTimeUpdated] = useState(cardData.total_time_sec);
 
+  // get list of all users
+  const formatUserData = function (data) {
+    let sample = [];
+    console.log('data', data);
+    if (data) {
+      for (const item of data) {
+        console.log('item', item);
+        const a = {
+          image: item.avatar,
+          label: item.first_name,
+          value: item.first_name,
+          description: item.email,
+        };
+        sample.push(a);
+      }
+    }
+    return sample;
+  };
+  const formattedUserList = formatUserData(listOfUsers);
 
   // BUG with these turned on (to edit task/board in the card edit view) without the default status it will throw erro every refresh (trying to "save" with status = NaN)
   // const [taskStatus, setTaskStatus] = useState();
   // const [taskBoard, setTaskBoard] = useState();
 
-
-
-
   const theme = useMantineTheme();
-
 
   // Image uploader
   const handleImageUpload = file =>
@@ -86,7 +93,6 @@ export default function TaskCardFocus(props) {
         .catch(() => reject(new Error('Upload failed')));
     });
 
-
   const addTimeToTask = function () {
     let returnSecs = 0;
     returnSecs += sec;
@@ -98,10 +104,8 @@ export default function TaskCardFocus(props) {
     stop();
   };
 
-
   // delete task
   const deleteTask = function () {
-
     // cardToDelete must contain board_id and card_id
     const cardToDelete = {
       board_id: cardData.board_id,
@@ -118,15 +122,33 @@ export default function TaskCardFocus(props) {
       // pass new card and make axios request (in boardProvider.js)
       onTaskDelete(cardToDelete);
     } else {
-      console.log("DELETE CARD REQUEST NOT SENT");
+      console.log('DELETE CARD REQUEST NOT SENT');
     }
-
   };
 
+  // Copy and pasted from Mantine
+  interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+    image: string;
+    label: string;
+    description: string;
+  }
 
+  const SelectItem = forwardRef(({ image, label, description, ...others }) => (
+    <div {...others}>
+      <Group noWrap>
+        <Avatar src={image} />
+
+        <div>
+          <Text>{label}</Text>
+          <Text size='xs' color='dimmed'>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  ));
 
   const modalClose = function () {
-
     // // use this when feature "edit status / edit board" is implemented
     // const cardDataToUpdate = {
     //   board_id: taskBoard,
@@ -146,12 +168,8 @@ export default function TaskCardFocus(props) {
       id: cardData.id,
       title: titleToUpdate,
       status: cardData.status,
-      total_time_sec: timeUpdated
+      total_time_sec: timeUpdated,
     };
-
-
-
-
 
     const setModalState = () => setOpened(false);
     setModalState();
@@ -159,24 +177,17 @@ export default function TaskCardFocus(props) {
     onFocusModalClose(cardDataToUpdate);
   };
 
-  const convertTotalTimeToISO = new Date(timeUpdated * 1000).toISOString().slice(11, 19);
-
-
+  const convertTotalTimeToISO = new Date(timeUpdated * 1000)
+    .toISOString()
+    .slice(11, 19);
 
   const { boardList } = useBoardList();
   const boardsArray = Object.values(boardList);
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
-    return (
-      <Chip value={String(boardId)}>{boardTitle}</Chip>
-    );
+    return <Chip value={String(boardId)}>{boardTitle}</Chip>;
   });
-
-
-
-
-
 
   return (
     <>
@@ -193,8 +204,7 @@ export default function TaskCardFocus(props) {
         overlayBlur={3}
         size='lg'
         transition='pop'
-        transitionDuration={200}
-        >
+        transitionDuration={200}>
         <Grid>
           <Grid.Col span={6}>
             <h3>
@@ -217,21 +227,24 @@ export default function TaskCardFocus(props) {
               </Button>
             </Collapse>
 
-            <List
-              spacing='xs'
-              size='sm'
-              center
-              icon={
-                <ThemeIcon color='teal' size={24} radius='xl'>
-                  <BrandGithub size={16} />
-                </ThemeIcon>
-              }>
-              <List.Item>Moss</List.Item>
-              <List.Item>Tanner</List.Item>
-              <List.Item>Rolf</List.Item>
-              <List.Item>Major</List.Item>
-              <List.Item>Nicole</List.Item>
-            </List>
+            <MultiSelect
+              label='Assign users to this task'
+              placeholder='Pick all you like'
+              itemComponent={SelectItem}
+              data={formattedUserList}
+              searchable
+              nothingFound='Nobody here'
+              maxDropdownHeight={400}
+              filter={(value, selected, item) =>
+                !selected &&
+                (item.label
+                  .toLowerCase()
+                  .includes(value.toLowerCase().trim()) ||
+                  item.description
+                    .toLowerCase()
+                    .includes(value.toLowerCase().trim()))
+              }
+            />
           </Grid.Col>
           <Grid.Col span={6}>
             Days remaining
@@ -296,15 +309,10 @@ export default function TaskCardFocus(props) {
 
         <Grid>
           <Grid.Col span={12}>
-
             <Center>
-              <Button
-                color="red"
-                onClick={deleteTask}
-              >
+              <Button color='red' onClick={deleteTask}>
                 Delete
               </Button>
-
             </Center>
           </Grid.Col>
         </Grid>
@@ -315,7 +323,6 @@ export default function TaskCardFocus(props) {
         </Text>
 
         <Space h='xl' />
-
       </Modal>
 
       <Group position='center'>
