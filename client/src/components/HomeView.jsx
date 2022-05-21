@@ -49,7 +49,23 @@ export default function BoardView(props) {
                   : theme.colors.gray[0],
             },
           })}>
+<<<<<<< HEAD
          <WeatherAPI />
+=======
+          {weather? 
+            <Box 
+              style={{ marginTop: 10, maxHeight:50, maxWidth:200 }}
+              sx={(theme) => ({
+                backgroundColor: theme.colors.gray[0],
+                  '&:hover': {
+                backgroundColor: theme.colors.gray[1],
+                },
+               })} >
+              { weather.location.name}{", "}{weather.location.region}
+              <Avatar src={weather.current.condition.icon} alt="it's me" />
+              {weather.current.condition.text}{" "}{weather.current.temp_c}{"°C"}
+            </Box> : <div/>}
+>>>>>>> main
 
           <Space h='xl' />
         </AppShell>

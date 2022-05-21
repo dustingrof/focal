@@ -17,6 +17,8 @@ import {
   TextInput,
   Chips,
   Chip,
+  CheckboxGroup,
+  Checkbox
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
@@ -33,6 +35,7 @@ import { useBoardList } from '../../providers/boardListProvider';
 export default function NewTaskCardFocus(props) {
   const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
   const { cardData } = props; // onFocusModalClose(cardData);
+  const { listOfUsers } = useBoardList();
 
   // console.log('Card Data', cardData);
 
@@ -40,14 +43,21 @@ export default function NewTaskCardFocus(props) {
   const [richTitleValue, setRichTitleValueChange] = useState("Enter title here");
   const [richTextValue, setRichTextValueChange] = useState("Enter description here");
   const [dateToSave, setDateToSave] = useState(null);
+  const [userValue, setUserValue] = useState([]);
 
+  const usersToString = userValue.join(', ');
 
   // TODO add default chip selection for task status and task board
   const [newTaskStatus, setNewTaskStatus] = useState();
   const [newTaskBoard, setNewTaskBoard] = useState();
   const theme = useMantineTheme();
 
-
+  let formatUserData;
+  if (listOfUsers) {
+    formatUserData = listOfUsers.map(user => {
+      return <Checkbox value={user.first_name} label={user.first_name} />;
+    });
+  }
 
 
   // modal close - NO SAVE
@@ -78,6 +88,8 @@ export default function NewTaskCardFocus(props) {
       due_date: dateToSave, // start with placeholder & add date later 
       title: richTitleValue,
       status: Number(newTaskStatus),
+      array_of_users: usersToString,
+
     };
 
     // update modal prop
@@ -125,15 +137,15 @@ export default function NewTaskCardFocus(props) {
         onClose={newModalCloseNoSave}
         overlayColor={
           theme.colorScheme === 'dark'
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
+            ? theme.colors.dark[1]
+            : theme.colors.dark[10]
         }
-        overlayOpacity={0.55}
+        overlayOpacity={0.5}
         overlayBlur={3}
         size='lg'
         transition='pop'
         transitionDuration={200}
-        >
+      >
         <h2>Create a new task</h2>
         <h4>Title: *</h4>
         <Textarea
@@ -153,6 +165,18 @@ export default function NewTaskCardFocus(props) {
           value={dateToSave}
           onChange={setDateToSave}
         />
+        <Space h='xl' />
+        <h4>Select users:</h4>
+        <CheckboxGroup
+          // defaultValue={userArray}
+          // label='Select your favorite framework/library'
+          // description='This is anonymous'
+          // value={userArray}
+          onChange={setUserValue}
+        // required
+        >
+          {formatUserData}
+        </CheckboxGroup>
         <Space h='xl' />
         <h4>Select board: *</h4>
         <Chips multiple={false} defaultValue={newTaskBoard} onChange={setNewTaskBoard}>

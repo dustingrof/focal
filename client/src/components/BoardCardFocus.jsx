@@ -136,6 +136,13 @@ export default function TaskCardFocus(props) {
         onClose={boardModalClose}
         padding="xl"
         size="xl"
+        overlayColor={
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[1]
+            : theme.colors.dark[10]
+        }
+        overlayOpacity={0.5}
+        overlayBlur={3}
       >
 
         <h3>Edit board name:</h3>
