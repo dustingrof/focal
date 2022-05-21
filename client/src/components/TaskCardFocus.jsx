@@ -169,10 +169,10 @@ export default function TaskCardFocus(props) {
         onClose={modalClose}
         overlayColor={
           theme.colorScheme === 'dark'
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
+            ? theme.colors.dark[1]
+            : theme.colors.dark[10]
         }
-        overlayOpacity={0.55}
+        overlayOpacity={0.5}
         overlayBlur={3}
         size='lg'
         transition='pop'
@@ -199,9 +199,9 @@ export default function TaskCardFocus(props) {
               </Button>
             </Collapse>
             <CheckboxGroup
-              // defaultValue={userArray}
-              label='Select your favorite framework/library'
-              description='This is anonymous'
+              defaultValue={userArray}
+              // label='Select your favorite framework/library'
+              // description='This is anonymous'
               // value={userArray}
               onChange={setUserValue}
               // required

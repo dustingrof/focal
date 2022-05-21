@@ -3,11 +3,11 @@ import { boardContext } from '../providers/boardProvider';
 import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
-import { useWeather } from '../providers/weatherProvider'
+import WeatherAPI from './WeatherAPI';
 
 import {
   Space,
-  Box,
+  Card,
   AppShell,
   MantineProvider,
   ColorSchemeProvider,
@@ -21,7 +21,7 @@ import LeftNavbar from './LeftNavbar';
 
 export default function BoardView(props) {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
-  const { weather } = useWeather();
+
 
 
   const toggleColorScheme = ColorScheme =>
@@ -49,6 +49,9 @@ export default function BoardView(props) {
                   : theme.colors.gray[0],
             },
           })}>
+<<<<<<< HEAD
+         <WeatherAPI />
+=======
           {weather? 
             <Box 
               style={{ marginTop: 10, maxHeight:50, maxWidth:200 }}
@@ -58,12 +61,11 @@ export default function BoardView(props) {
                 backgroundColor: theme.colors.gray[1],
                 },
                })} >
-              { weather.location.name} 
-              {weather.location.region}
+              { weather.location.name}{", "}{weather.location.region}
               <Avatar src={weather.current.condition.icon} alt="it's me" />
-              {weather.current.condition.text}
-              {weather.current.temp_c}
+              {weather.current.condition.text}{" "}{weather.current.temp_c}{"°C"}
             </Box> : <div/>}
+>>>>>>> main
 
           <Space h='xl' />
         </AppShell>

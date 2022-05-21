@@ -53,15 +53,15 @@ module.exports = db => {
     const board_id = Number(req.params.board_id); // this comes from address
     // const board_id = req.params.board_id; // this comes from address
     const status = req.body.newCard.status;
-
+    const array_of_users = req.body.newCard.array_of_users
 
     db.query(
       `
-      INSERT INTO tasks (title, description, due_date, board_id, status)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO tasks (title, description, due_date, board_id, status, array_of_users)
+      VALUES ($1, $2, $3, $4, $5, $6)
 
     `,
-      [title, description, due_date, board_id, status]
+      [title, description, due_date, board_id, status, array_of_users]
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(
