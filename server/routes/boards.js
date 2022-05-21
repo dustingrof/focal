@@ -46,11 +46,9 @@ module.exports = db => {
 
   // when user clicks on "add task" button
   router.post('/:board_id/tasks/new', (req, res) => {
-    
-    console.log("PLEASE GET HERE");
-    console.log("req.body:", req.body);
-    
-    
+    console.log('PLEASE GET HERE');
+    console.log('req.body:', req.body);
+
     const title = req.body.newCard.title;
     const description = req.body.newCard.description;
     const due_date = req.body.newCard.due_date;
@@ -58,7 +56,7 @@ module.exports = db => {
     // const board_id = req.params.board_id; // this comes from address
     const status = req.body.newCard.status;
 
-    console.log("title:",title);
+    console.log('title:', title);
 
     db.query(
       `
@@ -191,15 +189,33 @@ module.exports = db => {
       return;
     }
 
-    const { description, due_date, id, title, status, total_time_sec, board_id } =req.body.updatedCard;
+    const {
+      description,
+      due_date,
+      id,
+      title,
+      status,
+      total_time_sec,
+      board_id,
+      array_of_users,
+    } = req.body.updatedCard;
 
     db.query(
       `
       UPDATE tasks
-      SET title = $1, description = $2, due_date = $3, board_id = $4, status = $5, total_time_sec = $7
+      SET title = $1, description = $2, due_date = $3, board_id = $4, status = $5, total_time_sec = $7, array_of_users = $8
       WHERE tasks.id = $6
     `,
-      [title, description, due_date,  board_id, status, id, total_time_sec ]
+      [
+        title,
+        description,
+        due_date,
+        board_id,
+        status,
+        id,
+        total_time_sec,
+        array_of_users,
+      ]
     ).catch(error => console.log(error));
     res.send(''); //needed this because our .then in board provider wasn't firing
   });
@@ -213,9 +229,7 @@ module.exports = db => {
 
     const boardId = req.params.board_id;
 
-    db.query(`DELETE FROM boards WHERE id = $1`, [
-      boardId,
-    ]).then(() => {
+    db.query(`DELETE FROM boards WHERE id = $1`, [boardId]).then(() => {
       res.status(204).json({});
       // setTimeout(() => {
       //   res.status(204).json({});
@@ -233,8 +247,7 @@ module.exports = db => {
 
     const taskId = req.params.task_id;
 
-    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId])
-    .then(() => {
+    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId]).then(() => {
       res.status(204).json({});
       // setTimeout(() => {
       //   // updateTask(Number(req.params.id), null);
