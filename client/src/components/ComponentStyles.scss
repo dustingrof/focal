@@ -1,0 +1,17 @@
+.react-kanban-column {
+  padding: 15px;
+  border-radius: 7px;
+  margin: 5px;
+}
+.react-kanban-card {
+  border-radius: 7px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+#root.dark .react-kanban-column {
+  background-color: #323232;
+  margin: 5px;
+}
+#root.dark .react-kanban-card {
+  background-color: #25262b;
+}

@@ -27,6 +27,7 @@ import { DatePicker } from '@mantine/dates';
 import { BrandGithub, Flag3, Edit } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import Timer from './TopHeader/Timer';
+import EmailForm from './EmailForm';
 import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
@@ -53,7 +54,6 @@ export default function TaskCardFocus(props) {
   const [dateToUpdate, setDateToUpdate] = useState(dueDate);
   const [timeUpdated, setTimeUpdated] = useState(cardData.total_time_sec);
   const [userValue, setUserValue] = useState(userArray);
-
 
   const usersToString = userValue.join(', ');
 
@@ -199,7 +199,7 @@ export default function TaskCardFocus(props) {
               </Button>
             </Collapse>
             <CheckboxGroup
-              defaultValue={userArray}
+              // defaultValue={userArray}
               label='Select your favorite framework/library'
               description='This is anonymous'
               // value={userArray}
@@ -227,6 +227,7 @@ export default function TaskCardFocus(props) {
         <Grid>
           <Grid.Col span={6}>
             <Button>Schedule a Meeting</Button>
+            <EmailForm />
           </Grid.Col>
           <Grid.Col span={6}>
             <Center>Current time on task: {convertTotalTimeToISO}</Center>
