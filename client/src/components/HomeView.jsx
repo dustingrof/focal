@@ -22,6 +22,8 @@ import LeftNavbar from './LeftNavbar';
 export default function BoardView(props) {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const { weather } = useWeather();
+
+
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
@@ -47,23 +49,21 @@ export default function BoardView(props) {
                   : theme.colors.gray[0],
             },
           })}>
-
-       <Box   className="your-class-name"
-  style={{ marginTop: 10, maxHeight:50, maxWidth:200 }}
-  sx={(theme) => ({
-    backgroundColor: theme.colors.gray[0],
-    '&:hover': {
-      backgroundColor: theme.colors.gray[1],
-    },
-  })} >
-       { weather.location.name} 
-       {weather.location.region}
-       <Avatar src={weather.current.condition.icon} alt="it's me" />
-       {weather.current.condition.text}
-       {weather.current.temp_c}
-       
-      </Box>
-          {/* Your application here */}
+          {weather? 
+            <Box 
+              style={{ marginTop: 10, maxHeight:50, maxWidth:200 }}
+              sx={(theme) => ({
+                backgroundColor: theme.colors.gray[0],
+                  '&:hover': {
+                backgroundColor: theme.colors.gray[1],
+                },
+               })} >
+              { weather.location.name} 
+              {weather.location.region}
+              <Avatar src={weather.current.condition.icon} alt="it's me" />
+              {weather.current.condition.text}
+              {weather.current.temp_c}
+            </Box> : <div/>}
 
           <Space h='xl' />
         </AppShell>

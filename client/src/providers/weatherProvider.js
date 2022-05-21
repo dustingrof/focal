@@ -18,9 +18,7 @@ export default function WeatherProvider(props) {
   .then(() => {
     axios.get(`http://api.weatherapi.com/v1/current.json?key=51641ca1ab964713a31131450222105&q=${ip}&aqi=no`).then((response) => {
       console.log("weather api",response.data);
-      setWeather(
-        response.data
-      )
+      setWeather(response.data);
     })
   })
   .catch(function (error) {
