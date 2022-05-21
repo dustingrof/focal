@@ -20,13 +20,9 @@ export default function BoardListProvider(props) {
       setBoardList(listOfBoards);
     });
     axios.get('/users/').then(results => {
-      // const something = Object.values(results.data);
-      // console.log('something', something);
       setListOfUsers(Object.values(results.data));
     });
   }, []);
-
-
 
   const onBoardDelete = boardToDelete => {
     const board_id = boardToDelete.board_id;

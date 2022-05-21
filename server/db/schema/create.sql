@@ -33,7 +33,8 @@ CREATE TABLE tasks (
   due_date DATE,
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
   active BOOLEAN NOT NULL DEFAULT TRUE,
-  total_time_sec integer DEFAULT 0
+  total_time_sec integer DEFAULT 0,
+  array_of_users VARCHAR(255)
 );
 
 CREATE TABLE users_tasks (

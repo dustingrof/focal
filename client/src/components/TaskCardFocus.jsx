@@ -19,6 +19,8 @@ import {
   MultiSelect,
   SelectItem,
   Textarea,
+  CheckboxGroup,
+  Checkbox,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
@@ -31,6 +33,8 @@ import { useBoardList } from '../providers/boardListProvider';
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
+
+  const userArray = cardData.array_of_users.split(', ');
 
   // simple ISO due date
   let dueDate = null;
@@ -48,26 +52,17 @@ export default function TaskCardFocus(props) {
   const [titleToUpdate, setTitleToUpdate] = useState(cardData.title);
   const [dateToUpdate, setDateToUpdate] = useState(dueDate);
   const [timeUpdated, setTimeUpdated] = useState(cardData.total_time_sec);
+  const [userValue, setUserValue] = useState(userArray);
 
-  // get list of all users
-  const formatUserData = function (data) {
-    let sample = [];
-    console.log('data', data);
-    if (data) {
-      for (const item of data) {
-        console.log('item', item);
-        const a = {
-          image: item.avatar,
-          label: item.first_name,
-          value: item.first_name,
-          description: item.email,
-        };
-        sample.push(a);
-      }
-    }
-    return sample;
-  };
-  const formattedUserList = formatUserData(listOfUsers);
+
+  const usersToString = userValue.join(', ');
+
+  let formatUserData;
+  if (listOfUsers) {
+    formatUserData = listOfUsers.map(user => {
+      return <Checkbox value={user.first_name} label={user.first_name} />;
+    });
+  }
 
   // BUG with these turned on (to edit task/board in the card edit view) without the default status it will throw erro every refresh (trying to "save" with status = NaN)
   // const [taskStatus, setTaskStatus] = useState();
@@ -112,8 +107,6 @@ export default function TaskCardFocus(props) {
       task_id: cardData.id,
     };
 
-    // console.log("cardToDelete:", cardToDelete);
-
     // // update modal prop
     const setModalState = () => setOpened(false);
     setModalState();
@@ -125,28 +118,6 @@ export default function TaskCardFocus(props) {
       console.log('DELETE CARD REQUEST NOT SENT');
     }
   };
-
-  // Copy and pasted from Mantine
-  interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-    image: string;
-    label: string;
-    description: string;
-  }
-
-  const SelectItem = forwardRef(({ image, label, description, ...others }) => (
-    <div {...others}>
-      <Group noWrap>
-        <Avatar src={image} />
-
-        <div>
-          <Text>{label}</Text>
-          <Text size='xs' color='dimmed'>
-            {description}
-          </Text>
-        </div>
-      </Group>
-    </div>
-  ));
 
   const modalClose = function () {
     // // use this when feature "edit status / edit board" is implemented
@@ -169,6 +140,7 @@ export default function TaskCardFocus(props) {
       title: titleToUpdate,
       status: cardData.status,
       total_time_sec: timeUpdated,
+      array_of_users: usersToString,
     };
 
     const setModalState = () => setOpened(false);
@@ -226,25 +198,16 @@ export default function TaskCardFocus(props) {
                 Save Changes
               </Button>
             </Collapse>
-
-            <MultiSelect
-              label='Assign users to this task'
-              placeholder='Pick all you like'
-              itemComponent={SelectItem}
-              data={formattedUserList}
-              searchable
-              nothingFound='Nobody here'
-              maxDropdownHeight={400}
-              filter={(value, selected, item) =>
-                !selected &&
-                (item.label
-                  .toLowerCase()
-                  .includes(value.toLowerCase().trim()) ||
-                  item.description
-                    .toLowerCase()
-                    .includes(value.toLowerCase().trim()))
-              }
-            />
+            <CheckboxGroup
+              defaultValue={userArray}
+              label='Select your favorite framework/library'
+              description='This is anonymous'
+              // value={userArray}
+              onChange={setUserValue}
+              // required
+            >
+              {formatUserData}
+            </CheckboxGroup>
           </Grid.Col>
           <Grid.Col span={6}>
             Days remaining
