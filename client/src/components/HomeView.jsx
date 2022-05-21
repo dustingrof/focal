@@ -58,11 +58,9 @@ export default function BoardView(props) {
                 backgroundColor: theme.colors.gray[1],
                 },
                })} >
-              { weather.location.name} 
-              {weather.location.region}
+              { weather.location.name}{", "}{weather.location.region}
               <Avatar src={weather.current.condition.icon} alt="it's me" />
-              {weather.current.condition.text}
-              {weather.current.temp_c}
+              {weather.current.condition.text}{" "}{weather.current.temp_c}{"°C"}
             </Box> : <div/>}
 
           <Space h='xl' />
