@@ -27,6 +27,7 @@ import {
 import TaskCardFocus from './components/TaskCardFocus';
 // import BoardCardFocus from './components/BoardCardFocus'
 import BoardView from './components/BoardView';
+import BetaFeedback from './components/BetaFeedback';
 import HomeView from './components/HomeView';
 // import NavBarAvatarList from './components/NavBarAvatarList'
 // import NavBoardAvatar from './components/NavBarAvatar';
@@ -67,6 +68,7 @@ function App() {
       <Routes>
         <Route index element={<HomeView />} />
         <Route path='/boards/:board_id' element={<BoardView />} />
+        <Route path='/about' element={<BetaFeedback />} />
 
         {/* <Route
           path='/boards/:board_id/tasks/:task_id'
