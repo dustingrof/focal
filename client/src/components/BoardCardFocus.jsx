@@ -11,15 +11,15 @@ export default function TaskCardFocus(props) {
 
 
 
-  console.log('props22', props);
+  // console.log('props22', props);
 
   // console.log("----------------------------------------------------");
   // console.log("fires");
   // console.log("----------------------------------------------------");
 
 
-  const { urlBoardId, onBoardModalClose } = useContext(boardContext);
-  const { onBoardDelete } = useContext(boardListContext);
+  const { urlBoardId } = useContext(boardContext);
+  const { onBoardDelete, onBoardModalClose } = useContext(boardListContext);
 
   // console.log('props.props.name', props.props.name);
   // console.log('boardInfo', boardInfo);
@@ -34,10 +34,12 @@ export default function TaskCardFocus(props) {
   const theme = useMantineTheme();
 
 
+  // console.log('props.props', props.props);
+
   useEffect(() => {
     setBoardName(props.props.name);
     setBoardDescription(props.props.description);
-    setBoardImageUrl(props.props.image);
+    setBoardImageUrl(props.props.image_url);
 
   }, [opened]);
 
@@ -67,7 +69,9 @@ export default function TaskCardFocus(props) {
       name: boardName,
       description: boardDescription,
       id: urlBoardId,
+      image_url: boardImageUrl
     };
+
 
     const setModalState = () => setOpened(false);
     setModalState();
@@ -134,80 +138,89 @@ export default function TaskCardFocus(props) {
         size="xl"
       >
 
-        <h2>Edit board details</h2>
+        <h3>Edit board name:</h3>
+
+
+        {/* <Space h='md' /> */}
+
+
+        <TextInput
+          // variant='unstyled'
+          placeholder={boardName}
+          size='xl'
+          value={boardName}
+          onChange={event => setBoardName(event.currentTarget.value)}
+        />
+        <Space h='xl' />
+        <Space h='xl' />
+        <Space h='xl' />
+
+        <h3>Edit board description:</h3>
+
+        <Textarea
+          // variant='unstyled'
+          placeholder={boardDescription}
+          size='md'
+          autosize
+          minRows={2}
+          maxRows={4}
+          value={boardDescription}
+          onChange={event => setBoardDescription(event.currentTarget.value)}
+        />
+        <Space h='xl' />
+        <Space h='xl' />
+        <Space h='xl' />
+
+        <Accordion>
+
+
+          <Accordion.Item label="Edit image URL">
+            <TextInput
+              // variant='unstyled'
+              placeholder={boardImageUrl}
+              size='md'
+              value={boardImageUrl}
+              onChange={event => setBoardImageUrl(event.currentTarget.value)}
+            />
+
+          </Accordion.Item>
+
+
+        </Accordion>
+        <Space h='xl' />
+        {/* <Space h='xl' /> */}
+        {/* <Space h='xl' /> */}
+
+        <Center>
+          <Text size='md' color='grey'>
+            Close window to automatically save changes
+          </Text>
+
+        </Center>
+
+
+
 
 
         <Space h='xl' />
+        <Space h='xl' />
+        <Space h='xl' />
+        <Space h='xl' />
+        <Center>
+          <Button
+            color="red"
+            onClick={deleteBoard}
+          >
+            Delete Board
+          </Button>
 
+        </Center>
+      </Drawer>
+      {/* </Modal> */}
 
-          <TextInput
-            // variant='unstyled'
-            placeholder={boardName}
-            size='xl'
-            value={boardName}
-            onChange={event => setBoardName(event.currentTarget.value)}
-          />
-      <Space h='xl' />
-      <Space h='xl' />
-
-
-          <Textarea
-            // variant='unstyled'
-            placeholder={boardDescription}
-            size='md'
-            autosize
-            minRows={2}
-            maxRows={4}
-            value={boardDescription}
-            onChange={event => setBoardDescription(event.currentTarget.value)}
-          />
-      <Space h='xl' />
-      <Space h='xl' />
-
-          <Accordion>
-
-
-        <Accordion.Item label="Edit image URL">
-          <TextInput
-            variant='unstyled'
-            placeholder={boardImageUrl}
-            size='md'
-            value={boardImageUrl}
-            onChange={event => setBoardImageUrl(event.currentTarget.value)}
-          />
-
-        </Accordion.Item>
-
-
-      </Accordion>
-      <Space h='xl' />
-
-      <Text size='sm' color='grey'>
-        Changes automatically saved when board is closed
-      </Text>
-
-
-
-
-
-      <Space h='xl' />
-      <Space h='xl' />
-      <Space h='xl' />
-      <Center>
-        <Button
-          color="red"
-          onClick={deleteBoard}
-        >
-          Delete Board
-        </Button>
-
-      </Center>
-    </Drawer>
-      {/* </Modal> */ }
-
-  <Group position='center'>
-    <Button onClick={() => setOpened(true)}>Board Card</Button>
-  </Group>
+      <Group position='center'>
+        <Button onClick={() => setOpened(true)}>Board Card</Button>
+      </Group>
     </>
   );
 };
