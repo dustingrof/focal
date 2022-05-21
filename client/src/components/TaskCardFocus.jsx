@@ -311,7 +311,7 @@ export default function TaskCardFocus(props) {
 
         <Space h='xl' />
         <Text size='sm' color='grey'>
-          Changes will be saved once board is closed
+          Changes automatically saved when board is closed
         </Text>
 
         <Space h='xl' />
