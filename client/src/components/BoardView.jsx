@@ -27,13 +27,17 @@ import Chat from './TopHeader/Chat';
 import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
-export default function BoardView() {
-  // const navigate = useNavigate();
+export default function BoardView(props) {
 
+ 
+  // const navigate = useNavigate();
+  
   const params = useParams();
   // console.log('THESE PARAMS', params);
+  
+  const { board, onMoveCard, setUrlBoardId, boardInfo } = useContext(boardContext);
 
-  const { board, onMoveCard, setUrlBoardId } = useContext(boardContext);
+
 
   useEffect(() => {
     setUrlBoardId(params.board_id);
@@ -65,14 +69,18 @@ export default function BoardView() {
             },
           })}>
           {/* Your application here */}
-          <Title order={1}>Board Title Here</Title>
-          <Text size='md'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-            lobortis velit sit amet orci posuere consectetur. Fusce lorem nisi,
-            porttitor et diam accumsan, dictum gravida odio. Donec ultricies
-            finibus nibh non gravida.{' '}
-          </Text>
-          <BoardCardFocus></BoardCardFocus>
+
+
+
+
+
+          <Title order={1}>{boardInfo['name']}</Title>
+          <Text size='md'>{boardInfo['description']}</Text>
+
+
+
+
+          <BoardCardFocus props={boardInfo}/>
           <Space h='lg' />
           <Board
             onCardDragEnd={onMoveCard}

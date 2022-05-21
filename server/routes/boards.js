@@ -46,8 +46,6 @@ module.exports = db => {
 
   // when user clicks on "add task" button
   router.post('/:board_id/tasks/new', (req, res) => {
-    console.log('PLEASE GET HERE');
-    console.log('req.body:', req.body);
 
     const title = req.body.newCard.title;
     const description = req.body.newCard.description;
@@ -56,7 +54,6 @@ module.exports = db => {
     // const board_id = req.params.board_id; // this comes from address
     const status = req.body.newCard.status;
 
-    console.log('title:', title);
 
     db.query(
       `
@@ -155,31 +152,38 @@ module.exports = db => {
       setTimeout(() => res.status(500).json({}), 1000);
       return;
     }
-    // console.log('req.body', req.body);
-    const { student, interviewer } = req.body.interview;
 
-    const boardName = req.body.boardName; // use boardName or change here
-    const boardDescription = req.body.boardDescription; // use boardDescription or change here
-    const boardImage = req.body.boardImage; // use boardImage or change here
 
-    const boardId = req.params.board_id;
+    console.log('req.body', req.body);
+
+
+    const boardName = req.body.boardDataToUpdate.name; // use boardName or change here
+    const boardDescription = req.body.boardDataToUpdate.description; // use boardDescription or change here
+
+    const boardId = req.body.boardDataToUpdate.id;
+
+console.log('boardName', boardName);
+console.log('boardDescription', boardDescription);
+console.log('boardId', boardId);
+
 
     db.query(
       `
-      INSERT INTO boards (name, description, image_url)
-      VALUES ($1, $2, $3)
-      WHERE id = $4
+      UPDATE boards
+      SET name = $1, description = $2
+      WHERE boards.id = $3
 
     `,
-      [boardName, boardDescription, boardImage, boardId]
+      [boardName, boardDescription, boardId]
     )
-      .then(() => {
-        setTimeout(() => {
-          res.status(204).json({});
-          updateBoard(Number(req.params.id), req.body.interview);
-        }, 1000);
-      })
+      // .then(() => {
+      // setTimeout(() => {
+      //   res.status(204).json({});
+      //   updateBoard(Number(req.params.id), req.body.interview);
+      // }, 1000);
+      // })
       .catch(error => console.log(error));
+    res.send('');
   });
 
   // when user closes task focus view, or changes content
@@ -247,12 +251,13 @@ module.exports = db => {
 
     const taskId = req.params.task_id;
 
-    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId]).then(() => {
-      res.status(204).json({});
-      // setTimeout(() => {
-      //   // updateTask(Number(req.params.id), null);
-      // }, 1000);
-    });
+    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId])
+      .then(() => {
+        res.status(204).json({});
+        // setTimeout(() => {
+        //   // updateTask(Number(req.params.id), null);
+        // }, 1000);
+      });
   });
 
   return router;
