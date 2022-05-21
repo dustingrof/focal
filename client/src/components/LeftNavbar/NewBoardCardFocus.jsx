@@ -21,6 +21,7 @@ import {
   Chips,
   Chip,
   Drawer,
+  Theme
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
@@ -36,6 +37,8 @@ import { boardListContext } from '../../providers/boardListProvider';
 
 export default function NewBoardCardFocus(props) {
   const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
+
+  const theme = useMantineTheme();
 
   const { onNewBoard } = useContext(boardListContext);
 
@@ -123,9 +126,16 @@ export default function NewBoardCardFocus(props) {
         transitionTimingFunction='ease'> */}
 
       <Drawer
+        overlayColor={
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[1]
+            : theme.colors.dark[10]
+        }
+        overlayOpacity={0.5}
+        overlayBlur={3}
         opened={opened}
         onClose={() => setOpened(false)}
-        title='Register'
+        // title='Register'
         padding='xl'
         size='xl'>
         <h2>Create a new board</h2>
@@ -150,7 +160,6 @@ export default function NewBoardCardFocus(props) {
 
         <Space h='xl' />
         <Space h='xl' />
-        <Space h='xl' />
         <Grid>
           <Grid.Col span={6}>
             <Center>
@@ -169,11 +178,11 @@ export default function NewBoardCardFocus(props) {
         </Grid>
         <Space h='xl' />
         <Space h='xl' />
-        <Center>
+        {/* <Center>
           <Text size='sm' color='grey'>
-            Must click Create or Discard to exit this view
+            Click Create, or Discard to exit this view without saving
           </Text>
-        </Center>
+        </Center> */}
       </Drawer>
       {/* </Modal> */}
 
