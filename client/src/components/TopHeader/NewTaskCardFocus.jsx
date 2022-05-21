@@ -140,7 +140,7 @@ export default function NewTaskCardFocus(props) {
             ? theme.colors.dark[1]
             : theme.colors.dark[10]
         }
-        overlayOpacity={0.55}
+        overlayOpacity={0.5}
         overlayBlur={3}
         size='lg'
         transition='pop'
