@@ -15,7 +15,6 @@ export default function LeftNavbar() {
       <Navbar.Section grow mt='md'>
         <NavBarAvatarList />
         <Center>
-
           <Text
             component='span'
             align='center'

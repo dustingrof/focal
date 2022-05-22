@@ -91,7 +91,7 @@ export default function HomeView() {
           </td>
           <td className='task-status'>{taskStatusName}</td>
           <td className='task-due_date'>{taskDueText}</td>
-          {/* <td className='task-board_name'>{task.board_name}</td> */}
+          <td className='task-board_name'>{task.board_name}</td>
           <td className='task-users'>
             <AvatarsGroup limit={3}>
               {task.users.map(u => {
@@ -117,6 +117,11 @@ export default function HomeView() {
               })}
             </AvatarsGroup>
           </td>
+          <td
+            className='task-board_name'
+            dangerouslySetInnerHTML={{
+              __html: task.description,
+            }}></td>
         </tr>
       );
     });
@@ -158,16 +163,26 @@ export default function HomeView() {
             <Grid.Col span={7}>
               <Table
                 horizontalSpacing='xl'
+                data-sorting='true'
+                data-filtering='false'
+                className='footable'
                 verticalSpacing='xl'
                 fontSize='lg'
                 highlightOnHover>
                 <thead>
                   <tr>
                     <th>Task Name</th>
-                    <th>Status</th>
-                    <th>Due Date</th>
-                    {/* <th>Board</th> */}
-                    <th>Assigned To</th>
+                    <th data-hide='phone, tablet'>Status</th>
+                    <th data-hide='phone, tablet'>Due Date</th>
+                    <th data-hide='phone, tablet' data-breakpoints='all'>
+                      Board
+                    </th>
+                    <th data-hide='phone, tablet' data-breakpoints='all'>
+                      Assigned To
+                    </th>
+                    <th data-hide='phone, tablet' data-breakpoints='all'>
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody>{rowsOfTasks}</tbody>

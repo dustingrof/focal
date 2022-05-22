@@ -17,8 +17,6 @@ import './components/ComponentStyles.scss';
 
 import WeatherProvider from './providers/weatherProvider';
 
-
-
 // const boards = {
 //   1: {
 //     id: 1,

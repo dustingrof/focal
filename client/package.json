@@ -6,6 +6,7 @@
   "dependencies": {
     "@mantine/next": "^4.2.5",
     "axios": "^0.27.2",
+    "footable": "^2.0.6",
     "google-meet-api": "^1.0.0",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
