@@ -1,9 +1,14 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+// import { boardContext } from './boardProvider';
 
 // Create a context
 export const boardListContext = createContext();
 export const useBoardList = () => useContext(boardListContext);
+
+
+
+
 
 // Create a Component wrapper from Context.Provider
 export default function BoardListProvider(props) {
@@ -11,6 +16,7 @@ export default function BoardListProvider(props) {
   const [boardList, setBoardList] = useState({});
   const [focusIsClosed, setFocusIsClosed] = useState(false);
   const [listOfUsers, setListOfUsers] = useState();
+  // const { onBoardModalCloseBoardView } = useContext(boardContext);
 
   // If statement checks if object has been rendered yet
 
@@ -38,22 +44,26 @@ export default function BoardListProvider(props) {
   };
 
 
-  const onBoardModalClose = (boardDataToUpdate) => {
+  // const onBoardModalClose = (boardDataToUpdate) => {
 
-    const board_id = Number(boardDataToUpdate.id);
+  //   const board_id = Number(boardDataToUpdate.id);
+
+  //   console.log('here?');
 
 
-    setFocusIsClosed(true);
-    return axios
-      .put(`/boards/${board_id}`, { boardDataToUpdate })
-      .then(results => {
-        setFocusIsClosed(false);
-      })
-      .catch(error => {
-        console.log(`Request failed with error ${error}`);
-      });
+  //   setFocusIsClosed(true);
+  //   return axios
+  //     .put(`/boards/${board_id}`, { boardDataToUpdate })
+  //     .then(results => {
+  //       setFocusIsClosed(false);
+  //       // onBoardModalCloseBoardView();
 
-  };
+  //     })
+  //     .catch(error => {
+  //       console.log(`Request failed with error ${error}`);
+  //     });
+
+  // };
 
 
 
@@ -73,7 +83,6 @@ export default function BoardListProvider(props) {
     setBoardList,
     listOfUsers,
     setListOfUsers,
-    onBoardModalClose
   };
   // const providerData = { boardList };
 

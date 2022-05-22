@@ -104,10 +104,10 @@ export default function Pomodoro() {
         position='bottom'
         placement='end'
         withCloseButton
-        // title='Timers'
         transition='pop-top-right'
         target={
           <ActionIcon
+          size={35}
             variant='outline'
             color={dark ? '#4dabf7s' : 'blue'}
             onClick={() => setOpened(o => !o)}>
@@ -120,12 +120,6 @@ export default function Pomodoro() {
         <Center>Break:  {convertBreakTimeToISO}</Center>
         <Space m="sm"/>
         <SimpleGrid cols={1} spacing="xs">
-          {/* <Button  variant='outline' color='teal' compact style={{ margin: 5 }} onClick={startWork}>
-            start work
-          </Button>
-          <Button    variant='outline' color='red' compact style={{ margin: 5 }} onClick={resetWorkAndBreak}>
-            reset
-          </Button> */}
           
   <Button
             onClick={startWork}
