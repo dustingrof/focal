@@ -53,6 +53,7 @@
     "@mantine/rte": "^4.2.4",
     "@mantine/spotlight": "^4.2.4",
     "dayjs": "^1.11.2",
+    "sass": "^1.52.1",
     "emailjs-com": "^3.2.0"
   }
 }

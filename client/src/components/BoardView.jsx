@@ -67,8 +67,8 @@ export default function BoardView(props) {
           })}>
           {/* Your application here */}
 
-          <Title order={1}>{boardInfo['name']}</Title>
-          <Text size='md'>{boardInfo['description']}</Text>
+          {/* <Title order={1}>{boardInfo['name']}</Title> */}
+          {/* <Text size='md'>{boardInfo['description']}</Text> */}
 
           <BoardCardFocus props={boardInfo} />
           <Space h='lg' />

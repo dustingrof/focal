@@ -29,8 +29,8 @@ import {
   Adjustments,
   Edit,
 } from 'tabler-icons-react';
-import { boardContext } from '../../providers/boardProvider';
-import { useBoardList } from '../../providers/boardListProvider';
+import { boardContext } from '../providers/boardProvider';
+import { useBoardList } from '../providers/boardListProvider';
 
 export default function NewTaskCardFocus(props) {
   const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
@@ -85,7 +85,7 @@ export default function NewTaskCardFocus(props) {
     const cardDataToAdd = {
       board_id: newTaskBoard, // placeholder, to update
       description: richTextValue,
-      due_date: dateToSave, // start with placeholder & add date later 
+      due_date: dateToSave, // start with placeholder & add date later
       title: richTitleValue,
       status: Number(newTaskStatus),
       array_of_users: usersToString,

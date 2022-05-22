@@ -16,10 +16,9 @@ import Login from './Login';
 import Pomodoro from './Pomodoro';
 import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
-import NewTaskCardFocus from './NewTaskCardFocus';
+
 import NewBoardCardFocus from '../LeftNavbar/NewBoardCardFocus';
 import HeaderAvatar from './HeaderAvatar';
-import HeaderProvider, { headerContext } from '../../providers/headerProvider';
 
 export default function TopHeader() {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -28,12 +27,8 @@ export default function TopHeader() {
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
   const iconSpacing = { display: 'flex', justifyContent: 'space-evenly' };
-  
-
 
   return (
-    <HeaderProvider>
-
     <Header height={60} p='xs'>
       <Grid>
         <Grid.Col span={3}>
@@ -49,16 +44,14 @@ export default function TopHeader() {
           </Text>
         </Grid.Col>
 
-
         <Grid.Col span={1} offset={5} />
         <Grid.Col span={1}>
-        <HeaderAvatar />
-
+          <HeaderAvatar />
         </Grid.Col>
         <Grid.Col span={2} style={iconSpacing}>
           <Pomodoro />
 
-          <NewTaskCardFocus />
+
           <TimerDisplay />
 
           <Login />
@@ -73,6 +66,5 @@ export default function TopHeader() {
         </Grid.Col>
       </Grid>
     </Header>
-    </HeaderProvider>
   );
 }
