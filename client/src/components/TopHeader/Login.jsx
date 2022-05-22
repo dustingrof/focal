@@ -82,7 +82,7 @@ const Login = () => {
       >
         <Avatar
         radius="sm"
-        size={28}
+        size={35}
         src={currentAvatar}
         onClick={() => setOpened(o => !o)}
         /> 
