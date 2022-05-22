@@ -8,6 +8,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function NavBarAvatar(props) {
   const boardURL = `/boards/${props.board_id} `;
+
+
+  
+
+
   return (
     <Link to={boardURL}>
       <List.Item
@@ -26,7 +31,7 @@ export default function NavBarAvatar(props) {
             }}
           />
         }>
-        {props.name}
+        {/* {props.name} */}
       </List.Item>
     </Link>
   );
