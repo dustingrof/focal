@@ -3,11 +3,9 @@ import {
   Button,
   Select,
   Group,
-  Center,
   Popover,
   ActionIcon,
   useMantineTheme,
-  Space,
   Avatar
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
@@ -17,11 +15,9 @@ import { headerContext } from '../../providers/headerProvider';
 const Login = () => {
   const { user, setUser, currentAvatar, setCurrentAvatar } = useContext( headerContext );
   const [opened, setOpened] = useState(false);
-
   const theme = useMantineTheme();
-  // const { onUserAvatar } = useContext(boardContext);
-
-
+  const { colorScheme } = useContext(colourListContext);
+  const dark = colorScheme === 'dark';
   
   // Sets user from <Select> dropdown to local storage
   const addUserToLocalState = () => {
@@ -29,7 +25,6 @@ const Login = () => {
     setUser(localStorage.getItem('name'))
 
     // add userAvater to local storage
-
     let avatar;
 
     switch (user) {
@@ -49,54 +44,20 @@ const Login = () => {
     localStorage.setItem('avatar', avatar);
     const localUserSet = () => {
       setCurrentAvatar(avatar);
-      
     };
     localUserSet();
      setOpened(false);
-
-    
   };
 
   // Removes current user from local storage
   const removeUserFromLocalState = () => {
-
     localStorage.removeItem('name');
     localStorage.removeItem('avatar');
     setUser();
     setOpened(false);
-
   };
-  const { colorScheme, setColorScheme } = useContext(colourListContext);
-  const dark = colorScheme === 'dark';
+ 
   
-
-  const popoverTarget = () =>{
-    // if(user) {
-       (
-        <ActionIcon
-        variant='outline'
-        color={dark ? 'yellow' : 'blue'}
-        onClick={() => setOpened(o => !o)}>
-        <User size='xl' />
-      </ActionIcon>
-      )
-    // }
-    // return(
-    //    { <Avatar
-    //           radius='md'
-    //           size='lg'
-    //           src={currentAvatar}
-    //           style={{
-    //             borderWidth: 1,
-    //             borderRadius: 50,
-    //             borderStyle: 'solid',
-    //             borderColor: 'gray',
-    //             margin: 3,
-    //           }}
-    //         /> }
-    // )
-  }
-
   return (
     <Popover
       opened={opened}
@@ -111,7 +72,7 @@ const Login = () => {
       {!user ? 
         (<ActionIcon
         variant='outline'
-        color={dark ? 'yellow' : 'blue'}
+        color={dark ? '#4dabf7' : 'blue'}
         onClick={() => setOpened(o => !o)}>
         <User size='xl' />
       </ActionIcon>) : 
@@ -119,7 +80,7 @@ const Login = () => {
       <ActionIcon>
         <Avatar
         radius="sm"
-        size='md'
+        size={28}
         src={currentAvatar}
         onClick={() => setOpened(o => !o)}
         /> 
