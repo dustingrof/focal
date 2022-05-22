@@ -11,23 +11,17 @@ import {
   AppShell,
   MantineProvider,
   ColorSchemeProvider,
-  Avatar
+  Avatar,
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
-
-
 export default function BoardView(props) {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
 
-
-
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
-
-
 
   return (
     <ColorSchemeProvider
@@ -41,6 +35,7 @@ export default function BoardView(props) {
           padding='md'
           navbar={<LeftNavbar />}
           header={<TopHeader />}
+          // footer={  <WeatherAPI />}
           styles={theme => ({
             main: {
               backgroundColor:
@@ -49,9 +44,8 @@ export default function BoardView(props) {
                   : theme.colors.gray[0],
             },
           })}>
-         <WeatherAPI />
-
           <Space h='xl' />
+          <WeatherAPI />
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>

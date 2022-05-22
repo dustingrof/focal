@@ -26,7 +26,7 @@ import {
   InfoSquare,
   Edit,
 } from 'tabler-icons-react';
-import NewTaskCardFocus from './NewTaskCardFocus';
+// import NewTaskCardFocus from './NewTaskCardFocus';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
