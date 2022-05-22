@@ -22,6 +22,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Title,
+  Container,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
@@ -249,7 +250,7 @@ export default function TaskCardFocus(props) {
               // description='This is anonymous'
               // value={userArray}
               onChange={setUserValue}
-              // required
+            // required
             >
               {formatUserData}
             </CheckboxGroup>
@@ -332,11 +333,34 @@ export default function TaskCardFocus(props) {
         <Space h='xl' />
       </Modal>
 
-      <Group position='center'>
+      {/* <Group position='center'>
         <Button onClick={() => setOpened(true)} variant='outline'>
           Details
         </Button>
-      </Group>
+      </Group> */}
+
+
+      {/* <Container style={{ marginLeft: 10, display: "flex", flexDirection: "row" }}> */}
+
+        <List>
+
+          <List.Item icon={
+          <ThemeIcon
+            variant='outline'
+            size='lg'
+            style={{ marginRight: 0, marginLeft: 0 }}
+            onClick={() => setOpened(true)}>
+            <Edit size={24} />
+          </ThemeIcon>
+        }>
+              {titleToUpdate}
+          </List.Item>
+        </List>
+      {/* </Container> */}
+
+
+
+
     </>
   );
 }
