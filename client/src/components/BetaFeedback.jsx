@@ -180,7 +180,7 @@ export default function BoardView(props) {
                         type='text'
                         value={props.currentUser}
                         required
-                        size="lg"
+                        size="md"
                       />
                       <Space h='md' />
                       <TextInput
@@ -189,7 +189,7 @@ export default function BoardView(props) {
                         name='email'
                         type='email'
                         required
-                        size="lg"
+                        size="md"
 
                         minRows={1}
                       />
@@ -210,11 +210,11 @@ export default function BoardView(props) {
                         type='text'
                         required
                         minRows={7}
-                        size="lg"
+                        size="md"
 
                       />
                       <Space h='md' />
-                      <Button size="lg" type='submit' className='btn btn-info' value='Send Message'>
+                      <Button size="md" type='submit' className='btn btn-info' value='Send Message'>
                         Submit
                       </Button>
                     </form>

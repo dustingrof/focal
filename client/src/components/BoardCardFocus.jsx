@@ -176,8 +176,8 @@ export default function TaskCardFocus(props) {
           placeholder={boardDescription}
           size='md'
           autosize
-          minRows={2}
-          maxRows={4}
+          minRows={6}
+          maxRows={6}
           value={boardDescription}
           onChange={event => setBoardDescription(event.currentTarget.value)}
         />
@@ -216,6 +216,10 @@ export default function TaskCardFocus(props) {
           </Button>
         </Center>
       </Drawer>
+
+
+
+
       {/* </Modal> */}
       <Title order={2} style={{ marginLeft: 10 }}>
         <ThemeIcon
@@ -225,8 +229,10 @@ export default function TaskCardFocus(props) {
           onClick={() => setOpened(true)}>
           <Edit size={30} />
         </ThemeIcon>
-        {boardName}
+        {/* {boardName} */}
       </Title>
+
+
       {/* <NewTaskCardFocus /> */}
       <Group position='left'>
         {/* <Button
