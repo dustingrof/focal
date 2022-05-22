@@ -49,7 +49,7 @@ export default function TopHeader() {
 
         <Grid.Col span={1} offset={5} />
         <Grid.Col span={1}>
-          <HeaderAvatar />
+          {/* <HeaderAvatar /> */}
         </Grid.Col>
         <Grid.Col span={2} style={iconSpacing}>
           <Pomodoro />

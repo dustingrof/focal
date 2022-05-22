@@ -8,6 +8,7 @@ import {
   ActionIcon,
   useMantineTheme,
   Space,
+  Avatar
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
 import { colourListContext } from '../../providers/colourSchemeProvider';
@@ -24,8 +25,8 @@ const Login = () => {
   
   // Sets user from <Select> dropdown to local storage
   const addUserToLocalState = () => {
-   
     localStorage.setItem('name', user);
+    setUser(localStorage.getItem('name'))
 
     // add userAvater to local storage
 
@@ -61,12 +62,40 @@ const Login = () => {
 
     localStorage.removeItem('name');
     localStorage.removeItem('avatar');
+    setUser();
     setOpened(false);
 
   };
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
+  
 
+  const popoverTarget = () =>{
+    // if(user) {
+       (
+        <ActionIcon
+        variant='outline'
+        color={dark ? 'yellow' : 'blue'}
+        onClick={() => setOpened(o => !o)}>
+        <User size='xl' />
+      </ActionIcon>
+      )
+    // }
+    // return(
+    //    { <Avatar
+    //           radius='md'
+    //           size='lg'
+    //           src={currentAvatar}
+    //           style={{
+    //             borderWidth: 1,
+    //             borderRadius: 50,
+    //             borderStyle: 'solid',
+    //             borderColor: 'gray',
+    //             margin: 3,
+    //           }}
+    //         /> }
+    // )
+  }
 
   return (
     <Popover
@@ -77,18 +106,27 @@ const Login = () => {
       withCloseButton
       title='Change user'
       transition='pop-top-right'
+      // target={ popoverTarget }
+      target =
+      {!user ? 
+        (<ActionIcon
+        variant='outline'
+        color={dark ? 'yellow' : 'blue'}
+        onClick={() => setOpened(o => !o)}>
+        <User size='xl' />
+      </ActionIcon>) : 
+      (
+      <ActionIcon>
+        <Avatar
+        radius="sm"
+        size='md'
+        src={currentAvatar}
+        onClick={() => setOpened(o => !o)}
+        /> 
+        </ActionIcon>)}
       
-      // {}
-      
-      
-      target={
-        <ActionIcon
-          variant='outline'
-          color={dark ? 'yellow' : 'blue'}
-          onClick={() => setOpened(o => !o)}>
-          <User size='xl' />
-        </ActionIcon>
-      }>
+
+      >
       <Group position='center' spacing='sm'>
         <Select
           placeholder='Login as ...'

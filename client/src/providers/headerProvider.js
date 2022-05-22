@@ -9,7 +9,8 @@ export const useHeader = () => useContext(headerContext);
 export default function HeaderProvider(props) {
   // here is our shared state object
   const [currentAvatar, setCurrentAvatar] = useState(localStorage.getItem('avatar'));
-  const [user, setUser] = useState(localStorage.getItem('name'));
+  // const [user, setUser] = useState(localStorage.getItem('name'));
+  const [user, setUser] = useState();
 
   useEffect(() => {
     setCurrentAvatar(localStorage.getItem('avatar'));
