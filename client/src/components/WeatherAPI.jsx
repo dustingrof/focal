@@ -12,6 +12,8 @@ export default function WeatherAPI() {
 
     {weather? 
       <Card 
+      shadow="xl"
+      p="xl"
       style={{ marginTop: 10, maxHeight:400, maxWidth:280}}
       >
         <Card.Section>
