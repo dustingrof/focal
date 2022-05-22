@@ -1,7 +1,7 @@
 import {
   Space,
   List,
-  ListItem,
+
   ScrollArea,
   Drawer,
   Group,
@@ -10,8 +10,13 @@ import {
   ThemeIcon,
   createStyles,
   useMantineTheme, 
-  Avatar
+  Avatar,
+  Tooltip,
+  Badge,
+
+  Container
 } from '@mantine/core';
+import { useHover } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
 import { BrandHipchat } from 'tabler-icons-react';
@@ -48,10 +53,9 @@ const Chat = () => {
   const { classes } = useStyles();
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
-  const [messageList, setList] = useState([
-    { userLS: 'Dustin', message: 'Hello' },
-    { userLS: 'Iaan', message: 'Hello Dustin' },
-  ]);
+  const [messageList, setList] = useState([{ userLS: 'Dustin', message: 'Hello' }, { userLS: 'Iaan', message: 'Hello Dustin' } ]);
+  // const [openedToolTip, setOpenedToolTip] = useState(false);
+  const { hovered, ref } = useHover();
   const theme = useMantineTheme();
   // Gets user name from local storage for sendMessage function
   const userLS = localStorage.getItem('name');
@@ -83,15 +87,6 @@ const Chat = () => {
 
 
 
-  // When message is received from server updates message list with new message
-  // useEffect(() => {
-  //   socket.on('receiveMessage', data => {
-  //       setList(prev => {
-  //       return [...prev, data];
-  //     });
-  //   });
-  // }, []);
-
 useEffect(() => {
   socket.on("notification",  (data) => {
     if(data.userLS !== userLS ){
@@ -103,52 +98,32 @@ useEffect(() => {
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
     console.log("Avatar from DB", item.user_ls_avatar);
-    if (item.userls === userLS) {
+    // if (item.userls === userLS) {
       return (
-        <>
-          <ListItem key={index + 1} align='right'
-          className='current-user'
-            icon={
-              <Avatar  radius="xl" src={item.user_ls_avatar}>
-        
-      </Avatar>}
-      >
-            {item.userls}: {item.message}
-          </ListItem>
-          <Space h="sm" />
-        </>
-      );
-    }
-    return (
       <>
-        <ListItem key={index + 1} align='left'
-          className='not-current-user'
-          icon={
-            <Avatar  radius="xl" src={item.user_ls_avatar}>
-      
-    </Avatar>}
-
-        >
-          {item.userls}: {item.message}
-        </ListItem >
+        {hovered ?            
+          <Tooltip label={item.userls} color="blue"  position="left" opened > 
+            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
+                {item.message}
+              </Badge>
+            </List.Item>
+          </Tooltip>
+        :
+          <Tooltip label={item.userls} color="blue" position="left" > 
+            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
+                {item.message}
+              </Badge>
+            </List.Item>
+          </Tooltip>}
         <Space h="sm" />
       </>
-    );
+      );
+ 
   });
 
-  // const openChat = function() {
-  //   const nothing = (() => setOpened(o => !o));
-  //   nothing();
-  //   scrollToBottom();
 
-  // }
-
-
-  // const viewport = useRef(".mantine-ScrollArea-root");
-  // const viewport = useRef();
-
-  // const scrollToBottom = () =>
-  //   viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: 'smooth' });
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
@@ -185,7 +160,7 @@ useEffect(() => {
           </List>
         </ScrollArea>
 
-        {/* <Grid.Col span={ 2 } > */}
+        {/* <ListItem.Col span={ 2 } > */}
         <Space h="lg" />
         <TextInput
           id='chat-message-input'
