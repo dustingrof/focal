@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { SquarePlus } from 'tabler-icons-react';
+import { Plus } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -23,7 +23,7 @@ import {
   Drawer,
   Theme,
   Alert,
-  Tooltip
+  Tooltip,
 } from '@mantine/core';
 import { AlertCircle } from 'tabler-icons-react';
 import { RichTextEditor } from '@mantine/rte';
@@ -80,12 +80,12 @@ export default function NewBoardCardFocus(props) {
       boardToAdd.image_url = null;
     }
     // console.log("boardToAdd:", boardToAdd);
-    
+
     // reset states
     setBoardName();
     setBoardDescription();
     setBoardImageUrl();
-    
+
     // send to backend
     if (boardToAdd.name) {
       // pass new card and make axios request (in boardProvider.js)
@@ -98,7 +98,6 @@ export default function NewBoardCardFocus(props) {
       setAlert(true);
       console.log('NEW BOARD REQUEST NOT SENT');
     }
-    
   };
 
   // const { boardList } = useBoardList();
@@ -149,7 +148,6 @@ export default function NewBoardCardFocus(props) {
         <Textarea
           onChange={event => setBoardName(event.currentTarget.value)}
           placeholder='Enter text'
-      
         />
         <Space h='xl' />
         <h4>Description:</h4>
@@ -186,44 +184,44 @@ export default function NewBoardCardFocus(props) {
 
         <Space h='xl' />
         <Space h='xl' />
-       {alert? 
-       <Alert icon={<AlertCircle size={16} />} title="Please enter a title for your board!" color="red" withCloseButton /> : null
-       }
-      
-   
-
+        {alert ? (
+          <Alert
+            icon={<AlertCircle size={16} />}
+            title='Please enter a title for your board!'
+            color='red'
+            withCloseButton
+          />
+        ) : null}
       </Drawer>
 
       <List.Item
         icon={
-
-
           <Tooltip
-          label='Create a new board'
-          closeDelay={100}
-          position='right'
-          withArrow arrowSize={4}
-          transition="pop"
-          transitionDuration={100}
-          transitionTimingFunction="ease"
-          >
-
-
-
-          <SquarePlus
-            size={56}
-            strokeWidth={1}
-            color={'#228be6'}
-            onClick={() => setOpened(true)}
-            style={{
-              borderWidth: 1,
-              borderRadius: 10,
-              borderStyle: 'solid',
-              borderColor: 'gray',
-              margin: 3,
-            }}
+            label='Create a new board'
+            closeDelay={100}
+            position='right'
+            withArrow
+            arrowSize={4}
+            transition='pop'
+            transitionDuration={100}
+            transitionTimingFunction='ease'>
+            {/* <ActionIcon size='xl' variant='transparent'>
+              <Adjustments />
+            </ActionIcon> */}
+            <Plus
+              size={56}
+              strokeWidth={2}
+              color={'#228be6'}
+              onClick={() => setOpened(true)}
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                borderStyle: 'solid',
+                borderColor: 'gray',
+                margin: 3,
+              }}
             />
-            </Tooltip>
+          </Tooltip>
         }></List.Item>
     </>
   );

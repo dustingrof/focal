@@ -39,9 +39,9 @@ export default function NavBarAvatarList() {
       {/* <Space h='lg' /> */}
 
       <List>
-      
+
         <NewBoardCardFocus />
-        
+
         {list}
       </List>
     </>
