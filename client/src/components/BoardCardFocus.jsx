@@ -37,8 +37,8 @@ export default function TaskCardFocus(props) {
   // console.log("fires");
   // console.log("----------------------------------------------------");
 
-  const { urlBoardId } = useContext(boardContext);
-  const { onBoardDelete, onBoardModalClose } = useContext(boardListContext);
+  const { urlBoardId, onBoardModalClose } = useContext(boardContext);
+  const { onBoardDelete } = useContext(boardListContext);
 
   // console.log('props.props.name', props.props.name);
   // console.log('boardInfo', boardInfo);
@@ -223,7 +223,8 @@ export default function TaskCardFocus(props) {
       {/* </Modal> */}
       <Title order={2} style={{ marginLeft: 10 }}>
         <ThemeIcon
-          variant='outline'
+          variant='ouline'
+          color='dark'
           size='xl'
           style={{ marginRight: 10 }}
           onClick={() => setOpened(true)}>
