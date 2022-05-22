@@ -24,6 +24,8 @@ import {
   Card,
   Group,
   Badge,
+  Box,
+  TextInput
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
@@ -38,37 +40,37 @@ export default function BoardView(props) {
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
 
-    function sendEmail(e) {
-      e.preventDefault();
-  
-      emailjs
-        .sendForm(
-          'service_we1l6z4',
-          'template_uo04hrp',
-          e.target,
-          'o9qqYklc_7AmMNiC6'
-        )
-        .then(
-          result => {
-            console.log(result.text);
-          },
-          error => {
-            console.log(error.text);
-          }
-        );
-      e.target.reset();
-    }
+  function sendEmail(e) {
+    e.preventDefault();
 
-    const form = useForm({
-      initialValues: {
-        email: '',
-        termsOfService: false,
-      },
-  
-      validate: {
-        email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      },
-    });
+    emailjs
+      .sendForm(
+        'service_we1l6z4',
+        'template_uo04hrp',
+        e.target,
+        'o9qqYklc_7AmMNiC6'
+      )
+      .then(
+        result => {
+          console.log(result.text);
+        },
+        error => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+  }
+
+  const form = useForm({
+    initialValues: {
+      email: '',
+      termsOfService: false,
+    },
+
+    validate: {
+      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+    },
+  });
 
 
 
@@ -163,87 +165,61 @@ export default function BoardView(props) {
               <Card shadow="sm" p="lg">
                 <Group position="apart" >
 
+                  <Box mx='auto'>
+                  {/* <Box> */}
+                    <h1>Get in touch</h1>
 
+                    {/* <MailForward onClick={() => setMailForward(o => !o)} /> */}
+                    {/* <Collapse in={mailForwardOpened}> */}
+                    <form onSubmit={sendEmail}>
+                      {/* Hidden from front, gets current username and enters it */}
+                      <TextInput
+                        label="Your name:"
+                        placeholder='Enter name'
+                        name='name'
+                        type='text'
+                        value={props.currentUser}
+                        required
+                        size="lg"
+                      />
+                      <Space h='md' />
+                      <TextInput
+                        label="Your email address:"
+                        placeholder="Enter email"
+                        name='email'
+                        type='email'
+                        required
+                        size="lg"
 
+                        minRows={1}
+                      />
+                      {/* <Space h='md' />
+                      <TextInput
+                        placeholder='..or say hi, and let us get the conversation started'
+                        label="What would you like to discuss?"
+                        name='subject'
+                        type='text'
+                        defaultValue={props.taskName}
+                        required
+                      /> */}
+                      <Space h='md' />
+                      <Textarea
+                        label="Your message to us:"
+                        placeholder='..or just say hello, and let us get the conversation started!'
+                        name='message'
+                        type='text'
+                        required
+                        minRows={7}
+                        size="lg"
 
-                  {/* <Card.Section>
-                    <h2>Get in touch</h2>
-                    <Textarea
-                      // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
-                      placeholder="Your email address (don't worry, we don't spam)"
-                      size="md"
-                      required={true}
-                    />
-                    <Space h='xl' />
-                    <Textarea
-                      // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
-                      placeholder="Your message to us"
-                      size="md"
-                      required={true}
-                      autosize
-                      minRows={12}
-                    />
-                    <Space h='xl' />
-          
-
-                    <Center>
-                      <Button
-                        color="green"
-                      // onClick={newModalClose}
-                      >
-                        Send
+                      />
+                      <Space h='md' />
+                      <Button size="lg" type='submit' className='btn btn-info' value='Send Message'>
+                        Submit
                       </Button>
-                    </Center>
-
-                  </Card.Section> */}
-
-
-                    <div className='container'>
-                      {/* <form onSubmit={sendEmail}> */}
-                      <form >
-                        <div className='row pt-5 mx-auto'>
-                          <div className='col-8 form-group mx-auto'>
-                            <input
-                              type='text'
-                              className='form-control'
-                              placeholder='Name'
-                              name='name'
-                            />
-                          </div>
-                          <div className='col-8 form-group pt-2 mx-auto'>
-                            <input
-                              type='email'
-                              className='form-control'
-                              placeholder='Email Address'
-                              name='email'
-                            />
-                          </div>
-                          <div className='col-8 form-group pt-2 mx-auto'>
-                            <input
-                              type='text'
-                              className='form-control'
-                              placeholder='Subject'
-                              name='subject'
-                            />
-                          </div>
-                          <div className='col-8 form-group pt-2 mx-auto'>
-                            <textarea
-                              className='form-control'
-                              id=''
-                              cols='30'
-                              rows='8'
-                              placeholder='Your message'
-                              name='message'></textarea>
-                          </div>
-                          <div className='col-8 pt-3 mx-auto'>
-                            <input
-                              type='submit'
-                              className='btn btn-info'
-                              value='Send Message'></input>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+                    </form>
+                    {/* </Collapse> */}
+                  </Box>
 
 
 
