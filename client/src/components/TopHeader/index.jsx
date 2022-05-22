@@ -9,6 +9,7 @@ import {
   ActionIcon,
   MantineProvider,
   ColorSchemeProvider,
+  Button,
 } from '@mantine/core';
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
@@ -43,6 +44,8 @@ export default function TopHeader() {
             <a href='/'>focal</a>
           </Text>
         </Grid.Col>
+
+
 
         <Grid.Col span={1} offset={5} />
         <Grid.Col span={1}>

@@ -5,6 +5,9 @@ import { boardContext } from '../providers/boardProvider';
 import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
+import emailjs from 'emailjs-com';
+import { useForm } from '@mantine/form';
+
 
 import {
   Text,
@@ -18,40 +21,56 @@ import {
   Textarea,
   Center,
   Button,
+  Card,
+  Group,
+  Badge,
 } from '@mantine/core';
-import { Sun, MoonStars } from 'tabler-icons-react';
 
-import Login from './TopHeader/Login';
-import TaskCardFocus from './TaskCardFocus';
-import BoardCardFocus from './BoardCardFocus';
-
-// import Timer from './Timer';
-// import Pomodoro from './Pomodoro';
-// import VideoChat from './VideoChat';
-import Chat from './TopHeader/Chat';
 import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
 export default function BoardView(props) {
-
-
-  // const navigate = useNavigate();
-
   const params = useParams();
-  // console.log('THESE PARAMS', params);
-
   const { board, onMoveCard, setUrlBoardId, boardInfo } = useContext(boardContext);
 
-
-
-  useEffect(() => {
-    setUrlBoardId(params.board_id);
-  }, [setUrlBoardId, params.board_id]);
-
-  // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);
+
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+
+    function sendEmail(e) {
+      e.preventDefault();
+  
+      emailjs
+        .sendForm(
+          'service_we1l6z4',
+          'template_uo04hrp',
+          e.target,
+          'o9qqYklc_7AmMNiC6'
+        )
+        .then(
+          result => {
+            console.log(result.text);
+          },
+          error => {
+            console.log(error.text);
+          }
+        );
+      e.target.reset();
+    }
+
+    const form = useForm({
+      initialValues: {
+        email: '',
+        termsOfService: false,
+      },
+  
+      validate: {
+        email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      },
+    });
+
+
 
   return (
     <ColorSchemeProvider
@@ -76,6 +95,8 @@ export default function BoardView(props) {
 
           <Grid>
 
+
+
             <Grid.Col span={6} offset={1}>
               <h1>The focal story</h1>
               <Text>
@@ -83,9 +104,8 @@ export default function BoardView(props) {
               </Text>
               <Space h='xl' />
               <Text>
-                We hope you enjoy this beta release as we continue to dream up new features.
+                Please enjoy this beta release while we continue to dream up new features.
               </Text>
-
             </Grid.Col>
 
 
@@ -93,8 +113,6 @@ export default function BoardView(props) {
 
 
             <Grid.Col span={5} offset={1}>
-
-
               <Space h='xl' />
               <Space h='xl' />
 
@@ -140,40 +158,104 @@ export default function BoardView(props) {
             </Grid.Col>
 
 
-
-
             <Grid.Col span={4}>
-              <Space h='xl' />
-              <Space h='xl' />
-              <h1>Get in touch</h1>
+
+              <Card shadow="sm" p="lg">
+                <Group position="apart" >
 
 
-              <Textarea
-                // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
-                placeholder="Your email address (don't worry, we don't spam)"
-                size="md"
-                required={true}
-              />
-              <Space h='xl' />
 
-              <Textarea
-                // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
-                placeholder="Your message to us"
-                size="md"
-                required={true}
-                autosize
-                minRows={12}
-              />
-              <Space h='xl' />
 
-              <Center>
-                <Button
-                  color="green"
-                // onClick={newModalClose}
-                >
-                  Send
-                </Button>
-              </Center>
+                  {/* <Card.Section>
+                    <h2>Get in touch</h2>
+                    <Textarea
+                      // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
+                      placeholder="Your email address (don't worry, we don't spam)"
+                      size="md"
+                      required={true}
+                    />
+                    <Space h='xl' />
+                    <Textarea
+                      // onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
+                      placeholder="Your message to us"
+                      size="md"
+                      required={true}
+                      autosize
+                      minRows={12}
+                    />
+                    <Space h='xl' />
+          
+
+                    <Center>
+                      <Button
+                        color="green"
+                      // onClick={newModalClose}
+                      >
+                        Send
+                      </Button>
+                    </Center>
+
+                  </Card.Section> */}
+
+
+                    <div className='container'>
+                      {/* <form onSubmit={sendEmail}> */}
+                      <form >
+                        <div className='row pt-5 mx-auto'>
+                          <div className='col-8 form-group mx-auto'>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Name'
+                              name='name'
+                            />
+                          </div>
+                          <div className='col-8 form-group pt-2 mx-auto'>
+                            <input
+                              type='email'
+                              className='form-control'
+                              placeholder='Email Address'
+                              name='email'
+                            />
+                          </div>
+                          <div className='col-8 form-group pt-2 mx-auto'>
+                            <input
+                              type='text'
+                              className='form-control'
+                              placeholder='Subject'
+                              name='subject'
+                            />
+                          </div>
+                          <div className='col-8 form-group pt-2 mx-auto'>
+                            <textarea
+                              className='form-control'
+                              id=''
+                              cols='30'
+                              rows='8'
+                              placeholder='Your message'
+                              name='message'></textarea>
+                          </div>
+                          <div className='col-8 pt-3 mx-auto'>
+                            <input
+                              type='submit'
+                              className='btn btn-info'
+                              value='Send Message'></input>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </Group>
+              </Card>
 
 
 
