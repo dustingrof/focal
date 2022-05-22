@@ -13,6 +13,16 @@ export default function ColourSchemeProvider(props) {
     getInitialValueInEffect: true,
   });
 
+  const rootId = document.getElementById('root');
+
+  useEffect(() => {
+    if (colorScheme === 'dark') {
+      rootId.className = 'dark';
+    } else {
+      rootId.className = 'light';
+    }
+  }, [colorScheme, rootId]);
+
   const exportedValues = { colorScheme, setColorScheme };
 
   return (

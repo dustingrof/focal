@@ -11,30 +11,20 @@ import {
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
 import { colourListContext } from '../../providers/colourSchemeProvider';
-import { boardContext } from '../../providers/boardProvider';
+import { headerContext } from '../../providers/headerProvider';
 
 const Login = () => {
-  const [user, setUser] = useState();
+  const { user, setUser, currentAvatar, setCurrentAvatar } = useContext( headerContext );
   const [opened, setOpened] = useState(false);
+
   const theme = useMantineTheme();
-  const { onUserAvatar } = useContext(boardContext);
-
-  // const userChange = function () {
-
-  //   const userSetting = event => {
-  //     setUser(event);
-  //     onUserAvatar();
-  //   }
-    
-  //   userSetting();
-
-  // };
+  // const { onUserAvatar } = useContext(boardContext);
 
 
-
-
+  
   // Sets user from <Select> dropdown to local storage
   const addUserToLocalState = () => {
+   
     localStorage.setItem('name', user);
 
     // add userAvater to local storage
@@ -56,18 +46,28 @@ const Login = () => {
     }
 
     localStorage.setItem('avatar', avatar);
+    const localUserSet = () => {
+      setCurrentAvatar(avatar);
+      
+    };
+    localUserSet();
+     setOpened(false);
 
-
-
+    
   };
 
   // Removes current user from local storage
   const removeUserFromLocalState = () => {
+
     localStorage.removeItem('name');
     localStorage.removeItem('avatar');
+    setOpened(false);
+
   };
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
+
+
   return (
     <Popover
       opened={opened}
@@ -88,8 +88,8 @@ const Login = () => {
       <Group position='center' spacing='sm'>
         <Select
           placeholder='Login as ...'
-          onChange={event => {
-            setUser(event)}}
+          onChange={event => { setUser(event)}}
+
           size='xs'
           data={[
             { value: 'Dustin', label: 'Dustin' },

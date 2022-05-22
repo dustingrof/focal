@@ -21,8 +21,10 @@ import {
   Chips,
   Chip,
   Drawer,
-  Theme
+  Theme,
+  Alert
 } from '@mantine/core';
+import { AlertCircle } from 'tabler-icons-react';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import {
@@ -46,7 +48,7 @@ export default function NewBoardCardFocus(props) {
   const [boardName, setBoardName] = useState();
   const [boardDescription, setBoardDescription] = useState();
   const [boardImageUrl, setBoardImageUrl] = useState();
-
+  const [alert, setAlert] = useState(false);
   // TODO add default chip selection for task status and task board
   // const [newTaskStatus, setNewTaskStatus] = useState();
   // const [newTaskBoard, setNewTaskBoard] = useState();
@@ -65,6 +67,7 @@ export default function NewBoardCardFocus(props) {
 
   // new board with save
   const newBoardSave = function () {
+    setAlert(false);
     // build new board
     const boardToAdd = {
       name: boardName,
@@ -76,23 +79,25 @@ export default function NewBoardCardFocus(props) {
       boardToAdd.image_url = null;
     }
     // console.log("boardToAdd:", boardToAdd);
-
-    // update modal prop
-    const setModalState = () => setOpened(false);
-    setModalState();
-
+    
     // reset states
     setBoardName();
     setBoardDescription();
     setBoardImageUrl();
-
+    
     // send to backend
     if (boardToAdd.name) {
       // pass new card and make axios request (in boardProvider.js)
       onNewBoard(boardToAdd);
+      // update modal prop
+      const setModalState = () => setOpened(false);
+      setModalState();
     } else {
+      // Notification
+      setAlert(true);
       console.log('NEW BOARD REQUEST NOT SENT');
     }
+    
   };
 
   // const { boardList } = useBoardList();
@@ -143,6 +148,7 @@ export default function NewBoardCardFocus(props) {
         <Textarea
           onChange={event => setBoardName(event.currentTarget.value)}
           placeholder='Enter text'
+      
         />
         <Space h='xl' />
         <h4>Description:</h4>
@@ -176,8 +182,14 @@ export default function NewBoardCardFocus(props) {
             </Center>
           </Grid.Col>
         </Grid>
+
         <Space h='xl' />
         <Space h='xl' />
+       {alert? 
+       <Alert icon={<AlertCircle size={16} />} title="Please enter a title for your board!" color="red" withCloseButton /> : null
+       }
+      
+   
         {/* <Center>
           <Text size='sm' color='grey'>
             Click Create, or Discard to exit this view without saving
