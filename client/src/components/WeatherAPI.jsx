@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Avatar, Image, Group, Text, Badge, Center } from '@mantine/core';
 import { useWeather } from '../providers/weatherProvider';
+import { AlignJustified } from "tabler-icons-react";
 
 
 export default function WeatherAPI() {
@@ -8,6 +9,7 @@ export default function WeatherAPI() {
   return(
     <>
     <Center>
+
     {weather? 
       <Card 
       style={{ marginTop: 10, maxHeight:400, maxWidth:280}}
@@ -31,8 +33,11 @@ export default function WeatherAPI() {
 
        
       </Card> : <div/>}
-      </Center>
-      </>
+
+
+        </Center>
+    </>
+
   )
 
 }
