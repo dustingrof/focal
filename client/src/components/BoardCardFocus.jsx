@@ -1,22 +1,41 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Modal, Button, Group, useMantineTheme, Grid, Space, List, ThemeIcon, Center, Drawer, TextInput, Accordion, Text, Textarea } from '@mantine/core';
+import {
+  Modal,
+  Button,
+  Group,
+  useMantineTheme,
+  Grid,
+  Space,
+  List,
+  ThemeIcon,
+  Center,
+  Drawer,
+  TextInput,
+  Accordion,
+  Text,
+  Textarea,
+  Title,
+} from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import { CircleDashed, ClipboardCheck, Flag3 } from 'tabler-icons-react';
+import {
+  CircleDashed,
+  ClipboardCheck,
+  Flag3,
+  Database,
+  InfoSquare,
+  Edit,
+} from 'tabler-icons-react';
+import NewTaskCardFocus from './NewTaskCardFocus';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
-
 export default function TaskCardFocus(props) {
-
-
-
   // console.log('props22', props);
 
   // console.log("----------------------------------------------------");
   // console.log("fires");
   // console.log("----------------------------------------------------");
-
 
   const { urlBoardId } = useContext(boardContext);
   const { onBoardDelete, onBoardModalClose } = useContext(boardListContext);
@@ -26,13 +45,11 @@ export default function TaskCardFocus(props) {
   // console.log('boardInfo name', boardInfo['name']);
   // console.log('boardInfo descr', boardInfo['description']);
 
-
   const [opened, setOpened] = useState(false);
   const [boardName, setBoardName] = useState();
   const [boardDescription, setBoardDescription] = useState();
   const [boardImageUrl, setBoardImageUrl] = useState();
   const theme = useMantineTheme();
-
 
   // console.log('props.props', props.props);
 
@@ -40,49 +57,44 @@ export default function TaskCardFocus(props) {
     setBoardName(props.props.name);
     setBoardDescription(props.props.description);
     setBoardImageUrl(props.props.image_url);
-
   }, [opened]);
 
   // console.log('boardName', boardName);
   // console.log('boardDescription', boardDescription);
 
   // Image uploader
-  const handleImageUpload = (file) =>
+  const handleImageUpload = file =>
     new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      fetch('https://api.imgbb.com/1/upload?key=d01ee599140b27bd510a79bbaf033cbf', {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((result) => resolve(result.data.url))
+      fetch(
+        'https://api.imgbb.com/1/upload?key=d01ee599140b27bd510a79bbaf033cbf',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      )
+        .then(response => response.json())
+        .then(result => resolve(result.data.url))
         .catch(() => reject(new Error('Upload failed')));
     });
 
-
-
   const boardModalClose = function () {
-
     const boardDataToUpdate = {
       name: boardName,
       description: boardDescription,
       id: urlBoardId,
-      image_url: boardImageUrl
+      image_url: boardImageUrl,
     };
-
 
     const setModalState = () => setOpened(false);
     setModalState();
 
     onBoardModalClose(boardDataToUpdate);
-
   };
 
-
   const deleteBoard = function () {
-
     // cardToDelete must contain board_id
     const boardToDelete = {
       board_id: urlBoardId,
@@ -98,9 +110,8 @@ export default function TaskCardFocus(props) {
       // pass new card and make axios request (in boardProvider.js)
       onBoardDelete(boardToDelete);
     } else {
-      console.log("DELETE BOARD REQUEST NOT SENT");
+      console.log('DELETE BOARD REQUEST NOT SENT');
     }
-
   };
 
   return (
@@ -114,7 +125,7 @@ export default function TaskCardFocus(props) {
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }
-        
+
         overlayOpacity={0.55}
         overlayBlur={3}
         size='lg'        <RichTextEditor
@@ -134,22 +145,18 @@ export default function TaskCardFocus(props) {
       <Drawer
         opened={opened}
         onClose={boardModalClose}
-        padding="xl"
-        size="xl"
+        padding='xl'
+        size='xl'
         overlayColor={
           theme.colorScheme === 'dark'
             ? theme.colors.dark[1]
             : theme.colors.dark[10]
         }
         overlayOpacity={0.5}
-        overlayBlur={3}
-      >
-
+        overlayBlur={3}>
         <h3>Edit board name:</h3>
 
-
         {/* <Space h='md' /> */}
-
 
         <TextInput
           // variant='unstyled'
@@ -179,9 +186,7 @@ export default function TaskCardFocus(props) {
         <Space h='xl' />
 
         <Accordion>
-
-
-          <Accordion.Item label="Edit image URL">
+          <Accordion.Item label='Edit image URL'>
             <TextInput
               // variant='unstyled'
               placeholder={boardImageUrl}
@@ -189,10 +194,7 @@ export default function TaskCardFocus(props) {
               value={boardImageUrl}
               onChange={event => setBoardImageUrl(event.currentTarget.value)}
             />
-
           </Accordion.Item>
-
-
         </Accordion>
         <Space h='xl' />
         {/* <Space h='xl' /> */}
@@ -202,34 +204,38 @@ export default function TaskCardFocus(props) {
           <Text size='md' color='grey'>
             Close window to automatically save changes
           </Text>
-
         </Center>
-
-
-
-
 
         <Space h='xl' />
         <Space h='xl' />
         <Space h='xl' />
         <Space h='xl' />
         <Center>
-          <Button
-            color="red"
-            onClick={deleteBoard}
-          >
+          <Button color='red' onClick={deleteBoard}>
             Delete Board
           </Button>
-
         </Center>
       </Drawer>
       {/* </Modal> */}
-
-      <Group position='center'>
-        <Button onClick={() => setOpened(true)}>Board Card</Button>
+      <Title order={2} style={{ marginLeft: 10 }}>
+        <ThemeIcon
+          variant='outline'
+          size='xl'
+          style={{ marginRight: 10 }}
+          onClick={() => setOpened(true)}>
+          <Edit size={30} />
+        </ThemeIcon>
+        {boardName}
+      </Title>
+      {/* <NewTaskCardFocus /> */}
+      <Group position='left'>
+        {/* <Button
+          onClick={() => setOpened(true)}
+          variant='outline'
+          rightIcon={<Edit size={25} />}
+          size='xs'
+          style={{ fontSize: 20, marginLeft: 10, fontWeight: 700 }}></Button> */}
       </Group>
     </>
   );
-};
-
-
+}

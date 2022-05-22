@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import BoardProvider from './providers/boardProvider';
 import BoardListProvider from './providers/boardListProvider';
 import UrlProvider from './providers/UrlBoardIdProvider';
+import HeaderProvider, { headerContext } from './providers/headerProvider';
 import {
   BrowserRouter as Router,
   Route,
@@ -39,9 +40,9 @@ ReactDOM.render(
             <NotificationsProvider position='bottom-left' limit={1}>
               <BoardListProvider>
                 <BoardProvider>
-                  {/* <WeatherProvider> */}
-                  <App />
-                  {/* </WeatherProvider> */}
+                  <HeaderProvider>
+                    <App />
+                  </HeaderProvider>
                 </BoardProvider>
               </BoardListProvider>
             </NotificationsProvider>

@@ -21,16 +21,25 @@ import {
   Textarea,
   CheckboxGroup,
   Checkbox,
+  Title,
 } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
-import { BrandGithub, Flag3, Edit } from 'tabler-icons-react';
+import {
+  BrandGithub,
+  Flag3,
+  Edit,
+  MailForward,
+  CircleCheck,
+} from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
-import Timer from './TopHeader/Timer';
+import Timer from './Timer';
 import EmailForm from './EmailForm';
+import VideoChat from './VideoChat';
 import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
+import { useHeader } from '../providers/headerProvider';
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -46,6 +55,7 @@ export default function TaskCardFocus(props) {
 
   const { onFocusModalClose, onTaskDelete } = useContext(boardContext);
   const { listOfUsers } = useBoardList();
+  const { user } = useHeader();
   const { sec, min, hrs, reset, stop } = useContext(timerContext);
   const [opened, setOpened] = useState(false);
   const [richTextValue, onRichTextValueChange] = useState(initialTextValue);
@@ -54,6 +64,7 @@ export default function TaskCardFocus(props) {
   const [dateToUpdate, setDateToUpdate] = useState(dueDate);
   const [timeUpdated, setTimeUpdated] = useState(cardData.total_time_sec);
   const [userValue, setUserValue] = useState(userArray);
+  const [mailForwardOpened, setMailForward] = useState(false);
 
   const usersToString = userValue.join(', ');
 
@@ -175,32 +186,66 @@ export default function TaskCardFocus(props) {
         overlayOpacity={0.5}
         overlayBlur={3}
         size='lg'
+        padding='xl'
+        radius='lg'
         transition='pop'
         transitionDuration={200}>
-        <Grid>
-          <Grid.Col span={6}>
-            <h3>
+        <Grid style={{ display: 'flex' }}>
+          {/* Column to hold Task Name */}
+          <Grid.Col span={10}>
+            <Title order={3} style={{ marginTop: 10 }}>
               {titleToUpdate}
-              <Edit onClick={() => setEditOpen(o => !o)} />
-            </h3>
+              <ThemeIcon
+                color='dark'
+                variant='light'
+                size={24}
+                radius='xs'
+                style={{ marginLeft: 10 }}>
+                <Flag3 size={16} />
+              </ThemeIcon>
+            </Title>
+          </Grid.Col>
+          <Grid.Col
+            span={2}
+            style={{
+              marginTop: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
+            <Edit onClick={() => setEditOpen(o => !o)} />
+            <MailForward onClick={() => setMailForward(o => !o)} />
+            <VideoChat />
+          </Grid.Col>
+        </Grid>
+        <Grid>
+          <Grid.Col>
+            {/* Shows the form when a user clicks edit */}
             <Collapse in={editOpened}>
               <TextInput
-                variant='unstyled'
                 placeholder={'Please enter a new title'}
-                size='xl'
+                label={'Edit your task name below:'}
+                size='md'
                 value={titleToUpdate}
                 onChange={event => setTitleToUpdate(event.currentTarget.value)}
+                rightSection={
+                  <CircleCheck
+                    onClick={() => setEditOpen(o => !o)}
+                    alt='Save Changes'>
+                    Save Changes
+                  </CircleCheck>
+                }
               />
-              <Button
-                variant='outline'
-                compact
-                onClick={() => setEditOpen(o => !o)}>
-                Save Changes
-              </Button>
+              <Space h='xl' />
             </Collapse>
+            <Collapse in={mailForwardOpened}>
+              <EmailForm taskName={titleToUpdate} currentUser={user} />
+            </Collapse>
+          </Grid.Col>
+          <Grid.Col span={6}>
             <CheckboxGroup
               defaultValue={userArray}
-              // label='Select your favorite framework/library'
+              label='Select team members to assign:'
               // description='This is anonymous'
               // value={userArray}
               onChange={setUserValue}
@@ -210,10 +255,6 @@ export default function TaskCardFocus(props) {
             </CheckboxGroup>
           </Grid.Col>
           <Grid.Col span={6}>
-            Days remaining
-            <ThemeIcon color='dark' variant='light' size={24} radius='xs'>
-              <Flag3 size={16} />
-            </ThemeIcon>
             <DatePicker
               placeholder={dueDate}
               value={dateToUpdate}
@@ -221,16 +262,17 @@ export default function TaskCardFocus(props) {
               onChange={setDateToUpdate}
               label='Due Date:'
             />
+            <Space h='xl' />
+            <Text size='lg'>
+              <span style={{ fontWeight: 700 }}>Total task time:</span>{' '}
+              {convertTotalTimeToISO}
+            </Text>
+            <Space h='xl' />
           </Grid.Col>
         </Grid>
         <Space h='xl' />
         <Grid>
-          <Grid.Col span={6}>
-            <Button>Schedule a Meeting</Button>
-            <EmailForm />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Center>Current time on task: {convertTotalTimeToISO}</Center>
+          <Grid.Col>
             <Timer task={cardData} addTimeToTask={addTimeToTask} />
           </Grid.Col>
         </Grid>
@@ -282,15 +324,18 @@ export default function TaskCardFocus(props) {
         </Grid>
 
         <Space h='xl' />
-        <Text size='sm' color='grey'>
-          Changes automatically saved when board is closed
-        </Text>
-
+        <Center>
+          <Text size='sm' color='grey'>
+            Changes automatically saved when board is closed.
+          </Text>
+        </Center>
         <Space h='xl' />
       </Modal>
 
       <Group position='center'>
-        <Button onClick={() => setOpened(true)}>Details</Button>
+        <Button onClick={() => setOpened(true)} variant='outline'>
+          Details
+        </Button>
       </Group>
     </>
   );

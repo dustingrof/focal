@@ -9,12 +9,13 @@ import {
   Box,
   Textarea,
   Collapse,
+  Space,
 } from '@mantine/core';
 import { MailForward } from 'tabler-icons-react';
 import { useForm } from '@mantine/form';
 
-export default function EmailForm() {
-  const [mailForwardOpened, setMailForward] = useState(false);
+export default function EmailForm(props) {
+  // const [mailForwardOpened, setMailForward] = useState(false);
 
   function sendEmail(e) {
     e.preventDefault();
@@ -48,47 +49,50 @@ export default function EmailForm() {
   });
 
   return (
-    <Box sx={{ maxWidth: 300 }} mx='auto'>
-      <MailForward onClick={() => setMailForward(o => !o)} />
-      <Collapse in={mailForwardOpened}>
-        <form onSubmit={sendEmail}>
-          <TextInput
-            placeholder='Your name'
-            name='name'
-            type='text'
-            value='SETVALUE'
-            required
-            hidden
-          />
-          <TextInput
-            placeholder='Your email'
-            label='Email Address'
-            name='email'
-            type='email'
-            required
-          />
-
-          <TextInput
-            placeholder='What should we discuss?'
-            label='Subject'
-            name='subject'
-            type='text'
-            required
-          />
-
-          <Textarea
-            placeholder='Enter a message here'
-            label='Your message'
-            name='message'
-            type='text'
-            required
-          />
-          <Button type='submit' className='btn btn-info' value='Send Message'>
-            Submit
-          </Button>
-          
-        </form>
-      </Collapse>
+    <Box mx='auto'>
+      {/* <MailForward onClick={() => setMailForward(o => !o)} /> */}
+      {/* <Collapse in={mailForwardOpened}> */}
+      <form onSubmit={sendEmail}>
+        {/* Hidden from front, gets current username and enters it */}
+        <TextInput
+          placeholder='Your name'
+          name='name'
+          type='text'
+          value={props.currentUser}
+          required
+          hidden
+        />
+        <Space h='md' />
+        <TextInput
+          placeholder='Enter recipient email address'
+          label='Who would you like to email?'
+          name='email'
+          type='email'
+          required
+        />
+        <Space h='md' />
+        <TextInput
+          placeholder='What should we discuss?'
+          label='Subject'
+          name='subject'
+          type='text'
+          defaultValue={props.taskName}
+          required
+        />
+        <Space h='md' />
+        <Textarea
+          placeholder='Enter a message here'
+          label='Your message'
+          name='message'
+          type='text'
+          required
+        />
+        <Space h='md' />
+        <Button type='submit' className='btn btn-info' value='Send Message'>
+          Submit
+        </Button>
+      </form>
+      {/* </Collapse> */}
     </Box>
   );
 }
