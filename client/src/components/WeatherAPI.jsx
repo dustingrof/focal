@@ -12,7 +12,7 @@ export default function WeatherAPI() {
 
     {weather?
       <Card
-      // style={{ marginTop: 10, maxHeight:400, maxWidth:280}}
+
       >
         <Card.Section>
           <Image src="https://github.com/dustingrof/focal/blob/main/client/public/images/iStock-1365081598.jpg?raw=true" height={160} alt="Lighthouse in a storm" />

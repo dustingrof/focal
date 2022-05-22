@@ -20,7 +20,7 @@ import { useHover } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
 import { BrandHipchat } from 'tabler-icons-react';
-import { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 
 // Socket Connection
 import io from 'socket.io-client';
@@ -97,22 +97,22 @@ useEffect(() => {
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-    console.log("Avatar from DB", item.user_ls_avatar);
+    console.log("Avatar from DB", item.id);
     // if (item.userls === userLS) {
       return (
       <>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
-            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
-              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
+            <List.Item  key={Number.toString(item.id)} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>
         :
-          <Tooltip label={item.userls} color="blue" position="left" > 
-            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
-              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
+          <Tooltip label={item.userls} color="blue" position="left"  > 
+            <List.Item  key={Number.toString(item.id)+1000} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
                 {item.message}
               </Badge>
             </List.Item>
@@ -155,6 +155,7 @@ useEffect(() => {
             spacing="xs"
             size="sm"
             center
+            key={"432"}
           >
             {messageListMapped}
           </List>
