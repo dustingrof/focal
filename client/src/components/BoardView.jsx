@@ -41,6 +41,8 @@ export default function BoardView(props) {
     setUrlBoardId(params.board_id);
   }, [setUrlBoardId, params.board_id]);
 
+  console.log('board', boardInfo);
+
   // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const toggleColorScheme = ColorScheme =>
@@ -64,6 +66,8 @@ export default function BoardView(props) {
                 theme.colorScheme === 'dark'
                   ? theme.colors.dark[8]
                   : theme.colors.gray[0],
+              backgroundImage: `url(${boardInfo.image_url})`,
+              backgroundSize: 'cover',
             },
           })}>
           {/* Your application here */}
@@ -77,16 +81,10 @@ export default function BoardView(props) {
             </Grid.Col>
 
             <Grid.Col span={50}>
-              <Text
-                size='xl'
-                style={{fontWeight: 700 }}
-              >
+              <Text size='xl' style={{ fontWeight: 700 }}>
                 {boardInfo['name']}
               </Text>
-
             </Grid.Col>
-
-
           </Grid>
 
           <Space h='lg' />
