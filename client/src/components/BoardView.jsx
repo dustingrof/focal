@@ -66,7 +66,7 @@ export default function BoardView(props) {
                 theme.colorScheme === 'dark'
                   ? theme.colors.dark[8]
                   : theme.colors.gray[0],
-              backgroundImage: `url(${boardInfo.image_url})`,
+              backgroundImage: boardInfo.image_url,
               backgroundSize: 'cover',
             },
           })}>
