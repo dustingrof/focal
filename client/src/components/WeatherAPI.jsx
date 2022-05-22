@@ -1,15 +1,18 @@
 import React from "react";
 import { Card, Avatar, Image, Group, Text, Badge, Center } from '@mantine/core';
 import { useWeather } from '../providers/weatherProvider';
+import { AlignJustified } from "tabler-icons-react";
 
 
 export default function WeatherAPI() {
   const { weather } = useWeather();
   return(
     <>
+    <Center>
+
     {weather? 
       <Card 
-      style={{ marginTop: 10, maxHeight:400, maxWidth:280,  top: 600, left:1000}}
+      style={{ marginTop: 10, maxHeight:400, maxWidth:280}}
       >
         <Card.Section>
           <Image src="https://github.com/dustingrof/focal/blob/main/client/public/images/iStock-1365081598.jpg?raw=true" height={160} alt="Lighthouse in a storm" />
@@ -30,6 +33,7 @@ export default function WeatherAPI() {
 
        
       </Card> : <div/>}
+        </Center>
     </>
   )
 
