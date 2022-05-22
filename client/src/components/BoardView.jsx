@@ -13,6 +13,7 @@ import {
   Title,
   MantineProvider,
   ColorSchemeProvider,
+  Grid,
 } from '@mantine/core';
 import { Sun, MoonStars } from 'tabler-icons-react';
 
@@ -70,7 +71,24 @@ export default function BoardView(props) {
           {/* <Title order={1}>{boardInfo['name']}</Title> */}
           {/* <Text size='md'>{boardInfo['description']}</Text> */}
 
-          <BoardCardFocus props={boardInfo} />
+          <Grid columns={100}>
+            <Grid.Col span={5}>
+              <BoardCardFocus props={boardInfo} />
+            </Grid.Col>
+
+            <Grid.Col span={50}>
+              <Text
+                size='xl'
+                style={{fontWeight: 700 }}
+              >
+                {boardInfo['name']}
+              </Text>
+
+            </Grid.Col>
+
+
+          </Grid>
+
           <Space h='lg' />
           <Board
             onCardDragEnd={onMoveCard}

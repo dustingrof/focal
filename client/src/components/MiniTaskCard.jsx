@@ -10,6 +10,8 @@ import {
   Popover,
   Badge,
   Center,
+  Space,
+  Divider
 } from '@mantine/core';
 import { Flag3, Check } from 'tabler-icons-react';
 import TaskCardFocus from './TaskCardFocus';
@@ -43,15 +45,9 @@ export default function MiniTaskCard(props) {
     if (dueDate) {
       dueDateBlock = (
         <>
-          <Grid.Col span={6}>
-
-            <Text color="dimmed">
-              Due:
-            </Text>
-            <Text color="dimmed">
-              {dueDate}
-            </Text >
-          </Grid.Col>
+          <Text color="dimmed">
+            Due: {dueDate}
+          </Text>
 
 
         </>
@@ -186,40 +182,42 @@ export default function MiniTaskCard(props) {
     <div
       className={`react-kanban-card ${dragging ? 'react-kanban-card--dragging' : ''
         }`}>
-      <div style={{ width: 'auto', margin: 'auto' }}>
-        <Card p='lg' target='_blank' component='a'>
+      <div style={{ width: 'auto', margin: 0 }}>
+        <Card p='xs' target='_blank' component='a'>
           <Card.Section>
-            <Grid
-              position='apart'
-              style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-              <Grid.Col span={10}>
-                <Text size='lg' weight={500}>
-                  {cardData.title}
-                </Text>
-              </Grid.Col>
-              <Grid.Col span={2}>
+            {/* <Grid */}
+            {/* position='apart' */}
+            {/* style={{ marginBottom: 5, marginTop: theme.spacing.sm }}> */}
+            {/* <Grid.Col> */}
 
+            <TaskCardFocus cardData={cardData} />
 
-
-                {flag}
-                {/* <Flag3 size={48} strokeWidth={2} color={'black'} /> */}
-
-
-
-
-              </Grid.Col>
-            </Grid>
+            {/* </Grid.Col> */}
+            {/* </Grid> */}
           </Card.Section>
 
-          <Card.Section>
-            <Grid>
-              <Grid.Col span={6}>
-                <TaskCardFocus cardData={cardData} />
+          <Space h='xs' />
 
-                {/* <Avatar src="avatar.png" alt="it's me" size="sm"/> */}
+          <Divider my="xs" variant="dashed"/>
+          <Space h='md' />
+
+
+          <Card.Section>
+            <Grid columns={20}>
+
+              <Grid.Col span={15}>
+              {dueDateBlock}
+
               </Grid.Col>
 
-              {dueDateBlock}
+
+
+              <Grid.Col span={2} offset={1}>
+                {flag}
+              </Grid.Col>
+
+
+
             </Grid>
           </Card.Section>
         </Card>
