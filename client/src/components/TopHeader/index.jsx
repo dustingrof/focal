@@ -47,9 +47,9 @@ export default function TopHeader() {
 
 
 
-        <Grid.Col span={1} offset={6} />
+        <Grid.Col span={1} offset={7} />
 
-        <Grid.Col span={2} style={iconSpacing}>
+        <Grid.Col span={1} style={iconSpacing}>
           <Pomodoro />
           <ActionIcon
             variant='outline'
