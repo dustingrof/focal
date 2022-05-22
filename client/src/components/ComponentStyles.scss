@@ -19,3 +19,8 @@ body {
 #root.dark .react-kanban-card {
   background-color: #25262b;
 }
+
+td.task-title,
+td.task-board_name {
+  text-transform: capitalize;
+}
