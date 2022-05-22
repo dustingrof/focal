@@ -25,7 +25,7 @@ module.exports = db => {
     const userId = req.params.user_id;
     db.query(
       `
-      SELECT tasks.id, board_id, status, boards.name as board_name, title, due_date, string_to_array(array_of_users, ', ') AS users
+      SELECT tasks.id, board_id, status, boards.name as board_name, title, due_date, string_to_array(array_of_users, ', ') AS users, array_of_users, total_time_sec, tasks.description AS description
       FROM TASKS
       JOIN boards on boards.id = tasks.board_id
       ORDER BY due_date DESC

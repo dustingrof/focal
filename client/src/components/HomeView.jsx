@@ -18,11 +18,13 @@ import {
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
+import HomeTaskCardFocus from './HomeTaskCardFocus';
 import LeftNavbar from './LeftNavbar';
 import { headerContext } from '../providers/headerProvider';
 
 export default function HomeView() {
   const { currentUserId, setCurrentUserId } = useContext(headerContext);
+  const { user, setUser } = useContext(headerContext);
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const [usersListOfTasks, setUsersListOfTasks] = useState();
 
@@ -39,11 +41,20 @@ export default function HomeView() {
       .catch(error => {
         console.log(`Board info: Request failed with error ${error}`);
       });
-  });
+  }, []);
 
   let rowsOfTasks;
   if (usersListOfTasks) {
-    rowsOfTasks = usersListOfTasks.map(task => {
+    console.log('usersListOfTasks', usersListOfTasks);
+    const decideToFilter = function (data) {
+      if (data.users.includes(user)) {
+        return true;
+      }
+      return false;
+    };
+    const result = usersListOfTasks.filter(decideToFilter);
+    console.log('result', result);
+    rowsOfTasks = result.map(task => {
       console.log('task.users', task.users);
       let taskStatusName;
       if (task.status === 1) {
@@ -61,9 +72,23 @@ export default function HomeView() {
       const taskDueText = task.due_date
         ? new Date(task.due_date).toISOString().slice(0, 10)
         : '';
+      const cardData = {
+        id: task.id,
+        board_id: task.board_id,
+        status: task.status,
+        title: task.title,
+        due_date: task.due_date,
+        array_of_users: task.users,
+        description: task.description,
+        total_time_sec: task.total_time_sec,
+      };
+      console.log('task.users', task.total_time_sec);
+      console.log('cardData', cardData);
       return (
         <tr>
-          <td className='task-title'>{task.title}</td>
+          <td className='task-title'>
+            <HomeTaskCardFocus title={task.title} cardData={cardData} />
+          </td>
           <td className='task-status'>{taskStatusName}</td>
           <td className='task-due_date'>{taskDueText}</td>
           {/* <td className='task-board_name'>{task.board_name}</td> */}
