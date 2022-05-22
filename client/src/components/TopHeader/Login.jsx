@@ -67,17 +67,19 @@ const Login = () => {
       withCloseButton
       title='Change user'
       transition='pop-top-right'
-      // target={ popoverTarget }
       target =
       {!user ? 
         (<ActionIcon
         variant='outline'
         color={dark ? '#4dabf7' : 'blue'}
+        size={35}
         onClick={() => setOpened(o => !o)}>
         <User size='xl' />
       </ActionIcon>) : 
       (
-      <ActionIcon>
+      <ActionIcon
+      size={35}
+      >
         <Avatar
         radius="sm"
         size={28}

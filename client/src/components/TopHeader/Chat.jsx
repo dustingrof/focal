@@ -180,6 +180,7 @@ useEffect(() => {
           variant='outline'
           color={dark ? '#4dabf7' : 'blue'}
           title='Open Chat'
+          size={35}
           onClick={() => setOpened(o => !o)}>
           <BrandHipchat size='xl' />
         </ActionIcon>

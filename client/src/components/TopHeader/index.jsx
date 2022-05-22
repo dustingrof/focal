@@ -47,17 +47,17 @@ export default function TopHeader() {
 
 
 
-        <Grid.Col span={1} offset={5} />
+        <Grid.Col span={1} offset={6} />
 
         <Grid.Col span={2} style={iconSpacing}>
           <Pomodoro />
-          {/* <TimerDisplay /> */}
           <ActionIcon
             variant='outline'
+            size={35}
             color={dark ? "#4dabf7" : 'blue'}
             onClick={() => toggleColorScheme()}
             title='Toggle color scheme'>
-            {dark ? <Sun size={18} /> : <MoonStars size={18} />}
+            {dark ? <Sun size={35} /> : <MoonStars size={35} />}
           </ActionIcon>
           <Chat />
           <Login />
