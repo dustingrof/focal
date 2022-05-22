@@ -11,23 +11,17 @@ import {
   AppShell,
   MantineProvider,
   ColorSchemeProvider,
-  Avatar
+  Avatar,
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
 import LeftNavbar from './LeftNavbar';
 
-
-
 export default function BoardView(props) {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
 
-
-
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
-
-  
 
   return (
     <ColorSchemeProvider
@@ -49,9 +43,7 @@ export default function BoardView(props) {
                   ? theme.colors.dark[8]
                   : theme.colors.gray[0],
             },
-            
           })}>
-
           <Space h='xl' />
           <WeatherAPI />
         </AppShell>

@@ -1,10 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import emailjs from 'emailjs-com';
 
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import {
+  TextInput,
+  Checkbox,
+  Button,
+  Group,
+  Box,
+  Textarea,
+  Collapse,
+  Space,
+} from '@mantine/core';
+import { MailForward } from 'tabler-icons-react';
 import { useForm } from '@mantine/form';
 
-export default function EmailForm() {
+export default function EmailForm(props) {
+  // const [mailForwardOpened, setMailForward] = useState(false);
+
   function sendEmail(e) {
     e.preventDefault();
 
@@ -37,74 +49,50 @@ export default function EmailForm() {
   });
 
   return (
-    <div>
-      <div className='container'>
-        <form onSubmit={sendEmail}>
-          <div className='row pt-5 mx-auto'>
-            <div className='col-8 form-group mx-auto'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Name'
-                name='name'
-              />
-            </div>
-            <div className='col-8 form-group pt-2 mx-auto'>
-              <input
-                type='email'
-                className='form-control'
-                placeholder='Email Address'
-                name='email'
-              />
-            </div>
-            <div className='col-8 form-group pt-2 mx-auto'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Subject'
-                name='subject'
-              />
-            </div>
-            <div className='col-8 form-group pt-2 mx-auto'>
-              <textarea
-                className='form-control'
-                id=''
-                cols='30'
-                rows='8'
-                placeholder='Your message'
-                name='message'></textarea>
-            </div>
-            <div className='col-8 pt-3 mx-auto'>
-              <input
-                type='submit'
-                className='btn btn-info'
-                value='Send Message'></input>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <Box sx={{ maxWidth: 300 }} mx='auto'>
-        <form onSubmit={form.onSubmit(values => console.log(values))}>
-          <TextInput
-            required
-            label='Email'
-            placeholder='your@email.com'
-            name={'testname'}
-            {...form.getInputProps('email')}
-          />
-
-          <Checkbox
-            mt='md'
-            label='I agree to sell my privacy'
-            {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-          />
-
-          <Group position='right' mt='md'>
-            <Button type='submit'>Submit</Button>
-          </Group>
-        </form>
-      </Box>
-    </div>
+    <Box mx='auto'>
+      {/* <MailForward onClick={() => setMailForward(o => !o)} /> */}
+      {/* <Collapse in={mailForwardOpened}> */}
+      <form onSubmit={sendEmail}>
+        {/* Hidden from front, gets current username and enters it */}
+        <TextInput
+          placeholder='Your name'
+          name='name'
+          type='text'
+          value={props.currentUser}
+          required
+          hidden
+        />
+        <Space h='md' />
+        <TextInput
+          placeholder='Enter recipient email address'
+          label='Who would you like to email?'
+          name='email'
+          type='email'
+          required
+        />
+        <Space h='md' />
+        <TextInput
+          placeholder='What should we discuss?'
+          label='Subject'
+          name='subject'
+          type='text'
+          defaultValue={props.taskName}
+          required
+        />
+        <Space h='md' />
+        <Textarea
+          placeholder='Enter a message here'
+          label='Your message'
+          name='message'
+          type='text'
+          required
+        />
+        <Space h='md' />
+        <Button type='submit' className='btn btn-info' value='Send Message'>
+          Submit
+        </Button>
+      </form>
+      {/* </Collapse> */}
+    </Box>
   );
 }
