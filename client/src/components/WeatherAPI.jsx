@@ -33,8 +33,11 @@ export default function WeatherAPI() {
 
        
       </Card> : <div/>}
+
+
         </Center>
     </>
+
   )
 
 }
