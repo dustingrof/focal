@@ -3,11 +3,10 @@ import {
   Button,
   Select,
   Group,
-  Center,
   Popover,
   ActionIcon,
   useMantineTheme,
-  Space,
+  Avatar,
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
 import { colourListContext } from '../../providers/colourSchemeProvider';
@@ -23,13 +22,16 @@ const Login = () => {
     setCurrentUserId,
   } = useContext(headerContext);
   const [opened, setOpened] = useState(false);
-
   const theme = useMantineTheme();
   // const { onUserAvatar } = useContext(boardContext);
+
+  const { colorScheme } = useContext(colourListContext);
+  const dark = colorScheme === 'dark';
 
   // Sets user from <Select> dropdown to local storage
   const addUserToLocalState = () => {
     localStorage.setItem('name', user);
+    setUser(localStorage.getItem('name'));
 
     // add user id to local storage
     let userId;
@@ -50,7 +52,6 @@ const Login = () => {
     localStorage.setItem('userId', userId);
 
     // add userAvater to local storage
-
     let avatar;
 
     switch (user) {
@@ -87,9 +88,8 @@ const Login = () => {
     localStorage.removeItem('avatar');
     localStorage.removeItem('userId');
     setOpened(false);
+    setUser();
   };
-  const { colorScheme, setColorScheme } = useContext(colourListContext);
-  const dark = colorScheme === 'dark';
 
   return (
     <Popover
@@ -100,13 +100,25 @@ const Login = () => {
       withCloseButton
       title='Change user'
       transition='pop-top-right'
+      // target={ popoverTarget }
       target={
-        <ActionIcon
-          variant='outline'
-          color={dark ? 'yellow' : 'blue'}
-          onClick={() => setOpened(o => !o)}>
-          <User size='xl' />
-        </ActionIcon>
+        !user ? (
+          <ActionIcon
+            variant='outline'
+            color={dark ? '#4dabf7' : 'blue'}
+            onClick={() => setOpened(o => !o)}>
+            <User size='xl' />
+          </ActionIcon>
+        ) : (
+          <ActionIcon>
+            <Avatar
+              radius='sm'
+              size={28}
+              src={currentAvatar}
+              onClick={() => setOpened(o => !o)}
+            />
+          </ActionIcon>
+        )
       }>
       <Group position='center' spacing='sm'>
         <Select

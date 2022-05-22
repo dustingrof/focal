@@ -1,17 +1,20 @@
 import {
+  Divider,
+  SimpleGrid,
     Button,
     Popover,
     ActionIcon,
     useMantineTheme,
     Space,
-    Grid,
+    Accordion,
+    Center,
   } from '@mantine/core';
   import { Clock } from 'tabler-icons-react';
   import { CheckIcon } from '@modulz/radix-icons';
   import { showNotification } from '@mantine/notifications';
 import React, { useEffect, useState, useContext } from "react";
 import { colourListContext } from '../../providers/colourSchemeProvider';
-
+import TimerDisplay from './TimerDisplay';
 export default function Pomodoro() {
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -95,42 +98,67 @@ export default function Pomodoro() {
 
   return (
     <>
-  
- <Popover
+      <Popover
         opened={opened}
         onClose={() => setOpened(false)}
         position='bottom'
         placement='end'
         withCloseButton
-        title='Pomodoro Timer'
+        // title='Timers'
         transition='pop-top-right'
         target={
           <ActionIcon
             variant='outline'
-            color={dark ? 'yellow' : 'blue'}
+            color={dark ? '#4dabf7s' : 'blue'}
             onClick={() => setOpened(o => !o)}>
             <Clock size='xl' />
           </ActionIcon>
-        }>
- 
+      }>
+      <Accordion iconPosition="right" offsetIcon={false} multiple withCloseButton={false} >
+      <Accordion.Item label="Pomodoro Timer" withCloseButton={false} >
+        <Center>Work: {convertWorkTimeToISO}</Center>
+        <Center>Break:  {convertBreakTimeToISO}</Center>
+        <Space m="sm"/>
+        <SimpleGrid cols={1} spacing="xs">
+          {/* <Button  variant='outline' color='teal' compact style={{ margin: 5 }} onClick={startWork}>
+            start work
+          </Button>
+          <Button    variant='outline' color='red' compact style={{ margin: 5 }} onClick={resetWorkAndBreak}>
+            reset
+          </Button> */}
+          
+  <Button
+            onClick={startWork}
+            // color='cyan'
+            radius='md'
+            size='xs'
+            variant='outline'
+            compact>
+            Start Work
+          </Button>
+          <Button
+            onClick={resetWorkAndBreak}
+            color='red'
+            radius='md'
+            size='xs'
+            variant='outline'
+            compact>
+            Reset
+          </Button>
 
- 
-      <div>Work: {convertWorkTimeToISO}</div>
-      <div>Break:  {convertBreakTimeToISO}</div>
-      <Space m="sm"/>
-      <Grid>
-      <Button
-       variant='outline'
-                 color='teal'
-                 compact
-                 style={{ margin: 5 }}
-      onClick={startWork}>start work</Button>
-      <Button    variant='outline'
-          color='red'
-          compact
-          style={{ margin: 5 }} onClick={resetWorkAndBreak}>reset</Button>
 
-      </Grid>
+
+
+
+
+          </SimpleGrid>
+          </Accordion.Item>
+        <Divider my="sm" />
+        <Accordion.Item label="Task Timer" withCloseButton={false} >
+        <Center>Task Timer</Center>
+        <TimerDisplay />
+        </Accordion.Item>
+        </Accordion>
       </Popover>
     </>
   );

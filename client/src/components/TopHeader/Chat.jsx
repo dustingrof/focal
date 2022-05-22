@@ -175,15 +175,15 @@ useEffect(() => {
         />
 
       </Drawer>
-      <Group position='center'>
+      <div >
         <ActionIcon
           variant='outline'
-          color={dark ? 'yellow' : 'blue'}
+          color={dark ? '#4dabf7' : 'blue'}
           title='Open Chat'
           onClick={() => setOpened(o => !o)}>
           <BrandHipchat size='xl' />
         </ActionIcon>
-      </Group>
+      </div>
     </>
   );
 };

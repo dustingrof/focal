@@ -22,7 +22,8 @@ import {
   Chip,
   Drawer,
   Theme,
-  Alert
+  Alert,
+  Tooltip
 } from '@mantine/core';
 import { AlertCircle } from 'tabler-icons-react';
 import { RichTextEditor } from '@mantine/rte';
@@ -190,16 +191,25 @@ export default function NewBoardCardFocus(props) {
        }
       
    
-        {/* <Center>
-          <Text size='sm' color='grey'>
-            Click Create, or Discard to exit this view without saving
-          </Text>
-        </Center> */}
+
       </Drawer>
-      {/* </Modal> */}
 
       <List.Item
         icon={
+
+
+          <Tooltip
+          label='Create a new board'
+          closeDelay={100}
+          position='right'
+          withArrow arrowSize={4}
+          transition="pop"
+          transitionDuration={100}
+          transitionTimingFunction="ease"
+          >
+
+
+
           <SquarePlus
             size={56}
             strokeWidth={1}
@@ -212,7 +222,8 @@ export default function NewBoardCardFocus(props) {
               borderColor: 'gray',
               margin: 3,
             }}
-          />
+            />
+            </Tooltip>
         }></List.Item>
     </>
   );
