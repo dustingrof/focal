@@ -24,6 +24,8 @@ import {
   Title,
   Container,
 } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import {
@@ -109,6 +111,16 @@ export default function TaskCardFocus(props) {
     setTimeUpdated(newTime);
     reset();
     stop();
+    // showNotification({title: 'Message', message: "Time added to task.", icon={<Check size={18} />}, color="teal", title="Teal notification"}); 
+    showNotification({
+      id: 'load-data',
+      color: 'teal',
+      title: 'Your total task time has been updated!',
+      // message: '!',
+      icon: <CheckIcon />,
+      autoClose: 3000,
+    } ); 
+
   };
 
   // delete task

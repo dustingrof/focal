@@ -235,28 +235,28 @@ export default function BoardProvider(props) {
 
 
 
-  // const onBoardModalClose = (boardDataToUpdate) => {
+  const onBoardModalClose = (boardDataToUpdate) => {
 
-  //   const board_id = Number(boardDataToUpdate.id);
+    const board_id = Number(boardDataToUpdate.id);
 
-
-  //   setFocusIsClosed(true);
-  //   return axios
-  //     .put(`/boards/${board_id}`, { boardDataToUpdate })
-  //     .then(results => {
-  //       setFocusIsClosed(false);
-
-  //     })
-  //     .catch(error => {
-  //       console.log(`Request failed with error ${error}`);
-  //     });
-
-  // };
+    // console.log('here?');
 
 
+    setFocusIsClosed(true);
+    return axios
+      .put(`/boards/${board_id}`, { boardDataToUpdate })
+      .then(results => {
+        setFocusIsClosed(false);
+        // onBoardModalCloseBoardView();
+
+      })
+      .catch(error => {
+        console.log(`Request failed with error ${error}`);
+      });
+  };
 
 
-  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete, boardInfo };
+  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete, boardInfo, onBoardModalClose };
 
   return (
     <boardContext.Provider value={providerData}>

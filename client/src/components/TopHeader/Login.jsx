@@ -100,26 +100,29 @@ const Login = () => {
       withCloseButton
       title='Change user'
       transition='pop-top-right'
-      // target={ popoverTarget }
-      target={
-        !user ? (
-          <ActionIcon
-            variant='outline'
-            color={dark ? '#4dabf7' : 'blue'}
-            onClick={() => setOpened(o => !o)}>
-            <User size='xl' />
-          </ActionIcon>
-        ) : (
-          <ActionIcon>
-            <Avatar
-              radius='sm'
-              size={28}
-              src={currentAvatar}
-              onClick={() => setOpened(o => !o)}
-            />
-          </ActionIcon>
-        )
-      }>
+      target =
+      {!user ?
+        (<ActionIcon
+        variant='outline'
+        color={dark ? '#4dabf7' : 'blue'}
+        size={35}
+        onClick={() => setOpened(o => !o)}>
+        <User size='xl' />
+      </ActionIcon>) :
+      (
+      <ActionIcon
+      size={35}
+      >
+        <Avatar
+        radius="sm"
+        size={35}
+        src={currentAvatar}
+        onClick={() => setOpened(o => !o)}
+        />
+        </ActionIcon>)}
+
+
+      >
       <Group position='center' spacing='sm'>
         <Select
           placeholder='Login as ...'
