@@ -18,7 +18,7 @@ import {
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
-import HomeTaskCardFocus from './HomeTaskCardFocus';
+
 import LeftNavbar from './LeftNavbar';
 import { headerContext } from '../providers/headerProvider';
 
@@ -33,7 +33,7 @@ export default function HomeView() {
 
   useEffect(() => {
     axios
-      .get(`/users/${currentUserId}/tasks`, { currentUserId })
+      .get(`/users/1/tasks`)
       .then(results => {
         // console.log('results.data', results.data);
         setUsersListOfTasks(Object.values(results.data));
@@ -86,12 +86,13 @@ export default function HomeView() {
       console.log('cardData', cardData);
       return (
         <tr>
-          <td className='task-title'>
-            <HomeTaskCardFocus title={task.title} cardData={cardData} />
-          </td>
+          <td className='task-title'>{task.title}</td>
           <td className='task-status'>{taskStatusName}</td>
           <td className='task-due_date'>{taskDueText}</td>
-          <td className='task-board_name'>{task.board_name}</td>
+          <td className='task-board_name'>
+            {task.board_name}
+            
+          </td>
           <td className='task-users'>
             <AvatarsGroup limit={3}>
               {task.users.map(u => {
@@ -165,6 +166,7 @@ export default function HomeView() {
                 horizontalSpacing='xl'
                 data-sorting='true'
                 data-filtering='false'
+                data-paging='true'
                 className='footable'
                 verticalSpacing='xl'
                 fontSize='lg'
@@ -173,7 +175,11 @@ export default function HomeView() {
                   <tr>
                     <th>Task Name</th>
                     <th data-hide='phone, tablet'>Status</th>
-                    <th data-hide='phone, tablet'>Due Date</th>
+                    <th
+                      data-hide='phone, tablet'
+                      data-toggle-selector='.footable-toggle'>
+                      Due Date
+                    </th>
                     <th data-hide='phone, tablet' data-breakpoints='all'>
                       Board
                     </th>

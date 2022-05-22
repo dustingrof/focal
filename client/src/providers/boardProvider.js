@@ -41,10 +41,6 @@ const initialBoardInfo = {
 
 // Create a Component wrapper from Context.Provider
 export default function BoardProvider(props) {
-
-
-
-
   // here is our shared state object
   const [boardInfo, setBoardInfo] = useState(initialBoardInfo);
   const [board, setBoard] = useState(initialBoardState);
@@ -53,15 +49,13 @@ export default function BoardProvider(props) {
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
 
-  console.log('urlBoardId', urlBoardId);
+  console.log('urlBoardId 1', urlBoardId);
 
   // useEffect(() => {
   //   console.log('board', board);
   // }, [board]);
 
   useEffect(() => {
-
-
     axios
       .get(`/boards/${urlBoardId}/tasks`)
       .then(results => {
@@ -112,13 +106,11 @@ export default function BoardProvider(props) {
         console.log(`Board cards: Request failed with error ${error}`);
       });
 
-
+    console.log('urlBoardId 2', typeof urlBoardId, urlBoardId);
     axios
       .get(`/boards/${urlBoardId}`, { urlBoardId })
       .then(results => {
-
-
-
+        console.log('urlBoardId 3', urlBoardId);
 
         // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
 
@@ -127,7 +119,7 @@ export default function BoardProvider(props) {
         const image_url = results.data[urlBoardId].image_url;
 
         // console.log('newBoardInfo', newBoardInfo);
-
+        console.log('urlBoardId 4', urlBoardId);
         const newBoardInfo = {
           name,
           description,
@@ -136,18 +128,11 @@ export default function BoardProvider(props) {
         // console.log('newBoardInfo', newBoardInfo);
 
         setBoardInfo(newBoardInfo);
-
+        console.log('urlBoardId 5', urlBoardId);
       })
       .catch(error => {
         console.log(`Board info: Request failed with error ${error}`);
       });
-
-
-
-
-
-
-
   }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard, setBoardInfo]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
@@ -162,7 +147,7 @@ export default function BoardProvider(props) {
     const updatedCard = updatedBoard.columns[newColumnId].cards[newPositionId];
 
     const board_id = _card.board_id;
-    console.log("UPDATED CARD EXAMPLE:", updatedCard);
+    console.log('UPDATED CARD EXAMPLE:', updatedCard);
 
     // TODO try removing strict mode and put setBoard within axios.then
     // optimistic state update before backend call
@@ -172,9 +157,8 @@ export default function BoardProvider(props) {
     // TODO add "/" before boards
     return axios
       .put(`/boards/${board_id}/tasks/${_card.id}`, { updatedCard })
-      .then(results => { });
+      .then(results => {});
   };
-
 
   const onTaskDelete = taskToDelete => {
     const task_id = taskToDelete.task_id;
@@ -185,10 +169,11 @@ export default function BoardProvider(props) {
       .then(results => {
         // setUrlBoardId(board_id);
         setFocusIsClosed(false);
-        setUrlBoardId(board_id);
+        if (board_id) {
+          setUrlBoardId(board_id);
+        }
       });
   };
-
 
   // const onBoardDelete = boardToDelete => {
   //   const board_id = boardToDelete.board_id;
@@ -203,10 +188,8 @@ export default function BoardProvider(props) {
 
   //       // TODO re-direct to home page here?
 
-
   //     });
   // };
-
 
   const onFocusModalClose = updatedCard => {
     const card_id = updatedCard.id;
@@ -215,11 +198,12 @@ export default function BoardProvider(props) {
     return axios
       .put(`/boards/${board_id}/tasks/${card_id}`, { updatedCard })
       .then(results => {
-        setUrlBoardId(board_id);
+        if (board_id) {
+          setUrlBoardId(board_id);
+        }
         setFocusIsClosed(false);
       });
   };
-
 
   const onNewFocusModalClose = newCard => {
     const board_id = newCard.board_id;
@@ -231,14 +215,9 @@ export default function BoardProvider(props) {
       });
   };
 
-
-
-
-
   // const onBoardModalClose = (boardDataToUpdate) => {
 
   //   const board_id = Number(boardDataToUpdate.id);
-
 
   //   setFocusIsClosed(true);
   //   return axios
@@ -253,10 +232,17 @@ export default function BoardProvider(props) {
 
   // };
 
-
-
-
-  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete, boardInfo };
+  const providerData = {
+    userAvatar,
+    urlBoardId,
+    setUrlBoardId,
+    board,
+    onMoveCard,
+    onFocusModalClose,
+    onNewFocusModalClose,
+    onTaskDelete,
+    boardInfo,
+  };
 
   return (
     <boardContext.Provider value={providerData}>

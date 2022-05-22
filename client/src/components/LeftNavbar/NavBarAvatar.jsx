@@ -1,4 +1,13 @@
-import { List, Avatar, Popover, Badge, Image, Text, ThemeIcon, Tooltip } from '@mantine/core';
+import {
+  List,
+  Avatar,
+  Popover,
+  Badge,
+  Image,
+  Text,
+  ThemeIcon,
+  Tooltip,
+} from '@mantine/core';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { InfoSquare, ArrowNarrowRight, DotsVertical } from 'tabler-icons-react';
@@ -9,6 +18,7 @@ import { InfoSquare, ArrowNarrowRight, DotsVertical } from 'tabler-icons-react';
 // Better icon images to check view
 
 export default function NavBarAvatar(props) {
+  console.log('BIG props', props);
   const boardURL = `/boards/${props.board_id} `;
   const [opened, setOpened] = useState(false);
   // console.log('props NAVBARAVATR', props);
@@ -17,43 +27,33 @@ export default function NavBarAvatar(props) {
 
   return (
     <Link to={boardURL}>
-
       <List.Item
         icon={
-
           <Tooltip
-          label={board_name}
-          closeDelay={100}
-          position='right'
-          withArrow arrowSize={4}
-          transition="pop"
-          transitionDuration={100}
-          transitionTimingFunction="ease"
-          size=''
-          >
-
-
-          <Avatar
-            radius='md'
-            size='lg'
-            alt={props.name}
-            src={props.image_url}
-            style={{
-              borderWidth: 1,
-              borderRadius: 10,
-              borderStyle: 'solid',
-              borderColor: 'gray',
-              margin: 3,
-            }}
-          />
-
-
-      </Tooltip>
-
-
-        }>
-      </List.Item>
-
+            label={board_name}
+            closeDelay={100}
+            position='right'
+            withArrow
+            arrowSize={4}
+            transition='pop'
+            transitionDuration={100}
+            transitionTimingFunction='ease'
+            size=''>
+            <Avatar
+              radius='md'
+              size='lg'
+              alt={props.name}
+              src={props.image_url}
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                borderStyle: 'solid',
+                borderColor: 'gray',
+                margin: 3,
+              }}
+            />
+          </Tooltip>
+        }></List.Item>
     </Link>
   );
 }

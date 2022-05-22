@@ -37,11 +37,8 @@ export default function BoardListProvider(props) {
     });
   };
 
-
-  const onBoardModalClose = (boardDataToUpdate) => {
-
+  const onBoardModalClose = boardDataToUpdate => {
     const board_id = Number(boardDataToUpdate.id);
-
 
     setFocusIsClosed(true);
     return axios
@@ -52,11 +49,7 @@ export default function BoardListProvider(props) {
       .catch(error => {
         console.log(`Request failed with error ${error}`);
       });
-
   };
-
-
-
 
   const onNewBoard = boardToAdd => {
     setFocusIsClosed(true);
@@ -73,7 +66,7 @@ export default function BoardListProvider(props) {
     setBoardList,
     listOfUsers,
     setListOfUsers,
-    onBoardModalClose
+    onBoardModalClose,
   };
   // const providerData = { boardList };
 

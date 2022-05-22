@@ -29,8 +29,7 @@ module.exports = db => {
       FROM TASKS
       JOIN boards on boards.id = tasks.board_id
       ORDER BY due_date DESC
-    `,
-      []
+    `
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(

@@ -46,14 +46,13 @@ module.exports = db => {
 
   // when user clicks on "add task" button
   router.post('/:board_id/tasks/new', (req, res) => {
-
     const title = req.body.newCard.title;
     const description = req.body.newCard.description;
     const due_date = req.body.newCard.due_date;
     const board_id = Number(req.params.board_id); // this comes from address
     // const board_id = req.params.board_id; // this comes from address
     const status = req.body.newCard.status;
-    const array_of_users = req.body.newCard.array_of_users
+    const array_of_users = req.body.newCard.array_of_users;
 
     db.query(
       `
@@ -74,7 +73,9 @@ module.exports = db => {
 
   // This is for the board focus view
   router.get('/:board_id', (req, res) => {
+    console.log('req.params HI', req.params);
     const boardId = req.params.board_id;
+    console.log('boardId line 78', boardId);
     db.query(
       `
       SELECT *
@@ -100,6 +101,7 @@ module.exports = db => {
     // console.log("params:", req.params);
     const boardId = req.params.board_id;
     const taskId = req.params.task_id;
+    console.log('boardId, taskId', boardId, taskId);
     db.query(
       `
       SELECT *
@@ -125,7 +127,7 @@ module.exports = db => {
   router.get('/:board_id/tasks', (req, res) => {
     const boardID = Number(req.params.board_id);
 
-    console.log('req.params', req.params);
+    console.log('cl 3', req.params);
 
     db.query(
       `
@@ -158,7 +160,6 @@ module.exports = db => {
     const boardImageUrl = req.body.boardDataToUpdate.image_url;
 
     const boardId = req.body.boardDataToUpdate.id;
-
 
     db.query(
       `
@@ -225,7 +226,7 @@ module.exports = db => {
     }
 
     const boardId = req.params.board_id;
-
+    console.log('boardId in delete board ', boardId);
     db.query(`DELETE FROM boards WHERE id = $1`, [boardId]).then(() => {
       res.status(204).json({});
       // setTimeout(() => {
@@ -243,14 +244,13 @@ module.exports = db => {
     }
 
     const taskId = req.params.task_id;
-
-    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId])
-      .then(() => {
-        res.status(204).json({});
-        // setTimeout(() => {
-        //   // updateTask(Number(req.params.id), null);
-        // }, 1000);
-      });
+    console.log('taskId delete task', taskId);
+    db.query(`DELETE FROM tasks WHERE id = $1`, [taskId]).then(() => {
+      res.status(204).json({});
+      // setTimeout(() => {
+      //   // updateTask(Number(req.params.id), null);
+      // }, 1000);
+    });
   });
 
   return router;

@@ -38,7 +38,10 @@ export default function BoardView(props) {
     useContext(boardContext);
 
   useEffect(() => {
-    setUrlBoardId(params.board_id);
+    console.log('params.board_id HELLO', params.board_id);
+    if (params.board_id) {
+      setUrlBoardId(params.board_id);
+    }
   }, [setUrlBoardId, params.board_id]);
 
   console.log('board', boardInfo);

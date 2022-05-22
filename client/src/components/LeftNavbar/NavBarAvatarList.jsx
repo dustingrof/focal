@@ -12,10 +12,12 @@ import NewBoardCardFocus from './NewBoardCardFocus';
 
 export default function NavBarAvatarList() {
   const { boardList } = useBoardList();
+  console.log('boardList', boardList);
 
   const boardsArray = Object.values(boardList);
-
+  console.log('boardsArray', boardsArray);
   const list = boardsArray.map(board => {
+    console.log('board.id', board.id);
     return (
       // <div key={board.id}>
       <NavBarAvatar
@@ -39,7 +41,6 @@ export default function NavBarAvatarList() {
       {/* <Space h='lg' /> */}
 
       <List>
-
         <NewBoardCardFocus />
 
         {list}
