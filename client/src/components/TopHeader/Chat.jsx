@@ -80,7 +80,7 @@ const Chat = () => {
     socket.on("allMessages", data => {
      
       const updatedmessages = data.allMessages
-      console.log("updatedmessages:", updatedmessages)
+      
       setList(updatedmessages)
     })
   })
@@ -97,7 +97,7 @@ useEffect(() => {
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-    console.log("Avatar from DB", item.user_ls_avatar);
+   
     // if (item.userls === userLS) {
       return (
       <>

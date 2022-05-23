@@ -53,10 +53,9 @@ export default function BoardProvider(props) {
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
 
-  console.log('urlBoardId', urlBoardId);
 
   // useEffect(() => {
-  //   console.log('board', board);
+  
   // }, [board]);
 
   useEffect(() => {
@@ -120,20 +119,19 @@ export default function BoardProvider(props) {
 
 
 
-        // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
 
         const name = results.data[urlBoardId].name;
         const description = results.data[urlBoardId].description;
         const image_url = results.data[urlBoardId].image_url;
 
-        // console.log('newBoardInfo', newBoardInfo);
+        
 
         const newBoardInfo = {
           name,
           description,
           image_url,
         };
-        // console.log('newBoardInfo', newBoardInfo);
+        
 
         setBoardInfo(newBoardInfo);
 
@@ -239,7 +237,7 @@ export default function BoardProvider(props) {
 
     const board_id = Number(boardDataToUpdate.id);
 
-    // console.log('here?');
+
 
 
     setFocusIsClosed(true);

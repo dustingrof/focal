@@ -48,8 +48,6 @@ export default function BoardListProvider(props) {
 
   //   const board_id = Number(boardDataToUpdate.id);
 
-  //   console.log('here?');
-
 
   //   setFocusIsClosed(true);
   //   return axios
@@ -60,7 +58,7 @@ export default function BoardListProvider(props) {
 
   //     })
   //     .catch(error => {
-  //       console.log(`Request failed with error ${error}`);
+  // 
   //     });
 
   // };

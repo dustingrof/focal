@@ -11,14 +11,14 @@ export default function UrlBoardIdProvider(props) {
 
   const [urlBoardId, setUrlBoardId] = useState(1);
 
-  // console.log('useParams', theseParams);
+
 
   // If statement checks if object has been rendered yet
   useEffect(() => {
     if (theseParams.board_id) {
       setUrlBoardId(theseParams.board_id);
     }
-    console.log('theseParams.board_id', theseParams.board_id);
+    
   }, [theseParams.board_id]);
 
   const exportedValues = { urlBoardId, setUrlBoardId };

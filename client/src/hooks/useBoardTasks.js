@@ -29,13 +29,13 @@ export const useBoardTasks = () => {
 
   const onMoveCard = board => {
     // post call first
-    console.log('onMoveCard has been called');
+    
     setBoard(board);
   };
 
   useEffect(() => {
     axios.get('/boards/1/tasks').then(results => {
-      console.log('results:', results);
+    
 
       const incomingColumns = [
         {
@@ -75,7 +75,7 @@ export const useBoardTasks = () => {
         }
       }
 
-      console.log('incomingColumns:', incomingColumns);
+  
 
       setBoard(prev => ({ ...prev, columns: incomingColumns }));
     });
