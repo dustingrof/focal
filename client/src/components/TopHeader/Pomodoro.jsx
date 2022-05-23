@@ -32,13 +32,15 @@ export default function Pomodoro() {
   const [breakSecondsLeft, setBreakSecondsLeft] = useState(breakSeconds);
   const [workTimer, setWorkTimer] = useState();
   const [breakTimer, setBreakTimer] = useState();
+  const [timersActive, setTimersActive] =useState(false);
 
   // start work countdown timer function
   const startWork = () => {
-    const startWorkTimer = setInterval(() => {
-      setWorkSecondsLeft(workSecondsLeft => workSecondsLeft - 1);
-    }, 1000);
-    setWorkTimer(startWorkTimer);
+    setTimersActive(true);
+      const startWorkTimer = setInterval(() => {
+        setWorkSecondsLeft(workSecondsLeft => workSecondsLeft - 1);
+      }, 1000);
+      setWorkTimer(startWorkTimer);
     setTimeout(() => {
       showNotification({
         id: 'load-data',
@@ -93,6 +95,7 @@ export default function Pomodoro() {
   const resetWorkAndBreak = () => {
     setWorkSecondsLeft(workSeconds);
     setBreakSecondsLeft(breakSeconds);
+    setTimersActive(true);
   };
   const convertWorkTimeToISO = new Date(workSecondsLeft * 1000)
     .toISOString()
@@ -108,7 +111,7 @@ export default function Pomodoro() {
         min < 10 ? '0' + min : min
       } :  ${sec < 10 ? '0' + sec : sec} `;
     }
-    return 'Please start a timer';
+    return 'Start a task timer';
   };
   return (
     <>
@@ -136,9 +139,9 @@ export default function Pomodoro() {
                 <div>
                   <Text>Pomodoro Timer</Text>
                   <Text size='sm' color='dimmed' weight={400}>
-                    {convertWorkTimeToISO
+                    {timersActive
                       ? convertWorkTimeToISO
-                      : 'Please start a timer'}
+                      : <Text>Start a 🍅  timer</Text>}
                   </Text>
                 </div>
               </Group>
@@ -147,24 +150,16 @@ export default function Pomodoro() {
             <Center>Break: {convertBreakTimeToISO}</Center>
             <Space m='sm' />
             <SimpleGrid cols={1} spacing='xs'>
+          
               <Button
-                onClick={startWork}
-                // color='cyan'
-                radius='md'
-                size='xs'
-                variant='outline'
-                compact>
-                Start Work
-              </Button>
-              <Button
-                onClick={resetWorkAndBreak}
-                color='red'
-                radius='md'
-                size='xs'
-                variant='outline'
-                compact>
-                Reset
-              </Button>
+              onClick={timersActive ? resetWorkAndBreak : startWork}
+              radius='md'
+              size='xs'
+              variant='outline'
+              compact>
+                {timersActive ? ' Reset' : 'Start'}
+              </Button> 
+     
             </SimpleGrid>
           </Accordion.Item>
           <Divider my='sm' />
