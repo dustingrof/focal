@@ -160,7 +160,7 @@ const Chat = () => {
         opened={opened}
         onClose={() => setOpened(false)}
         padding='lg'
-        size="30%"
+        size="18%"
         position='right'
         transition='pop'
         transitionDuration={200}
@@ -172,19 +172,17 @@ const Chat = () => {
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }>
-          <Grid grow justify="center" align="center">
-            <Grid.Col span={12}>
+        
 
 
-        <ScrollArea className={classes.container} style={{ height: 850 }} >
+        <ScrollArea className={classes.container} style={{ height: "auto", minHeight: '90%' }} >
         
           <List spacing='xs' size='sm' center key={'432'}>
             {messageListMapped}
           </List>
         </ScrollArea>
         <Space h='lg' />
-            </Grid.Col>
-            <Grid.Col>
+         
 
         <TextInput
           id='chat-message-input'
@@ -197,8 +195,7 @@ const Chat = () => {
           multiline={true}
           autoComplete='off'
           />
-          </Grid.Col>
-          </Grid>
+       
       </Drawer>
 
       <ActionIcon
