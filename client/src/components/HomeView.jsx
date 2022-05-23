@@ -86,10 +86,8 @@ export default function HomeView() {
       console.log('task.users', task.total_time_sec);
       console.log('cardData', cardData);
       return (
-        <tr>
-          <td className='task-title'>
-            <HomeTaskCardFocus title={task.title} cardData={cardData} />
-          </td>
+        <tr key={uuidv4()}>
+          <td className='task-title'>{task.title}</td>
           <td className='task-status'>{taskStatusName}</td>
           <td className='task-due_date'>{taskDueText}</td>
           <td className='task-board_name'>{task.board_name}</td>
@@ -171,7 +169,7 @@ export default function HomeView() {
                 fontSize='lg'
                 highlightOnHover>
                 <thead>
-                  <tr>
+                  <tr key={uuidv4()}>
                     <th>Task Name</th>
                     <th data-hide='phone, tablet'>Status</th>
                     <th data-hide='phone, tablet'>Due Date</th>

@@ -83,7 +83,6 @@ const Chat = () => {
     socket.on("allMessages", data => {
      
       const updatedmessages = data.allMessages
-      console.log("updatedmessages:", updatedmessages)
       setList(updatedmessages)
     })
   })
@@ -100,13 +99,12 @@ useEffect(() => {
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-    console.log("Avatar from DB", item.id);
     // if (item.userls === userLS) {
       return (
       <React.Fragment key={uuidv4()}>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
-            <List.Item  key={uuidv4()} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+            <List.Item  key={uuidv4()} icon={<Avatar width="20" height="20" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
               <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
                 {item.message}
               </Badge>
@@ -114,7 +112,7 @@ useEffect(() => {
           </Tooltip>
         :
           <Tooltip label={item.userls} color="blue" position="left"  > 
-            <List.Item  key={uuidv4()} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+            <List.Item  key={uuidv4()} icon={<Avatar width="20" height="20" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
               <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
                 {item.message}
               </Badge>
@@ -186,7 +184,7 @@ useEffect(() => {
           title='Open Chat'
           size={35}
           onClick={() => setOpened(o => !o)}>
-          <BrandHipchat size='xl' />
+          <BrandHipchat width="30" height="30" />
         </ActionIcon>
       </div>
     </React.Fragment>

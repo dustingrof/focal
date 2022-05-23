@@ -1,12 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {
-  Modal,
   Button,
   Group,
   useMantineTheme,
-  Grid,
   Space,
-  List,
   ThemeIcon,
   Center,
   Drawer,
@@ -16,17 +13,7 @@ import {
   Textarea,
   Title,
 } from '@mantine/core';
-import { RichTextEditor } from '@mantine/rte';
-import { DatePicker } from '@mantine/dates';
-import {
-  CircleDashed,
-  ClipboardCheck,
-  Flag3,
-  Database,
-  InfoSquare,
-  Edit,
-} from 'tabler-icons-react';
-// import NewTaskCardFocus from './NewTaskCardFocus';
+import { Edit } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
@@ -176,7 +163,7 @@ export default function TaskCardFocus(props) {
           placeholder={boardDescription}
           size='md'
           autosize
-          minRows={6}
+          minrows={6}
           maxRows={6}
           value={boardDescription}
           onChange={event => setBoardDescription(event.currentTarget.value)}
@@ -228,7 +215,7 @@ export default function TaskCardFocus(props) {
           size='xl'
           style={{ marginRight: 10 }}
           onClick={() => setOpened(true)}>
-          <Edit size={30} />
+          <Edit width="30" height="30" />
         </ThemeIcon>
         {/* {boardName} */}
       </Title>

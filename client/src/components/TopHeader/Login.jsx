@@ -107,7 +107,7 @@ const Login = () => {
         color={dark ? '#4dabf7' : 'blue'}
         size={35}
         onClick={() => setOpened(o => !o)}>
-        <User size='xl' />
+        <User size={35} />
       </ActionIcon>) :
       (
       <ActionIcon

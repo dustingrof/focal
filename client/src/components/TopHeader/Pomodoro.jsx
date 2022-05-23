@@ -111,7 +111,7 @@ export default function Pomodoro() {
             variant='outline'
             color={dark ? '#4dabf7s' : 'blue'}
             onClick={() => setOpened(o => !o)}>
-            <Clock size='xl' />
+            <Clock size={35} />
           </ActionIcon>
       }>
       <Accordion iconPosition="right" offsetIcon={false} multiple withCloseButton={false} >

@@ -210,7 +210,7 @@ export default function NewBoardCardFocus(props) {
               <Adjustments />
             </ActionIcon> */}
             <Plus
-              size={56}
+              size={55}
               strokeWidth={2}
               color={'#228be6'}
               onClick={() => setOpened(true)}
