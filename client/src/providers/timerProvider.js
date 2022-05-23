@@ -50,6 +50,7 @@ export default function TimerProvider(props) {
     setSec(0);
     setMin(0);
     setHrs(0);
+    setTimerActive(false)
   };
   
 
