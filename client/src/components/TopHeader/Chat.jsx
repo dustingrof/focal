@@ -103,7 +103,7 @@ useEffect(() => {
    
     // if (item.userls === userLS) {
       return (
-      <React.Fragment key={uuidv4()}>
+      <>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
             <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
@@ -121,7 +121,7 @@ useEffect(() => {
             </List.Item>
           </Tooltip>}
         <Space h="sm" />
-      </React.Fragment>
+      </>
       );
  
   });

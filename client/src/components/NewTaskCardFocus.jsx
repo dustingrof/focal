@@ -129,7 +129,7 @@ export default function NewTaskCardFocus(props) {
 
 
   return (
-    <React.Fragment key={uuidv4()}>
+    <React.Fragment>
       <Modal
         withCloseButton={false}
         closeOnEscape={true}

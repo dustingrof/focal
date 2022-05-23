@@ -43,6 +43,7 @@ import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
 import { useHeader } from '../providers/headerProvider';
+import {v4 as uuidv4} from 'uuid';
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -74,7 +75,7 @@ export default function TaskCardFocus(props) {
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
-      return <Checkbox value={user.first_name} label={user.first_name} />;
+      return <Checkbox value={user.first_name} label={user.first_name} key={uuidv4()} />;
     });
   }
 
@@ -182,11 +183,11 @@ export default function TaskCardFocus(props) {
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
-    return <Chip value={String(boardId)}>{boardTitle}</Chip>;
+    return <Chip value={String(boardId)} key={uuidv4()}>{boardTitle}</Chip>;
   });
 
   return (
-    <>
+    <React.Fragment>
       <Modal
         withCloseButton={false}
         opened={opened}
@@ -354,9 +355,11 @@ export default function TaskCardFocus(props) {
 
       {/* <Container style={{ marginLeft: 10, display: "flex", flexDirection: "row" }}> */}
 
-        <List>
+        <List key={uuidv4()}>
 
-          <List.Item icon={
+          <List.Item 
+          key={uuidv4()}
+          icon={
           <ThemeIcon
             variant='outline'
             size='lg'
@@ -373,6 +376,6 @@ export default function TaskCardFocus(props) {
 
 
 
-    </>
+    </React.Fragment>
   );
 }
