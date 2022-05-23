@@ -3,23 +3,21 @@ import {
   List,
   ScrollArea,
   Drawer,
-  Group,
   TextInput,
   ActionIcon,
-  ThemeIcon,
   createStyles,
   useMantineTheme,
   Avatar,
   Tooltip,
   Badge,
-  Container,
+  Grid
 } from '@mantine/core';
 import { v4 as uuidv4 } from 'uuid';
 import { useHover } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
-import { UserCircle } from 'tabler-icons-react';
+import { UserCircle, MessageCircle2 } from 'tabler-icons-react';
 import { BrandHipchat } from 'tabler-icons-react';
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 // Socket Connection
 import io from 'socket.io-client';
@@ -27,7 +25,6 @@ import { colourListContext } from '../../providers/colourSchemeProvider';
 const socket = io.connect('http://localhost:3322');
 
 //CSS
-
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
     display: 'flex',
@@ -47,21 +44,26 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 const Chat = () => {
+
+  // Set State
   const { classes } = useStyles();
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
+ 
   const [messageList, setList] = useState([
     { userLS: 'Dustin', message: 'Hello' },
     { userLS: 'Iaan', message: 'Hello Dustin' },
   ]);
-  // const [openedToolTip, setOpenedToolTip] = useState(false);
-  const { hovered, ref } = useHover();
-  const theme = useMantineTheme();
+ 
   // Gets user name from local storage for sendMessage function
   const userLS = localStorage.getItem('name');
   const user_ls_avatar = localStorage.getItem('avatar');
-
-  // Handles input
+  
+  // Style functionality
+  const { hovered, ref } = useHover();
+  const theme = useMantineTheme();
+  
+  // Handles chat input
   const inputHandler = e => {
     setMessage(e.target.value);
   };
@@ -74,7 +76,7 @@ const Chat = () => {
     }
   };
 
-  //get all messages
+  // Gets all messages from sever
   useEffect(() => {
     socket.on('allMessages', data => {
       const updatedmessages = data.allMessages;
@@ -82,21 +84,21 @@ const Chat = () => {
     });
   });
 
+  // Sends notification when message is received from another user
   useEffect(() => {
     socket.on('notification', data => {
       if (data.userLS !== localStorage.getItem('name')) {
         showNotification({
           title: 'Message notification',
           message: `Hey there, ${data.userLS} just sent a message! `,
-          icon: `${data.user_ls_avatar}`,
+          icon: <MessageCircle2  size={20}/>
         });
       }
     });
-  }, [userLS]);
+  },[]);
 
-  // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
+  // Maps through messages and checks if the current user in local storage matches message user and changes message colour in list.
   const messageListMapped = messageList.map((item, index) => {
-    // if (item.userls === userLS) {
     return (
       <React.Fragment>
         {hovered ? (
@@ -108,7 +110,7 @@ const Chat = () => {
                   width='20'
                   height='20'
                   radius='xl'
-                  src={item.user_ls_avatar}
+                  src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
               }>
@@ -129,7 +131,7 @@ const Chat = () => {
                   width='20'
                   height='20'
                   radius='xl'
-                  src={item.user_ls_avatar}
+                  src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
               }>
@@ -149,14 +151,16 @@ const Chat = () => {
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
+
+  
   return (
     <React.Fragment>
       <Drawer
         withCloseButton={false}
         opened={opened}
         onClose={() => setOpened(false)}
-        padding='xl'
-        size='md'
+        padding='lg'
+        size="30%"
         position='right'
         transition='pop'
         transitionDuration={200}
@@ -168,15 +172,20 @@ const Chat = () => {
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }>
-        <ScrollArea className={classes.container} style={{ height: 850 }}>
-          {/* viewportRef={viewport} */}
+          <Grid grow justify="center" align="center">
+            <Grid.Col span={12}>
+
+
+        <ScrollArea className={classes.container} style={{ height: 850 }} >
+        
           <List spacing='xs' size='sm' center key={'432'}>
             {messageListMapped}
           </List>
         </ScrollArea>
-
-        {/* <ListItem.Col span={ 2 } > */}
         <Space h='lg' />
+            </Grid.Col>
+            <Grid.Col>
+
         <TextInput
           id='chat-message-input'
           placeholder='Hit enter to send your message...'
@@ -187,7 +196,9 @@ const Chat = () => {
           value={message}
           multiline={true}
           autoComplete='off'
-        />
+          />
+          </Grid.Col>
+          </Grid>
       </Drawer>
 
       <ActionIcon
