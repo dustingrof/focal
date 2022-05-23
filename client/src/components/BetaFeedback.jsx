@@ -133,7 +133,7 @@ export default function BoardView(props) {
                   <div>
                     <Text>Dustin Grof</Text>
                     <Text size="sm" color="dimmed" weight={400}>
-                      Stuff about Dustin.
+                    Web developer with over 10 years experience as a freelance website designer. Most recently completing the Lighthouse Labs Full Stack Development Diploma. Prior to graduating, my main focus has been WordPress websites, hosting, HTML, CSS, PHP and Javascript.
                    </Text>
                   </div>
               </Group>

@@ -14,9 +14,16 @@ import {
   Title,
   Badge
 } from '@mantine/core';
-import { Edit, EditCircle } from 'tabler-icons-react';
+
+import {
+ 
+  Route,
+
+} from 'react-router-dom';
+import { Edit, EditCircle, Link } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
+import HomeView from './HomeView';
 
 export default function TaskCardFocus(props) {
 
@@ -88,6 +95,7 @@ export default function TaskCardFocus(props) {
     } else {
       console.log('DELETE BOARD REQUEST NOT SENT');
     }
+    
   };
 
   return (
@@ -187,7 +195,8 @@ export default function TaskCardFocus(props) {
         <Space h='xl' />
         <Space h='xl' />
         <Center>
-          <Button color='red' onClick={deleteBoard}>
+          <Button href='/'  component="a"
+        color='red' onClick={deleteBoard}>
             Delete Board
           </Button>
         </Center>
