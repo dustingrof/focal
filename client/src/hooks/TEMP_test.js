@@ -18,7 +18,7 @@ const testMe = function () {
     20: {}
   };
 
-  console.log("resultsArray", resultsArray);
+ 
 
   for (const result in results) {
     if (results[result].status === 1) {
@@ -28,7 +28,7 @@ const testMe = function () {
       resultsArray[1].push(results[result]);
     }
   };
-  console.log("resultsArray", resultsArray);
+  
 };
 
 

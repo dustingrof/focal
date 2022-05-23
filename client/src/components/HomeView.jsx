@@ -46,7 +46,7 @@ export default function HomeView() {
 
   let rowsOfTasks;
   if (usersListOfTasks) {
-    console.log('usersListOfTasks', usersListOfTasks);
+   
     const decideToFilter = function (data) {
       if (data.users.includes(user)) {
         return true;
@@ -54,9 +54,9 @@ export default function HomeView() {
       return false;
     };
     const result = usersListOfTasks.filter(decideToFilter);
-    console.log('result', result);
+   
     rowsOfTasks = result.map(task => {
-      console.log('task.users', task.users);
+     
       let taskStatusName;
       if (task.status === 1) {
         taskStatusName = 'Backlog';
@@ -83,8 +83,7 @@ export default function HomeView() {
         description: task.description,
         total_time_sec: task.total_time_sec,
       };
-      console.log('task.users', task.total_time_sec);
-      console.log('cardData', cardData);
+    
       return (
         <tr key={uuidv4()}>
           <td className='task-title'>{task.title}</td>
@@ -126,16 +125,6 @@ export default function HomeView() {
     });
   }
 
-  console.log('rowsOfTasks', rowsOfTasks);
-
-  // const rows = elements.map(element => (
-  //   <tr key={element.name}>
-  //     <td>{element.position}</td>
-  //     <td>{element.name}</td>
-  //     <td>{element.symbol}</td>
-  //     <td>{element.mass}</td>
-  //   </tr>
-  // ));
 
   return (
     <ColorSchemeProvider

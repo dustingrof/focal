@@ -18,7 +18,7 @@ export default function UrlBoardIdProvider(props) {
     if (theseParams.board_id) {
       setUrlBoardId(theseParams.board_id);
     }
-    console.log('theseParams.board_id', theseParams.board_id);
+    
   }, [theseParams.board_id]);
 
   const exportedValues = { urlBoardId, setUrlBoardId };

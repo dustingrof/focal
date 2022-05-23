@@ -137,6 +137,7 @@ export default function NewBoardCardFocus(props) {
             ? theme.colors.dark[1]
             : theme.colors.dark[10]
         }
+        withclosebutton="false"
         overlayOpacity={0.5}
         overlayBlur={3}
         opened={opened}

@@ -18,19 +18,11 @@ import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
 export default function TaskCardFocus(props) {
-  // console.log('props22', props);
-
-  // console.log("----------------------------------------------------");
-  // console.log("fires");
-  // console.log("----------------------------------------------------");
 
   const { urlBoardId, onBoardModalClose } = useContext(boardContext);
   const { onBoardDelete } = useContext(boardListContext);
 
-  // console.log('props.props.name', props.props.name);
-  // console.log('boardInfo', boardInfo);
-  // console.log('boardInfo name', boardInfo['name']);
-  // console.log('boardInfo descr', boardInfo['description']);
+
 
   const [opened, setOpened] = useState(false);
   const [boardName, setBoardName] = useState();
@@ -163,7 +155,7 @@ export default function TaskCardFocus(props) {
           placeholder={boardDescription}
           size='md'
           autosize
-          minrows={6}
+          minRows={6}
           maxRows={6}
           value={boardDescription}
           onChange={event => setBoardDescription(event.currentTarget.value)}

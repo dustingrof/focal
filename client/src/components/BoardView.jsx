@@ -41,7 +41,6 @@ export default function BoardView(props) {
     setUrlBoardId(params.board_id);
   }, [setUrlBoardId, params.board_id]);
 
-  console.log('board', boardInfo);
 
   // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);

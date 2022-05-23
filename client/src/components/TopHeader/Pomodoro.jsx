@@ -15,9 +15,11 @@ import {
 import React, { useEffect, useState, useContext } from "react";
 import { colourListContext } from '../../providers/colourSchemeProvider';
 import TimerDisplay from './TimerDisplay';
+import { timerContext } from '../../providers/timerProvider';
 export default function Pomodoro() {
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
+
     const [opened, setOpened] = useState(false);
     const theme = useMantineTheme();
     const dark = colorScheme === 'dark';
@@ -103,7 +105,7 @@ export default function Pomodoro() {
         onClose={() => setOpened(false)}
         position='bottom'
         placement='end'
-        withCloseButton
+        withclosebutton="false"
         transition='pop-top-right'
         target={
           <ActionIcon
@@ -114,8 +116,8 @@ export default function Pomodoro() {
             <Clock size={35} />
           </ActionIcon>
       }>
-      <Accordion iconPosition="right" offsetIcon={false} multiple withCloseButton={false} >
-      <Accordion.Item label="Pomodoro Timer" withCloseButton={false} >
+      <Accordion iconPosition="right" offsetIcon={false} multiple  >
+      <Accordion.Item label="Pomodoro Timer"   >
         <Center>Work: {convertWorkTimeToISO}</Center>
         <Center>Break:  {convertBreakTimeToISO}</Center>
         <Space m="sm"/>
@@ -148,7 +150,7 @@ export default function Pomodoro() {
           </SimpleGrid>
           </Accordion.Item>
         <Divider my="sm" />
-        <Accordion.Item label="Task Timer" withCloseButton={false} >
+        <Accordion.Item label="Task Timer"  >
         <Center>Task Timer</Center>
         <TimerDisplay />
         </Accordion.Item>
