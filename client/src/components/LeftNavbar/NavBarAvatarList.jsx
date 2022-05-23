@@ -20,7 +20,7 @@ export default function NavBarAvatarList() {
     return (
     
       <NavBarAvatar
-      key={uuidv4()}
+      
       image_url={board.image_url}
       name={board.name} //TODO dynamically show this line
       board_id={board.id}
@@ -33,7 +33,7 @@ export default function NavBarAvatarList() {
   return (
     <React.Fragment>
       
-       <List  key={uuidv4()}>
+       <List  >
 
         <NewBoardCardFocus />
 
