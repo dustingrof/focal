@@ -10,6 +10,7 @@ import {
   MantineProvider,
   ColorSchemeProvider,
   Button,
+  Badge
 } from '@mantine/core';
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
@@ -43,6 +44,9 @@ export default function TopHeader() {
             style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: 28 }}>
             <a href='/'>focal</a>
           </Text>
+          <Badge variant='filled' size='xs' color="cyan">
+            beta
+          </Badge>
         </Grid.Col>
 
         <Grid.Col span={9} className='header-icons'>

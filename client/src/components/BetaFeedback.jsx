@@ -182,7 +182,7 @@ export default function BoardView(props) {
 
             <Grid.Col span={4}>
 
-              <Card shadow="sm" p="lg">
+              <Card shadow="xl" p="lg">
                 <Group position="apart" >
 
                   <Box mx='auto'>

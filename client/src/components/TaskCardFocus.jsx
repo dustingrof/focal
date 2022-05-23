@@ -34,6 +34,7 @@ import {
   Edit,
   MailForward,
   CircleCheck,
+  EditCircle,
 } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import Timer from './Timer';
@@ -360,13 +361,14 @@ export default function TaskCardFocus(props) {
           <List.Item 
           key={uuidv4()}
           icon={
-          <ThemeIcon
-            variant='outline'
-            size='lg'
+          <Button
+          color="dark"
+            variant='subtle'
+            size='xs'
             style={{ marginRight: 0, marginLeft: 0 }}
             onClick={() => setOpened(true)}>
-            <Edit size={24} />
-          </ThemeIcon>
+            <EditCircle size={24} />
+          </Button>
         }>
               {titleToUpdate}
           </List.Item>
