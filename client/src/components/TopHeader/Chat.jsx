@@ -16,6 +16,7 @@ import {
 
   Container
 } from '@mantine/core';
+import {v4 as uuidv4} from 'uuid';
 import { useHover } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
@@ -29,6 +30,7 @@ const socket = io.connect('http://localhost:3322');
 
 
 //CSS
+
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -50,6 +52,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 
 const Chat = () => {
+
   const { classes } = useStyles();
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
@@ -100,10 +103,10 @@ useEffect(() => {
     console.log("Avatar from DB", item.id);
     // if (item.userls === userLS) {
       return (
-      <>
+      <React.Fragment key={uuidv4()}>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
-            <List.Item  key={Number.toString(item.id)} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+            <List.Item  key={uuidv4()} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
               <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
                 {item.message}
               </Badge>
@@ -111,14 +114,14 @@ useEffect(() => {
           </Tooltip>
         :
           <Tooltip label={item.userls} color="blue" position="left"  > 
-            <List.Item  key={Number.toString(item.id)+1000} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+            <List.Item  key={uuidv4()} icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
               <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>}
         <Space h="sm" />
-      </>
+      </React.Fragment>
       );
  
   });
@@ -128,7 +131,7 @@ useEffect(() => {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
   return (
-    <>
+    <React.Fragment  key={uuidv4()}>
       <Drawer
         withCloseButton={false}
         opened={opened}
@@ -186,7 +189,7 @@ useEffect(() => {
           <BrandHipchat size='xl' />
         </ActionIcon>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 export default Chat;

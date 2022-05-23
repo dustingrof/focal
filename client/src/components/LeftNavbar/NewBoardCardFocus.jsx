@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Plus } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-
+import {v4 as uuidv4} from 'uuid';
+// key={uuidv4()}
 import {
   Center,
   Modal,
@@ -111,7 +112,7 @@ export default function NewBoardCardFocus(props) {
   // });
 
   return (
-    <>
+    <React.Fragment key={uuidv4()}>
       {/* <Modal
         withCloseButton={false}
         closeOnEscape={true}
@@ -223,6 +224,6 @@ export default function NewBoardCardFocus(props) {
             />
           </Tooltip>
         }></List.Item>
-    </>
+    </React.Fragment>
   );
 }

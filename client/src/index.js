@@ -29,7 +29,7 @@ import {
 import { NotificationsProvider } from '@mantine/notifications';
 import ColourSchemeProvider from './providers/colourSchemeProvider';
 import TimerProvider from './providers/timerProvider';
-// import WeatherProvider from './providers/weatherProvider';
+import WeatherProvider from './providers/weatherProvider';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -41,7 +41,9 @@ ReactDOM.render(
               <BoardListProvider>
                 <BoardProvider>
                   <HeaderProvider>
-                    <App />
+                    <WeatherProvider>
+                      <App />
+                    </WeatherProvider>
                   </HeaderProvider>
                 </BoardProvider>
               </BoardListProvider>

@@ -15,7 +15,6 @@ import BetaFeedback from './components/BetaFeedback';
 import HomeView from './components/HomeView';
 import './components/ComponentStyles.scss';
 
-import WeatherProvider from './providers/weatherProvider';
 
 // const boards = {
 //   1: {
@@ -47,14 +46,7 @@ function App() {
     <>
       {/* {TODO create board component, index} */}
       <Routes>
-        <Route
-          index
-          element={
-            <WeatherProvider>
-              <HomeView />
-            </WeatherProvider>
-          }
-        />
+        <Route index element={  <HomeView /> }/>
         <Route path='/boards/:board_id' element={<BoardView />} />
         <Route path='/about' element={<BetaFeedback />} />
 

@@ -5,6 +5,7 @@ import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
 import WeatherAPI from './WeatherAPI';
+import {v4 as uuidv4} from 'uuid';
 
 import {
   Space,
@@ -113,7 +114,7 @@ export default function HomeView() {
                     avatar =
                       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw2zIMQkX0ve8QO5B5Hk8TC8&ust=1653112270774000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDktJ-x7fcCFQAAAAAdAAAAABAD';
                 }
-                return <Avatar src='avatar.png' src={avatar} />;
+                return <Avatar key={uuidv4()}   src={avatar} />;
               })}
             </AvatarsGroup>
           </td>
