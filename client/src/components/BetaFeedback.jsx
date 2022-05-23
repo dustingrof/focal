@@ -127,6 +127,9 @@ export default function BoardView(props) {
                   radius={50}
                   src="https://media-exp1.licdn.com/dms/image/C5603AQG9TyKFm-53iw/profile-displayphoto-shrink_800_800/0/1646679014931?e=1658361600&v=beta&t=RwhvswjhtXKHoO_UIjWTi84w2qmp6zBFNai3HVmU8Bw"
                   alt="Random unsplash image"
+                  component="a"
+                  href="https://www.linkedin.com/in/dustingrof/"
+                  target="_blank"
                 />
 
               </Grid.Col>
@@ -141,6 +144,10 @@ export default function BoardView(props) {
                   radius={50}
                   src="https://media-exp1.licdn.com/dms/image/C5603AQEUSRGk43oeGA/profile-displayphoto-shrink_800_800/0/1652991046562?e=1658361600&v=beta&t=ORJ1H2_Qk_V8_xJe3w6ia0mfAYo4mdg8TxLaWuRrt5g"
                   alt="Random unsplash image"
+                  component="a"
+                  href="    https://www.linkedin.com/in/nicole-maclean-501aa6b6/"
+                  target="_blank"
+              
                 />
 
               </Grid.Col>
@@ -154,6 +161,9 @@ export default function BoardView(props) {
                   radius={50}
                   src="https://media-exp1.licdn.com/dms/image/C5603AQHwuNX81FzwEQ/profile-displayphoto-shrink_400_400/0/1646859896622?e=1658361600&v=beta&t=nioiZ7kph-nU2N1P97Y7xTeZXJl9OAqUSi0esu6SMu0"
                   alt="Random unsplash image"
+                  component="a"
+                  href="https://www.linkedin.com/in/iaanjohnston/"
+                  target="_blank"
                 />
               </Grid.Col>
 
