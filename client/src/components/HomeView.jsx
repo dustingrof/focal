@@ -5,7 +5,8 @@ import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
 import WeatherAPI from './WeatherAPI';
-import {v4 as uuidv4} from 'uuid';
+import PieChart from './PieChart';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   Space,
@@ -46,7 +47,6 @@ export default function HomeView() {
 
   let rowsOfTasks;
   if (usersListOfTasks) {
-   
     const decideToFilter = function (data) {
       if (data.users.includes(user)) {
         return true;
@@ -54,9 +54,8 @@ export default function HomeView() {
       return false;
     };
     const result = usersListOfTasks.filter(decideToFilter);
-   
+
     rowsOfTasks = result.map(task => {
-     
       let taskStatusName;
       if (task.status === 1) {
         taskStatusName = 'Backlog';
@@ -83,7 +82,36 @@ export default function HomeView() {
         description: task.description,
         total_time_sec: task.total_time_sec,
       };
-    
+
+      /// charts data below here
+      const data = {
+        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
+        datasets: [
+          {
+            label: 'Time Spent on Board',
+            data: [],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              // 'rgba(153, 102, 255, 0.2)',
+              // 'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              // 'rgba(153, 102, 255, 1)',
+              // 'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
+
       return (
         <tr key={uuidv4()}>
           <td className='task-title'>{task.title}</td>
@@ -111,7 +139,7 @@ export default function HomeView() {
                     avatar =
                       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw2zIMQkX0ve8QO5B5Hk8TC8&ust=1653112270774000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDktJ-x7fcCFQAAAAAdAAAAABAD';
                 }
-                return <Avatar key={uuidv4()}   src={avatar} />;
+                return <Avatar key={uuidv4()} src={avatar} />;
               })}
             </AvatarsGroup>
           </td>
@@ -124,7 +152,6 @@ export default function HomeView() {
       );
     });
   }
-
 
   return (
     <ColorSchemeProvider
@@ -178,6 +205,8 @@ export default function HomeView() {
             </Grid.Col>
             <Grid.Col span={4}>
               <WeatherAPI />
+              <Space m='xl' />
+              <PieChart></PieChart>
             </Grid.Col>
           </Grid>
           <Space h='xl' />

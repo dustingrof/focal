@@ -47,3 +47,13 @@ td.task-board_name {
 .header-icons .mantine-ActionIcon-outline {
   margin-right: 15px;
 }
+
+.report-data,
+.weather-widget {
+  // padding: 20px;
+  // width: 100%;
+  margin: 20px;
+}
+.report-data .mantine-Card-cardSection {
+  padding: 20px 10px;
+}

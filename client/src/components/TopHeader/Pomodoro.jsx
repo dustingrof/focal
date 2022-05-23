@@ -32,15 +32,15 @@ export default function Pomodoro() {
   const [breakSecondsLeft, setBreakSecondsLeft] = useState(breakSeconds);
   const [workTimer, setWorkTimer] = useState();
   const [breakTimer, setBreakTimer] = useState();
-  const [timersActive, setTimersActive] =useState(false);
+  const [timersActive, setTimersActive] = useState(false);
 
   // start work countdown timer function
   const startWork = () => {
     setTimersActive(true);
-      const startWorkTimer = setInterval(() => {
-        setWorkSecondsLeft(workSecondsLeft => workSecondsLeft - 1);
-      }, 1000);
-      setWorkTimer(startWorkTimer);
+    const startWorkTimer = setInterval(() => {
+      setWorkSecondsLeft(workSecondsLeft => workSecondsLeft - 1);
+    }, 1000);
+    setWorkTimer(startWorkTimer);
     setTimeout(() => {
       showNotification({
         id: 'load-data',
@@ -107,11 +107,11 @@ export default function Pomodoro() {
 
   const miniTimeDisplay = function () {
     if (timerActive) {
-      return `${hrs < 10 ? '0' + hrs : hrs} :  ${
+      return `⏰ \b ${hrs < 10 ? '0' + hrs : hrs} :  ${
         min < 10 ? '0' + min : min
       } :  ${sec < 10 ? '0' + sec : sec} `;
     }
-    return 'Start a task timer';
+    return '⏰ \b Start a task timer';
   };
   return (
     <>
@@ -139,9 +139,8 @@ export default function Pomodoro() {
                 <div>
                   <Text>Pomodoro Timer</Text>
                   <Text size='sm' color='dimmed' weight={400}>
-                    {timersActive
-                      ? convertWorkTimeToISO
-                      : <Text>Start a 🍅  timer</Text>}
+                    🍅 &nbsp;
+                    {timersActive ? convertWorkTimeToISO : 'Start a timer'}
                   </Text>
                 </div>
               </Group>
@@ -150,16 +149,14 @@ export default function Pomodoro() {
             <Center>Break: {convertBreakTimeToISO}</Center>
             <Space m='sm' />
             <SimpleGrid cols={1} spacing='xs'>
-          
               <Button
-              onClick={timersActive ? resetWorkAndBreak : startWork}
-              radius='md'
-              size='xs'
-              variant='outline'
-              compact>
+                onClick={timersActive ? resetWorkAndBreak : startWork}
+                radius='md'
+                size='xs'
+                variant='outline'
+                compact>
                 {timersActive ? ' Reset' : 'Start'}
-              </Button> 
-     
+              </Button>
             </SimpleGrid>
           </Accordion.Item>
           <Divider my='sm' />
@@ -168,7 +165,7 @@ export default function Pomodoro() {
             label={
               <Group noWrap>
                 <div>
-                  <Text>Task Timer</Text>
+                  <Text>Task Timer </Text>
                   <Text size='sm' color='dimmed' weight={400}>
                     {miniTimeDisplay()}
                   </Text>
