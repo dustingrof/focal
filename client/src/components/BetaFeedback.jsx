@@ -173,7 +173,7 @@ export default function BoardView(props) {
                   <div>
                     <Text>Iaan</Text>
                     <Text size="sm" color="dimmed" weight={400}>
-                      Stuff about Iaan.
+                    Enthusiastic developer with a penchant for problem solving--proven by an established engineering work history. Keen to bring this experience and technical skillset to a team that values open communication, collaboration and growth.
                    </Text>
                   </div>
               </Group>
