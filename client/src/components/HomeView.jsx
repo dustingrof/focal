@@ -174,14 +174,15 @@ export default function HomeView() {
                   : theme.colors.gray[0],
             },
           })}>
-          <Grid grow gutter='lg'>
-            <Grid.Col span={7}>
+          <Grid gutter='xl' className='home-grid'>
+            <Grid.Col span={8}>
               <Table
                 horizontalSpacing='xl'
                 data-sorting='true'
                 data-filtering='false'
+                data-page='true'
                 className='footable'
-                verticalSpacing='xl'
+                verticalSpacing='md'
                 fontSize='lg'
                 highlightOnHover>
                 <thead>
