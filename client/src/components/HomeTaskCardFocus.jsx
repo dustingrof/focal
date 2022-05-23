@@ -24,8 +24,6 @@ import {
   Title,
   Container,
 } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
-import { CheckIcon } from '@modulz/radix-icons';
 import { RichTextEditor } from '@mantine/rte';
 import { DatePicker } from '@mantine/dates';
 import {
@@ -44,11 +42,11 @@ import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
 import { useHeader } from '../providers/headerProvider';
 import {v4 as uuidv4} from 'uuid';
-
-export default function TaskCardFocus(props) {
+// key={uuidv4()}
+export default function HomeTaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
 
-  const userArray = cardData.array_of_users.split(', ');
+  const userArray = cardData.array_of_users;
 
   // simple ISO due date
   let dueDate = null;
@@ -75,7 +73,8 @@ export default function TaskCardFocus(props) {
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
-      return <Checkbox value={user.first_name} label={user.first_name} key={uuidv4()}/>;
+      return <Checkbox key={uuidv4()}
+      value={user.first_name} label={user.first_name} />;
     });
   }
 
@@ -112,16 +111,6 @@ export default function TaskCardFocus(props) {
     setTimeUpdated(newTime);
     reset();
     stop();
-    // showNotification({title: 'Message', message: "Time added to task.", icon={<Check size={18} />}, color="teal", title="Teal notification"}); 
-    showNotification({
-      id: 'load-data',
-      color: 'teal',
-      title: 'Your total task time has been updated!',
-      // message: '!',
-      icon: <CheckIcon />,
-      autoClose: 3000,
-    } ); 
-
   };
 
   // delete task
@@ -183,11 +172,12 @@ export default function TaskCardFocus(props) {
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
-    return <Chip key={uuidv4()} value={String(boardId)}>{boardTitle}</Chip>;
+    return <Chip key={uuidv4()}
+    value={String(boardId)}>{boardTitle}</Chip>;
   });
 
   return (
-    <React.Fragment  >
+    <React.Fragment  key={uuidv4()}>
       <Modal
         withCloseButton={false}
         opened={opened}
@@ -263,7 +253,7 @@ export default function TaskCardFocus(props) {
               // description='This is anonymous'
               // value={userArray}
               onChange={setUserValue}
-            // required
+              // required
             >
               {formatUserData}
             </CheckboxGroup>
@@ -352,30 +342,24 @@ export default function TaskCardFocus(props) {
         </Button>
       </Group> */}
 
-
       {/* <Container style={{ marginLeft: 10, display: "flex", flexDirection: "row" }}> */}
 
-        <List  key={uuidv4()} >
-
-          <List.Item 
-          key={uuidv4()}
+      <List>
+        <List.Item
+        key={uuidv4()}
           icon={
-          <ThemeIcon
-            variant='outline'
-            size='lg'
-            style={{ marginRight: 0, marginLeft: 0 }}
-            onClick={() => setOpened(true)}>
-            <Edit size={24} />
-          </ThemeIcon>
-        }>
-              {titleToUpdate}
-          </List.Item>
-        </List>
+            <ThemeIcon
+              variant='outline'
+              size='lg'
+              style={{ marginRight: 0, marginLeft: 0 }}
+              onClick={() => setOpened(true)}>
+              <Edit size={24} />
+            </ThemeIcon>
+          }>
+          {titleToUpdate}
+        </List.Item>
+      </List>
       {/* </Container> */}
-
-
-
-
     </React.Fragment>
   );
 }

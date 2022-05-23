@@ -31,6 +31,7 @@ import {
 } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { useBoardList } from '../providers/boardListProvider';
+import {v4 as uuidv4} from 'uuid';
 
 export default function NewTaskCardFocus(props) {
   const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
@@ -55,7 +56,7 @@ export default function NewTaskCardFocus(props) {
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
-      return <Checkbox value={user.first_name} label={user.first_name} />;
+      return <Checkbox key={uuidv4()} value={user.first_name} label={user.first_name} />;
     });
   }
 
@@ -121,15 +122,15 @@ export default function NewTaskCardFocus(props) {
     const boardId = board.id;
     const boardTitle = board.name;
     return (
-      <Chip key={String(boardId)} value={String(boardId)}>{boardTitle}</Chip>
+      <Chip key={uuidv4()} value={String(boardId)}>{boardTitle}</Chip>
     );
   });
 
 
 
   return (
-    <>
-      <Modal
+    <React.Fragment  >
+    <Modal
         withCloseButton={false}
         closeOnEscape={true}
         closeOnClickOutside={true}
@@ -226,7 +227,7 @@ export default function NewTaskCardFocus(props) {
       <Group position='center'>
         <Button onClick={() => setOpened(true)}>New Task</Button>
       </Group>
-    </>
+    </React.Fragment>
 
   );
 }

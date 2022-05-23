@@ -1,12 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {
-  Modal,
   Button,
   Group,
   useMantineTheme,
-  Grid,
   Space,
-  List,
   ThemeIcon,
   Center,
   Drawer,
@@ -16,34 +13,16 @@ import {
   Textarea,
   Title,
 } from '@mantine/core';
-import { RichTextEditor } from '@mantine/rte';
-import { DatePicker } from '@mantine/dates';
-import {
-  CircleDashed,
-  ClipboardCheck,
-  Flag3,
-  Database,
-  InfoSquare,
-  Edit,
-} from 'tabler-icons-react';
-// import NewTaskCardFocus from './NewTaskCardFocus';
+import { Edit } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
 export default function TaskCardFocus(props) {
-  // console.log('props22', props);
-
-  // console.log("----------------------------------------------------");
-  // console.log("fires");
-  // console.log("----------------------------------------------------");
 
   const { urlBoardId, onBoardModalClose } = useContext(boardContext);
   const { onBoardDelete } = useContext(boardListContext);
 
-  // console.log('props.props.name', props.props.name);
-  // console.log('boardInfo', boardInfo);
-  // console.log('boardInfo name', boardInfo['name']);
-  // console.log('boardInfo descr', boardInfo['description']);
+
 
   const [opened, setOpened] = useState(false);
   const [boardName, setBoardName] = useState();
@@ -228,7 +207,7 @@ export default function TaskCardFocus(props) {
           size='xl'
           style={{ marginRight: 10 }}
           onClick={() => setOpened(true)}>
-          <Edit size={30} />
+          <Edit width="30" height="30" />
         </ThemeIcon>
         {/* {boardName} */}
       </Title>

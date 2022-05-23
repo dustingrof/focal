@@ -25,6 +25,85 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>focal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdnout.com/jquery/"></script>
+    <script src="https://cdnout.com/jquery-footable"></script>
+    
+    <!-- <link
+    href='https://cdnout.com/jquery-footable/css/base.css'
+    rel='stylesheet'
+    media='all'></link> -->
+
+    <script type="text/javascript">
+      /* FooTable init code */
+
+      var $FOOTABLE = $FOOTABLE || {};
+      (function ($FOOTABLE, $, undefined) {
+        jQuery.fn.attrAppendWithComma = function (a, b) {
+          var c;
+          return this.each(function () {
+            (c = $(this)),
+              void 0 !== c.attr(a) && '' != c.attr(a)
+                ? c.attr(a, c.attr(a) + ',' + b)
+                : c.attr(a, b);
+          });
+        };
+        (jQuery.fn.footableAttr = function (a, b) {
+          return this.each(function () {
+            var c = $(this);
+            c.data('auto-columns') !== !1 &&
+              (c
+                .find('thead th:gt(' + a + ')')
+                .attrAppendWithComma('data-hide', 'tablet'),
+              c
+                .find('thead th:gt(' + b + ')')
+                .attrAppendWithComma('data-hide', 'phone'));
+          });
+        }),
+          (jQuery.fn.footableFilter = function (a) {
+            return this.each(function () {
+              var b = $(this);
+              b.data('filter') ||
+                b.data('filter') === !1 ||
+                b
+                  .data('filter-text-only', 'true')
+                  .before(
+                    '<div class="footable-filter-container"><input placeholder="' +
+                      a +
+                      '" style="float:right" type="text" class="footable-filter" /></div>'
+                  );
+            });
+          }),
+          (jQuery.fn.footablePager = function () {
+            return this.each(function () {
+              var a = $(this);
+              if (a.data('page') !== !1) {
+                var b = $(
+                  '<tfoot class="hide-if-no-paging"><tr><td><div class="pagination pagination-centered"></div></td></tr></tfoot>'
+                );
+                b.find('td').attr('colspan', a.find('thead th').length),
+                  a.find('tbody:last').after(b);
+              }
+            });
+          });
+
+        $FOOTABLE.init = function () {
+          $('.footable')
+            .footableFilter('search')
+            .footable({ breakpoints: { phone: 640, tablet: 1310 } });
+        };
+      })($FOOTABLE, jQuery);
+
+      jQuery(function ($) {
+        $FOOTABLE.init();
+      });
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

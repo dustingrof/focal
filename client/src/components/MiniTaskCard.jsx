@@ -15,6 +15,8 @@ import {
 } from '@mantine/core';
 import { Flag3, Check } from 'tabler-icons-react';
 import TaskCardFocus from './TaskCardFocus';
+import {v4 as uuidv4} from 'uuid';
+// key={uuidv4()}
 
 export default function MiniTaskCard(props) {
   const { cardData, dragging, allowRemoveCard, onCardRemove } = props;
@@ -48,7 +50,6 @@ export default function MiniTaskCard(props) {
           <Text color="dimmed">
             Due: {dueDate}
           </Text>
-
 
         </>
       );
@@ -93,7 +94,7 @@ export default function MiniTaskCard(props) {
                 size={40}
                 strokeWidth={2}
                 color={'black'}
-                enableBackground={true}
+                enableBackground="true"
               />
             </ThemeIcon>
             // </Badge>
@@ -126,7 +127,7 @@ export default function MiniTaskCard(props) {
                 size={40}
                 strokeWidth={2}
                 color={'red'}
-                enableBackground={true}
+                enableBackground="true"
               />
             </ThemeIcon>
             // </Badge>
@@ -159,7 +160,7 @@ export default function MiniTaskCard(props) {
                 size={40}
                 strokeWidth={2}
                 color={'green'}
-                enableBackground={true}
+                enableBackground="true"
               />
             </ThemeIcon>
             // </Badge>
@@ -180,6 +181,7 @@ export default function MiniTaskCard(props) {
 
   return (
     <div
+    key={uuidv4()}
       className={`react-kanban-card ${dragging ? 'react-kanban-card--dragging' : ''
         }`}>
       <div style={{ width: 'auto', margin: 0 }}>

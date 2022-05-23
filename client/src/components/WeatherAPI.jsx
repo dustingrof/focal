@@ -10,14 +10,14 @@ export default function WeatherAPI() {
     <>
     <Center>
 
-    {weather? 
-      <Card 
-      style={{ marginTop: 10, maxHeight:400, maxWidth:280}}
+    {weather?
+      <Card
+
       >
         <Card.Section>
           <Image src="https://github.com/dustingrof/focal/blob/main/client/public/images/iStock-1365081598.jpg?raw=true" height={160} alt="Lighthouse in a storm" />
         </Card.Section>
-       
+
           <Center  weight={400}>Current Weather  </Center>
           <Center weight={500}> { weather.location.name}, {weather.location.region} </Center>
         <Group align='center' position="apart" style={{ marginBottom: 5, marginTop: 5 }}>
@@ -31,7 +31,7 @@ export default function WeatherAPI() {
 
 
 
-       
+
       </Card> : <div/>}
 
 

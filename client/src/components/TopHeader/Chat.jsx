@@ -16,11 +16,12 @@ import {
 
   Container
 } from '@mantine/core';
+import {v4 as uuidv4} from 'uuid';
 import { useHover } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { UserCircle } from 'tabler-icons-react';
 import { BrandHipchat } from 'tabler-icons-react';
-import { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 
 // Socket Connection
 import io from 'socket.io-client';
@@ -29,6 +30,7 @@ const socket = io.connect('http://localhost:3322');
 
 
 //CSS
+
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -50,6 +52,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 
 const Chat = () => {
+
   const { classes } = useStyles();
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
@@ -80,7 +83,6 @@ const Chat = () => {
     socket.on("allMessages", data => {
      
       const updatedmessages = data.allMessages
-      console.log("updatedmessages:", updatedmessages)
       setList(updatedmessages)
     })
   })
@@ -97,28 +99,27 @@ useEffect(() => {
 
   // Maps through messages and checks if the current user in local storage matches message user and aligns message in list.
   const messageListMapped = messageList.map((item, index) => {
-    console.log("Avatar from DB", item.user_ls_avatar);
     // if (item.userls === userLS) {
       return (
-      <>
+      <React.Fragment>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
-            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
-              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
+            <List.Item  key={uuidv4()} icon={<Avatar width="20" height="20" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"}>
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>
         :
-          <Tooltip label={item.userls} color="blue" position="left" > 
-            <List.Item icon={<Avatar size="sm" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
-              <Badge key={index + 1} align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
+          <Tooltip label={item.userls} color="blue" position="left"  > 
+            <List.Item  key={uuidv4()} icon={<Avatar width="20" height="20" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
+              <Badge  align='right' fullWidth color={(item.userls === userLS) ? "blue" : "indigo"} >
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>}
         <Space h="sm" />
-      </>
+      </React.Fragment>
       );
  
   });
@@ -128,7 +129,7 @@ useEffect(() => {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
   return (
-    <>
+    <React.Fragment>
       <Drawer
         withCloseButton={false}
         opened={opened}
@@ -155,6 +156,7 @@ useEffect(() => {
             spacing="xs"
             size="sm"
             center
+            key={"432"}
           >
             {messageListMapped}
           </List>
@@ -182,10 +184,10 @@ useEffect(() => {
           title='Open Chat'
           size={35}
           onClick={() => setOpened(o => !o)}>
-          <BrandHipchat size='xl' />
+          <BrandHipchat width="30" height="30" />
         </ActionIcon>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 export default Chat;

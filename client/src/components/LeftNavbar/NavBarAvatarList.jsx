@@ -5,6 +5,7 @@ import { List, Space, Center, Tooltip } from '@mantine/core';
 import { useBoardList } from '../../providers/boardListProvider';
 import { SquarePlus } from 'tabler-icons-react';
 import NewBoardCardFocus from './NewBoardCardFocus';
+import {v4 as uuidv4} from 'uuid';
 
 // TODO Polish
 // Add Button link to new board card focus edit view line 34
@@ -17,34 +18,29 @@ export default function NavBarAvatarList() {
 
   const list = boardsArray.map(board => {
     return (
-      // <div key={board.id}>
+    
       <NavBarAvatar
-        key={board.image_url}
-        image_url={board.image_url}
-        name={board.name} //TODO dynamically show this line
-        board_id={board.id}
+      
+      image_url={board.image_url}
+      name={board.name} //TODO dynamically show this line
+      board_id={board.id}
       />
-      // <Space h='lg' />
-      // </div>
+      
+     
     );
   });
 
   return (
-    <>
-      {/* <Center
-        target='_blank'
-        href={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-        component='a'>
-      </Center> */}
-      {/* <Space h='lg' /> */}
-
-      <List>
+    <React.Fragment>
       
+       <List  >
+
         <NewBoardCardFocus />
-        
+
         {list}
       </List>
-    </>
+
+    </React.Fragment>
   );
 }
 

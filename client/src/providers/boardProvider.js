@@ -53,7 +53,7 @@ export default function BoardProvider(props) {
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
 
-  console.log('urlBoardId', urlBoardId);
+
 
   // useEffect(() => {
   //   console.log('board', board);

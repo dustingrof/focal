@@ -1,1 +1,8 @@
-{}
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/server.js",
+    "db:reset": "node bin/resetdb.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  }
+}

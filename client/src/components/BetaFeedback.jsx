@@ -135,7 +135,7 @@ export default function BoardView(props) {
               <Space h='xl' />
 
 
-              <Grid.Col span={4} justify={true}>
+              <Grid.Col span={4} justify="true">
                 <Image
                   width={100}
                   radius={50}
@@ -191,7 +191,7 @@ export default function BoardView(props) {
                         required
                         size="md"
 
-                        minRows={1}
+                        minrows={1}
                       />
                       {/* <Space h='md' />
                       <TextInput
@@ -209,7 +209,7 @@ export default function BoardView(props) {
                         name='message'
                         type='text'
                         required
-                        minRows={7}
+                        minrows={7}
                         size="md"
 
                       />
