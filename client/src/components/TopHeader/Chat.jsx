@@ -182,7 +182,7 @@ useEffect(() => {
           title='Open Chat'
           size={35}
           onClick={() => setOpened(o => !o)}>
-          <BrandHipchat size='xl' />
+          <BrandHipchat size={35} />
         </ActionIcon>
       </div>
     </>

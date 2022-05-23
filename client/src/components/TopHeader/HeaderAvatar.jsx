@@ -16,7 +16,7 @@ export default function HeaderAvatar() {
 
     <Avatar
       radius='md'
-      size='lg'
+      size={35}
       src={currentAvatar}
       style={{
         borderWidth: 1,
