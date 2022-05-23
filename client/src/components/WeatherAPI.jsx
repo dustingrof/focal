@@ -19,7 +19,7 @@ export default function WeatherAPI() {
     <>
       <Center>
         {weather ? (
-          <Card className='weather-widget'>
+          <Card className='weather-widget' shadow='xl'>
             <Card.Section>
               <Image
                 src='https://github.com/dustingrof/focal/blob/main/client/public/images/iStock-1365081598.jpg?raw=true'
