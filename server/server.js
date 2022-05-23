@@ -28,6 +28,7 @@ const cors = require('cors');
 // routes
 const users = require('./routes/users');
 const boards = require('./routes/boards');
+const reports = require('./routes/reports');
 // const tasks = require("./routes/tasks");s
 // const users_tasks = require("./routes/users_tasks");
 
@@ -41,6 +42,7 @@ app.use(bodyparser.json()); // needed?
 
 app.use('/users', users(db));
 app.use('/boards', boards(db));
+app.use('/reports', reports(db));
 // app.use("/tasks", tasks(db));
 // app.use("/users_tasks", users_tasks(db))
 
@@ -126,19 +128,21 @@ io.on('connection', socket => {
   socket.on('sendMessage', data => {
     const { message, userLS, user_ls_avatar } = data;
 
-    db.query(`insert into messages (userLS, message, user_ls_avatar) values ($1, $2, $3);`, [
-      userLS,
-      message,
-      user_ls_avatar
-    ]).then(
+    db.query(
+      `insert into messages (userLS, message, user_ls_avatar) values ($1, $2, $3);`,
+      [userLS, message, user_ls_avatar]
+    ).then(
       db.query(`SELECT * FROM messages;`).then(response => {
         const allMessages = response.rows;
-        
+
         io.emit('allMessages', { allMessages });
       })
     );
 
-    io.emit('notification', { userLS: data.userLS, user_ls_avatar: data.user_ls_avatar });
+    io.emit('notification', {
+      userLS: data.userLS,
+      user_ls_avatar: data.user_ls_avatar,
+    });
   });
 
   socket.on('disconnect', () => {

@@ -14,6 +14,8 @@ export default function LeftNavbar() {
     <Navbar width={{ base: 'auto' }} p='xs'>
       <Navbar.Section grow mt='md'>
         <NavBarAvatarList />
+      </Navbar.Section>
+      <Navbar.Section>
         <Center>
           <Text
             component='span'
@@ -27,7 +29,6 @@ export default function LeftNavbar() {
           </Text>
         </Center>
       </Navbar.Section>
-      <Navbar.Section>{/* Footer with user */}</Navbar.Section>
     </Navbar>
   );
 }

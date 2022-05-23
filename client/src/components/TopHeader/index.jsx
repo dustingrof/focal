@@ -45,16 +45,12 @@ export default function TopHeader() {
           </Text>
         </Grid.Col>
 
-
-
-        <Grid.Col span={1} offset={7} />
-
-        <Grid.Col span={1} style={iconSpacing}>
+        <Grid.Col span={9} className='header-icons'>
           <Pomodoro />
           <ActionIcon
             variant='outline'
-            size={35}
-            color={dark ? "#4dabf7" : 'blue'}
+            size={40}
+            color={dark ? '#4dabf7' : 'blue'}
             onClick={() => toggleColorScheme()}
             title='Toggle color scheme'>
             {dark ? <Sun size={35} /> : <MoonStars size={35} />}

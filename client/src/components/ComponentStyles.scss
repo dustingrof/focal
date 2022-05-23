@@ -36,3 +36,24 @@ td.task-board_name {
 #root.dark .mantine-AppShell-main {
   background-blend-mode: hard-light;
 }
+
+.header-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.header-icons .mantine-Popover-root,
+.header-icons .mantine-ActionIcon-outline {
+  margin-right: 15px;
+}
+
+.report-data,
+.weather-widget {
+  // padding: 20px;
+  // width: 100%;
+  margin: 20px;
+}
+.report-data .mantine-Card-cardSection {
+  padding: 20px 10px;
+}
