@@ -36,3 +36,14 @@ td.task-board_name {
 #root.dark .mantine-AppShell-main {
   background-blend-mode: hard-light;
 }
+
+.header-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.header-icons .mantine-Popover-root,
+.header-icons .mantine-ActionIcon-outline {
+  margin-right: 15px;
+}

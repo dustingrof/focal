@@ -105,17 +105,17 @@ const Login = () => {
         (<ActionIcon
         variant='outline'
         color={dark ? '#4dabf7' : 'blue'}
-        size={35}
+        size={40}
         onClick={() => setOpened(o => !o)}>
-        <User size={35} />
+        <User size={40} />
       </ActionIcon>) :
       (
       <ActionIcon
-      size={35}
+      size={40}
       >
         <Avatar
         radius="sm"
-        size={35}
+        size={40}
         src={currentAvatar}
         onClick={() => setOpened(o => !o)}
         />
