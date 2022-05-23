@@ -25,23 +25,12 @@ module.exports = db => {
     const userId = req.params.user_id;
     db.query(
       `
-      SELECT
-        tasks.id AS id,
-        users_tasks.user_id AS user_id,
-        users_tasks.task_id AS task_id,
-        tasks.board_id AS board_id,
-        tasks.name AS task_name,
-        tasks.status AS task_status,
-        tasks.description AS task_description,
-        tasks.due_date AS task_due_date
-      FROM users
-      JOIN users_tasks ON users_tasks.user_id = users.id
-      JOIN tasks ON users_tasks.task_id = tasks.id
-      WHERE users.id = $1
-
-
+      SELECT tasks.id, board_id, status, boards.name as board_name, title, due_date, string_to_array(array_of_users, ', ') AS users, array_of_users, total_time_sec, tasks.description AS description
+      FROM TASKS
+      JOIN boards on boards.id = tasks.board_id
+      ORDER BY due_date DESC
     `,
-      [userId]
+      []
     ).then(({ rows: tasks }) => {
       res.json(
         tasks.reduce(

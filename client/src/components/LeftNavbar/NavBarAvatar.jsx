@@ -35,7 +35,7 @@ export default function NavBarAvatar(props) {
 
           <Avatar
             radius='md'
-            size={55}
+            size={56}
             alt={props.name}
             src={props.image_url}
             style={{
