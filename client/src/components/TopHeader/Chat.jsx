@@ -84,7 +84,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('notification', data => {
-      if (data.userLS !== userLS) {
+      if (data.userLS !== localStorage.getItem('name')) {
         showNotification({
           title: 'Message notification',
           message: `Hey there, ${data.userLS} just sent a message! `,
