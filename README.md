@@ -47,3 +47,4 @@ The app is configured for demo currently--start by selecting one of the three us
 - send messages to all other users through the group chat
 - send an email about a task, from the task detail view
 - initiate a video chat call, from the task detail view
+  
