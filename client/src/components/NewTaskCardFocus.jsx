@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Center,
   Modal,
@@ -7,59 +7,43 @@ import {
   useMantineTheme,
   Grid,
   Space,
-  List,
-  ThemeIcon,
   Text,
-  Input,
-  ActionIcon,
-  Collapse,
   Textarea,
-  TextInput,
   Chips,
   Chip,
   CheckboxGroup,
-  Checkbox
+  Checkbox,
+  Title,
+  ThemeIcon
 } from '@mantine/core';
-import { RichTextEditor } from '@mantine/rte';
+import { CirclePlus } from 'tabler-icons-react';
 import { DatePicker } from '@mantine/dates';
-import {
-  CircleDashed,
-  BrandGithub,
-  Flag3,
-  Adjustments,
-  Edit,
-} from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { useBoardList } from '../providers/boardListProvider';
 import {v4 as uuidv4} from 'uuid';
 
 export default function NewTaskCardFocus(props) {
-  const { onNewFocusModalClose, urlBoardId } = useContext(boardContext);
-  const { cardData } = props; // onFocusModalClose(cardData);
+  const { onNewFocusModalClose } = useContext(boardContext);
   const { listOfUsers } = useBoardList();
-
-  // console.log('Card Data', cardData);
+  const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false);
   const [richTitleValue, setRichTitleValueChange] = useState("Enter title here");
   const [richTextValue, setRichTextValueChange] = useState("Enter description here");
   const [dateToSave, setDateToSave] = useState(null);
   const [userValue, setUserValue] = useState([]);
-
-  const usersToString = userValue.join(', ');
-
   // TODO add default chip selection for task status and task board
   const [newTaskStatus, setNewTaskStatus] = useState();
   const [newTaskBoard, setNewTaskBoard] = useState();
-  const theme = useMantineTheme();
-
+  
+  const usersToString = userValue.join(', ');
+  
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
       return <Checkbox key={uuidv4()} value={user.first_name} label={user.first_name} />;
     });
   }
-
 
   // modal close - NO SAVE
   ////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +61,6 @@ export default function NewTaskCardFocus(props) {
     setNewTaskBoard();
   };
 
-
   // modal close - SAVE
   ////////////////////////////////////////////////////////////////////////////////////////////
   const newModalClose = function () {
@@ -90,7 +73,6 @@ export default function NewTaskCardFocus(props) {
       title: richTitleValue,
       status: Number(newTaskStatus),
       array_of_users: usersToString,
-
     };
 
     // update modal prop
@@ -112,8 +94,6 @@ export default function NewTaskCardFocus(props) {
     }
   };
 
-
-
   // generate board chips for new task card
   ////////////////////////////////////////////////////////////////////////////////////////////
   const { boardList } = useBoardList();
@@ -126,10 +106,8 @@ export default function NewTaskCardFocus(props) {
     );
   });
 
-
-
   return (
-    <React.Fragment  >
+    <React.Fragment>
     <Modal
         withCloseButton={false}
         closeOnEscape={true}
@@ -168,14 +146,7 @@ export default function NewTaskCardFocus(props) {
         />
         <Space h='xl' />
         <h4>Select users:</h4>
-        <CheckboxGroup
-          // defaultValue={userArray}
-          // label='Select your favorite framework/library'
-          // description='This is anonymous'
-          // value={userArray}
-          onChange={setUserValue}
-        // required
-        >
+        <CheckboxGroup onChange={setUserValue}>
           {formatUserData}
         </CheckboxGroup>
         <Space h='xl' />
@@ -207,10 +178,7 @@ export default function NewTaskCardFocus(props) {
           </Grid.Col>
           <Grid.Col span={6}>
             <Center>
-              <Button
-                color="green"
-                onClick={newModalClose}
-              >
+              <Button color="green" onClick={newModalClose}>
                 Create
               </Button>
             </Center>
@@ -224,10 +192,22 @@ export default function NewTaskCardFocus(props) {
           </Text>
         </Center>
       </Modal>
-      <Group position='center'>
-        <Button onClick={() => setOpened(true)}>New Task</Button>
-      </Group>
+    
+     
+        <Button
+       variant="subtle" color="dark" 
+        
+       size='sm' 
+       radius="xl" 
+          // style={{ marginRight: 10 }}
+          onClick={() => setOpened(true)} 
+          leftIcon={<CirclePlus />}>
+            Add a new card
+          
+        </Button>
+     
+    
+     
     </React.Fragment>
-
   );
 }

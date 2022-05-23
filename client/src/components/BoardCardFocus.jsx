@@ -12,8 +12,9 @@ import {
   Text,
   Textarea,
   Title,
+  Badge
 } from '@mantine/core';
-import { Edit } from 'tabler-icons-react';
+import { Edit, EditCircle } from 'tabler-icons-react';
 import { boardContext } from '../providers/boardProvider';
 import { boardListContext } from '../providers/boardListProvider';
 
@@ -38,8 +39,6 @@ export default function TaskCardFocus(props) {
     setBoardImageUrl(props.props.image_url);
   }, [opened]);
 
-  // console.log('boardName', boardName);
-  // console.log('boardDescription', boardDescription);
 
   // Image uploader
   const handleImageUpload = file =>
@@ -78,8 +77,6 @@ export default function TaskCardFocus(props) {
     const boardToDelete = {
       board_id: urlBoardId,
     };
-
-    // console.log("cardToDelete:", cardToDelete);
 
     // // update modal prop
     const setModalState = () => setOpened(false);
@@ -200,17 +197,16 @@ export default function TaskCardFocus(props) {
 
 
       {/* </Modal> */}
-      <Title order={2} style={{ marginLeft: 10 }}>
-        <ThemeIcon
-          variant='ouline'
-          color='dark'
-          size='xl'
-          style={{ marginRight: 10 }}
-          onClick={() => setOpened(true)}>
-          <Edit width="30" height="30" />
-        </ThemeIcon>
-        {/* {boardName} */}
-      </Title>
+      <Button 
+
+variant="subtle" color="dark" 
+        
+        size='xl' 
+        radius="xl" 
+        onClick={() => setOpened(true)} 
+        leftIcon={<EditCircle/>} >
+        {props.children}
+      </Button>
 
 
       {/* <NewTaskCardFocus /> */}
