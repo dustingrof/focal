@@ -187,7 +187,7 @@ export default function TaskCardFocus(props) {
   });
 
   return (
-    <React.Fragment  key={uuidv4()}>
+    <React.Fragment  >
       <Modal
         withCloseButton={false}
         opened={opened}

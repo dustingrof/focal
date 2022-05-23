@@ -31,7 +31,7 @@ export default function NavBarAvatarList() {
   });
 
   return (
-    <React.Fragment key={uuidv4()}>
+    <React.Fragment>
       
        <List  key={uuidv4()}>
 

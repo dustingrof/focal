@@ -101,7 +101,7 @@ useEffect(() => {
   const messageListMapped = messageList.map((item, index) => {
     // if (item.userls === userLS) {
       return (
-      <React.Fragment key={uuidv4()}>
+      <React.Fragment>
         {hovered ?            
           <Tooltip label={item.userls} color="blue"  position="left" opened > 
             <List.Item  key={uuidv4()} icon={<Avatar width="20" height="20" radius="xl" src={item.user_ls_avatar} ref={ref}/>}>
@@ -129,7 +129,7 @@ useEffect(() => {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const dark = colorScheme === 'dark';
   return (
-    <React.Fragment  key={uuidv4()}>
+    <React.Fragment>
       <Drawer
         withCloseButton={false}
         opened={opened}
