@@ -165,13 +165,14 @@ const Chat = () => {
         transition='pop'
         transitionDuration={200}
         transitionTimingFunction='ease'
-        overlayOpacity={0.55}
-        overlayBlur={3}
         overlayColor={
           theme.colorScheme === 'dark'
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
-        }>
+            ? theme.colors.dark[1]
+            : theme.colors.dark[10]
+        }
+        overlayOpacity={0.5}
+        overlayBlur={3}
+        >
         
 
 
