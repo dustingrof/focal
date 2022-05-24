@@ -39,7 +39,7 @@ app.use(morgan('dev'));
 app.use(cors());
 // app.use(helmet()); // needed?
 app.use(bodyparser.json()); // needed?
-res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+
 app.use('/users', users(db));
 app.use('/boards', boards(db));
 app.use('/reports', reports(db));
@@ -151,8 +151,6 @@ io.on('connection', socket => {
   });
   // socket.disconnect(); // This line to be commented out when chat is used.
 });
-
-
 
 server.listen(PORT, () => {
   console.log(`Focal app listening on port ${PORT}`);
