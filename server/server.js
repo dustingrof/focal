@@ -152,13 +152,7 @@ io.on('connection', socket => {
   // socket.disconnect(); // This line to be commented out when chat is used.
 });
 
-if (process.env.NODE_ENV === 'production') {
-  // app.use(express.static('client'));
-  app.get('*', (req, res) => {
-    // console.log('DIRNAMEPLEASE', __dirname);
-    res.sendFile('index.html', { root: '../client' });
-  });
-}
+
 
 server.listen(PORT, () => {
   console.log(`Focal app listening on port ${PORT}`);
