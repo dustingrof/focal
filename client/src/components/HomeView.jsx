@@ -7,6 +7,7 @@ import '@asseinfo/react-kanban/dist/styles.css';
 import WeatherAPI from './WeatherAPI';
 import PieChart from './PieChart';
 import { v4 as uuidv4 } from 'uuid';
+// import $ from 'jquery';
 
 import {
   Space,
@@ -111,14 +112,15 @@ export default function HomeView() {
           },
         ],
       };
+      console.log('task.description', task.description);
 
       return (
         <tr key={uuidv4()}>
           <td className='task-title'>{task.title}</td>
-          <td className='task-status'>{taskStatusName}</td>
+          {/* <td className='task-status'>{taskStatusName}</td> */}
           <td className='task-due_date'>{taskDueText}</td>
           <td className='task-board_name'>{task.board_name}</td>
-          <td className='task-users'>
+          {/* <td className='task-users'>
             <AvatarsGroup limit={3}>
               {task.users.map(u => {
                 let avatar;
@@ -142,12 +144,12 @@ export default function HomeView() {
                 return <Avatar key={uuidv4()} src={avatar} />;
               })}
             </AvatarsGroup>
-          </td>
-          <td
+          </td> */}
+          {/* <td
             className='task-board_name'
             dangerouslySetInnerHTML={{
               __html: task.description,
-            }}></td>
+            }}></td> */}
         </tr>
       );
     });
@@ -174,39 +176,39 @@ export default function HomeView() {
                   : theme.colors.gray[0],
             },
           })}>
-          <Grid grow gutter='lg'>
-            <Grid.Col span={7}>
+          <Grid gutter='xl' className='home-grid'>
+            <Grid.Col span={4}>
+              <WeatherAPI />
+              <Space m='xl' />
+              <PieChart></PieChart>
+            </Grid.Col>
+            <Grid.Col span={8}>
               <Table
                 horizontalSpacing='xl'
+                data-breakpoints='{ "x-small": 480, "small": 768, "medium": 992, "large": 1200, "x-large": 1400 }'
                 data-sorting='true'
+                ata-show-toggle='false'
                 data-filtering='false'
+                data-page='true'
+                data-page-size='10'
+                data-stop-propagation='true'
+                data-use-parent-width='true'
                 className='footable'
-                verticalSpacing='xl'
+                verticalSpacing='md'
                 fontSize='lg'
                 highlightOnHover>
                 <thead>
                   <tr key={uuidv4()}>
                     <th>Task Name</th>
-                    <th data-hide='phone, tablet'>Status</th>
+                    {/* <th data-hide='phone, tablet'>Status</th> */}
                     <th data-hide='phone, tablet'>Due Date</th>
-                    <th data-hide='phone, tablet' data-breakpoints='all'>
-                      Board
-                    </th>
-                    <th data-hide='phone, tablet' data-breakpoints='all'>
-                      Assigned To
-                    </th>
-                    <th data-hide='phone, tablet' data-breakpoints='all'>
-                      Description
-                    </th>
+                    <th data-breakpoints='all'>Board</th>
+                    {/* <th data-breakpoints='all'>Assigned To</th> */}
+                    {/* <th data-breakpoints='all'>Description</th> */}
                   </tr>
                 </thead>
                 <tbody>{rowsOfTasks}</tbody>
               </Table>
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <WeatherAPI />
-              <Space m='xl' />
-              <PieChart></PieChart>
             </Grid.Col>
           </Grid>
           <Space h='xl' />

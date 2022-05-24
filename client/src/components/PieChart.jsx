@@ -63,7 +63,7 @@ export default function PieChart() {
         <Title order={3} align='center'>
           Time Tracker Overview
         </Title>
-        <Pie data={data} />
+        <Pie data={data} options={{ maintainAspectRatio: true }} />
       </Card.Section>
     </Card>
   );

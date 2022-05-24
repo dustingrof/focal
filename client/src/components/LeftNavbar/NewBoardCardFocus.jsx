@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Plus } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 // key={uuidv4()}
 import {
   Center,
@@ -137,7 +137,7 @@ export default function NewBoardCardFocus(props) {
             ? theme.colors.dark[1]
             : theme.colors.dark[10]
         }
-        withclosebutton="false"
+        withclosebutton='false'
         overlayOpacity={0.5}
         overlayBlur={3}
         opened={opened}
@@ -212,14 +212,9 @@ export default function NewBoardCardFocus(props) {
             </ActionIcon> */}
             <Plus
               size={55}
-              strokeWidth={2}
-              color={'#228be6'}
+              strokeWidth={1}
               onClick={() => setOpened(true)}
               style={{
-                borderWidth: 1,
-                borderRadius: 10,
-                borderStyle: 'solid',
-                borderColor: 'gray',
                 margin: 3,
               }}
             />

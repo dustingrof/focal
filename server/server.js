@@ -85,7 +85,9 @@ app.use(
   })
 );
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+const distDir = __dirname + '/client/';
+app.use(express.static(distDir));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
