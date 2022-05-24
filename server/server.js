@@ -13,9 +13,6 @@ const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 const db = require('./db');
 
-const distDir = __dirname + '../client/';
-app.use(express.static(distDir));
-
 // // PostgreSQL database client/connection setup
 // const { Pool } = require("pg");
 // const dbParams = require("./lib/db.js");
@@ -89,6 +86,13 @@ app.use(
 );
 
 app.use(express.static('public'));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
+}
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
