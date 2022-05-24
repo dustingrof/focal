@@ -147,10 +147,21 @@ export default function NewBoardCardFocus(props) {
         size='xl'>
         <h2>Create a new board</h2>
         <h4>Board name:</h4>
+      
         <Textarea
           onChange={event => setBoardName(event.currentTarget.value)}
           placeholder='Enter text'
         />
+          {alert ? (
+             <><Space h='xl' />
+          <Alert
+            icon={<AlertCircle size={16} />}
+            title='Please enter a title for your board!'
+            color='red'
+            withCloseButton
+            variant="filled"
+          /></>
+        ) : null}
         <Space h='xl' />
         <h4>Description:</h4>
         <Textarea
@@ -186,14 +197,7 @@ export default function NewBoardCardFocus(props) {
 
         <Space h='xl' />
         <Space h='xl' />
-        {alert ? (
-          <Alert
-            icon={<AlertCircle size={16} />}
-            title='Please enter a title for your board!'
-            color='red'
-            withCloseButton
-          />
-        ) : null}
+      
       </Drawer>
 
       <List.Item
