@@ -10,7 +10,8 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "cookie-session": "^2.0.0",
@@ -21,10 +22,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "pg": "^8.5.0",
-    "ws": "^7.0.0"
-  },
-  "dependencies": {
     "socket.io": "^4.5.0",
-    "tabler-icons-react": "^1.48.0"
+    "tabler-icons-react": "^1.48.0",
+    "ws": "^7.0.0"
   }
 }

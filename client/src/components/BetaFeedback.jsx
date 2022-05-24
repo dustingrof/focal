@@ -6,8 +6,7 @@ import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
 import emailjs from 'emailjs-com';
-import { useForm,  } from '@mantine/form';
-
+import { useForm } from '@mantine/form';
 
 import {
   Text,
@@ -25,9 +24,9 @@ import {
   Group,
   Badge,
   Box,
- Accordion,
- Avatar,
-  TextInput
+  Accordion,
+  Avatar,
+  TextInput,
 } from '@mantine/core';
 
 import TopHeader from './TopHeader';
@@ -35,7 +34,8 @@ import LeftNavbar from './LeftNavbar';
 
 export default function BoardView(props) {
   const params = useParams();
-  const { board, onMoveCard, setUrlBoardId, boardInfo } = useContext(boardContext);
+  const { board, onMoveCard, setUrlBoardId, boardInfo } =
+    useContext(boardContext);
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
 
@@ -48,7 +48,7 @@ export default function BoardView(props) {
     emailjs
       .sendForm(
         'service_we1l6z4',
-        'template_uo04hrp',
+        'template_x25n3h7',
         e.target,
         'o9qqYklc_7AmMNiC6'
       )
@@ -74,8 +74,6 @@ export default function BoardView(props) {
     },
   });
 
-
-
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -96,121 +94,165 @@ export default function BoardView(props) {
                   : theme.colors.gray[0],
             },
           })}>
-
-          <Grid>
-
-
-
-            <Grid.Col span={6} offset={1}>
+          <Grid gutter='xl' className='about-grid'>
+            <Grid.Col span={6}>
               <h1>The focal story</h1>
               <Text>
-                A collaborative effort for the Lighthouse Labs web development program. Built in the span of a week and a half, using React on the frontend and Express/PostgreSQL on the backend.
+                A collaborative effort for the Lighthouse Labs web development
+                program. Built in the span of a week and a half, using React on
+                the frontend and Express/PostgreSQL on the backend.
               </Text>
               <Space h='xl' />
               <Text>
-                Please enjoy this beta release while we continue to dream up new features.
+                Please enjoy this beta release while we continue to dream up new
+                features.
               </Text>
+              <Space h='xl' />
+              <Space h='xl' />
+            </Grid.Col>
+          </Grid>
+          <Grid gutter='xl' className='about-grid'>
+            <Grid.Col span={6}>
+              <Title order={1} className='about-page-title'>
+                Our team
+              </Title>
+              <Accordion className='about-accordion'>
+                <Accordion.Item
+                  label={
+                    <Grid>
+                      <Grid.Col span={3}>
+                        <Image
+                          width={75}
+                          radius={50}
+                          src='https://media-exp1.licdn.com/dms/image/C5603AQG9TyKFm-53iw/profile-displayphoto-shrink_800_800/0/1646679014931?e=1658361600&v=beta&t=RwhvswjhtXKHoO_UIjWTi84w2qmp6zBFNai3HVmU8Bw'
+                          alt='Random unsplash image'
+                          component='a'
+                          href='https://www.linkedin.com/in/dustingrof/'
+                          target='_blank'
+                        />
+                      </Grid.Col>
+                      <Grid.Col span={9}>
+                        <Space h='xl' />
+                        <Text>Dustin Grof</Text>
+                      </Grid.Col>
+                    </Grid>
+                  }>
+                  <div>
+                    <Text size='sm' weight={400}>
+                      I have over 10 years experience in front-end design. Most
+                      recently completing the Lighthouse Labs Full Stack
+                      Development Diploma. Prior to graduating, my main focus
+                      has been WordPress websites, hosting, HTML, CSS, PHP and
+                      Javascript.
+                    </Text>
+                    <Text>
+                      <a href='https://www.linkedin.com/in/dustingrof/'>
+                        Connect with me on LinkedIn
+                      </a>
+                    </Text>
+                  </div>
+                </Accordion.Item>
+                <Space h='xl' />
+
+                <Accordion.Item
+                  label={
+                    <Grid>
+                      <Grid.Col span={3}>
+                        <Image
+                          width={75}
+                          radius={50}
+                          src='https://media-exp1.licdn.com/dms/image/C5603AQEUSRGk43oeGA/profile-displayphoto-shrink_800_800/0/1652991046562?e=1658361600&v=beta&t=ORJ1H2_Qk_V8_xJe3w6ia0mfAYo4mdg8TxLaWuRrt5g'
+                          alt='Random unsplash image'
+                          component='a'
+                          href='    https://www.linkedin.com/in/nicole-maclean-501aa6b6/'
+                          target='_blank'
+                        />
+                      </Grid.Col>
+                      <Grid.Col span={9}>
+                        <Space h='lg' />
+                        <Text>Nicole MacLean</Text>{' '}
+                      </Grid.Col>
+                    </Grid>
+                  }>
+                  <div>
+                    <Text size='sm' weight={400}>
+                      I used to make whisky. Now I make websites.
+                    </Text>
+                    <Text>
+                      <a href='https://www.linkedin.com/in/nicole-maclean-501aa6b6/'>
+                        Connect with me on LinkedIn
+                      </a>
+                    </Text>
+                  </div>
+                </Accordion.Item>
+                <Space h='xl' />
+
+                <Accordion.Item
+                  label={
+                    <Grid>
+                      <Grid.Col span={3}>
+                        <Image
+                          width={75}
+                          radius={50}
+                          src='https://media-exp1.licdn.com/dms/image/C5603AQHwuNX81FzwEQ/profile-displayphoto-shrink_400_400/0/1646859896622?e=1658361600&v=beta&t=nioiZ7kph-nU2N1P97Y7xTeZXJl9OAqUSi0esu6SMu0'
+                          alt='Random unsplash image'
+                          component='a'
+                          href='https://www.linkedin.com/in/iaanjohnston/'
+                          target='_blank'
+                        />
+                      </Grid.Col>
+                      <Grid.Col span={9}>
+                        <Space h='lg' />
+                        <Text>Iaan Johnston</Text>{' '}
+                      </Grid.Col>
+                    </Grid>
+                  }>
+                  <div>
+                    <Text size='sm' weight={400}>
+                      Enthusiastic developer with a penchant for problem
+                      solving--proven by an established engineering work
+                      history. Keen to bring this experience and technical
+                      skillset to a team that values open communication,
+                      collaboration and growth.
+                    </Text>
+                    <Text>
+                      <a href='https://www.linkedin.com/in/iaanjohnston/'>
+                        Connect with me on LinkedIn
+                      </a>
+                    </Text>
+                  </div>
+                </Accordion.Item>
+              </Accordion>
             </Grid.Col>
 
-
-
-
-
-            <Grid.Col span={5} offset={1}>
-              <Space h='xl' />
-              <Space h='xl' />
-
-
-              <h1>Our team</h1>
-              <Group noWrap>
-                <Image width={100}
-                  radius={50}
-                  src="https://media-exp1.licdn.com/dms/image/C5603AQG9TyKFm-53iw/profile-displayphoto-shrink_800_800/0/1646679014931?e=1658361600&v=beta&t=RwhvswjhtXKHoO_UIjWTi84w2qmp6zBFNai3HVmU8Bw"
-                  alt="Random unsplash image"
-                  component="a"
-                  href="https://www.linkedin.com/in/dustingrof/"
-                  target="_blank" />
-                  <div>
-                    <Text>Dustin Grof</Text>
-                    <Text size="sm" color="dimmed" weight={400}>
-                    Web developer with over 10 years experience as a freelance website designer. Most recently completing the Lighthouse Labs Full Stack Development Diploma. Prior to graduating, my main focus has been WordPress websites, hosting, HTML, CSS, PHP and Javascript.
-                   </Text>
-                  </div>
-              </Group>
-              <Space h='xl' />
-
-
-
-              <Group noWrap>
-                <Image 
-                width={100}
-                radius={50}
-                src="https://media-exp1.licdn.com/dms/image/C5603AQEUSRGk43oeGA/profile-displayphoto-shrink_800_800/0/1652991046562?e=1658361600&v=beta&t=ORJ1H2_Qk_V8_xJe3w6ia0mfAYo4mdg8TxLaWuRrt5g"
-                alt="Random unsplash image"
-                component="a"
-                href="    https://www.linkedin.com/in/nicole-maclean-501aa6b6/"
-                target="_blank"
-                  />
-                  <div>
-                    <Text>Nicole</Text>
-                    <Text size="sm" color="dimmed" weight={400}>
-                    I used to make whisky. Now I make websites.
-                   </Text>
-                  </div>
-              </Group>
-              <Space h='xl' />
-
-              <Group noWrap>
-                <Image 
-                 width={100}
-                 radius={50}
-                 src="https://media-exp1.licdn.com/dms/image/C5603AQHwuNX81FzwEQ/profile-displayphoto-shrink_400_400/0/1646859896622?e=1658361600&v=beta&t=nioiZ7kph-nU2N1P97Y7xTeZXJl9OAqUSi0esu6SMu0"
-                 alt="Random unsplash image"
-                 component="a"
-                 href="https://www.linkedin.com/in/iaanjohnston/"
-                 target="_blank"
-                  />
-                  <div>
-                    <Text>Iaan</Text>
-                    <Text size="sm" color="dimmed" weight={400}>
-                    Enthusiastic developer with a penchant for problem solving--proven by an established engineering work history. Keen to bring this experience and technical skillset to a team that values open communication, collaboration and growth.
-                   </Text>
-                  </div>
-              </Group>
-            </Grid.Col>
-
-
-            <Grid.Col span={4}>
-
-              <Card shadow="xl" p="lg">
-                <Group position="apart" >
-
-                  <Box mx='auto'>
-                  {/* <Box> */}
-                    <h1>Get in touch</h1>
+            <Grid.Col span={6}>
+              <Title order={1}>Get in touch</Title>
+              <Card shadow='xl' className='about-contact-card'>
+                <Group position='apart' className='about-contact-form'>
+                  <Box>
+                    {/* <Box> */}
 
                     {/* <MailForward onClick={() => setMailForward(o => !o)} /> */}
                     {/* <Collapse in={mailForwardOpened}> */}
                     <form onSubmit={sendEmail}>
                       {/* Hidden from front, gets current username and enters it */}
                       <TextInput
-                        label="Your name:"
+                        label='Your name:'
                         placeholder='Enter name'
                         name='name'
                         type='text'
                         value={props.currentUser}
                         required
-                        size="md"
+                        size='md'
                       />
                       <Space h='md' />
                       <TextInput
-                        label="Your email address:"
-                        placeholder="Enter email"
+                        label='Your email address:'
+                        placeholder='Enter email'
                         name='email'
                         type='email'
                         required
-                        size="md"
-
+                        size='md'
                         minrows={1}
                       />
                       {/* <Space h='md' />
@@ -224,59 +266,31 @@ export default function BoardView(props) {
                       /> */}
                       <Space h='md' />
                       <Textarea
-                        label="Your message to us:"
+                        label='Your message to us:'
                         placeholder='..or just say hello, and let us get the conversation started!'
                         name='message'
                         type='text'
                         required
-                        minrows={7}
-                        size="md"
-
+                        minRows={5}
+                        size='md'
                       />
                       <Space h='md' />
-                      <Button size="md" type='submit' className='btn btn-info' value='Send Message'>
+                      <Button
+                        size='md'
+                        type='submit'
+                        className='btn btn-info'
+                        value='Send Message'>
                         Submit
                       </Button>
                     </form>
                     {/* </Collapse> */}
                   </Box>
-
-
-
-
-
-
-
-
-
-
                 </Group>
               </Card>
-
-
-
-
-
-
             </Grid.Col>
 
             <Grid.Col span={1} />
-
-
           </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
         </AppShell>
       </MantineProvider>
     </ColorSchemeProvider>

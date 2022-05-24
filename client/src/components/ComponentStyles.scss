@@ -30,11 +30,11 @@ td.task-board_name {
   background-color: rgb(238 238 238 / 70%);
 }
 #root.dark .react-kanban-column {
-  background-color: rgb(50 50 50 / 70%);
+  background-color: rgb(109 109 109 / 60%);
 }
 
 #root.light .mantine-AppShell-main {
-  background-image: url(https://github.com/dustingrof/focal/blob/main/client/public/images/Board-Background-Light.png?raw=true);
+  background-image: url(https://github.com/dustingrof/focal/blob/fix/homepage-tasklist/client/public/images/Board-Background-Light.jpg?raw=true);
   background-size: cover;
 }
 
@@ -51,7 +51,7 @@ td.task-board_name {
 
 .header-icons .mantine-Popover-root,
 .header-icons .mantine-ActionIcon-outline {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .report-data,
@@ -62,4 +62,49 @@ td.task-board_name {
 }
 .report-data .mantine-Card-cardSection {
   padding: 20px 10px;
+}
+// make home page have some padding around grid
+.home-grid,
+.about-grid {
+  padding: 20px 40px;
+}
+
+.mantine-Button-subtle:hover {
+  background-color: rgb(238 238 238 / 70%);
+}
+#root.dark .mantine-Button-subtle:hover {
+  background-color: rgb(109 109 109 / 60%);
+}
+
+.mantine-Header-root {
+  border-bottom: 1px solid #89a3bf;
+}
+.mantine-Header-root button {
+  color: #ddb444;
+  border: none;
+}
+.mantine-Tooltip-root.mantine-gc2cx1 svg {
+  border: none !important;
+  stroke: #ddb444;
+}
+
+.mantine-Popover-root button {
+  margin-right: 0 !important;
+}
+
+.about-contact-form .mantine-Group-child {
+  width: 100%;
+  margin: 0 1em;
+}
+
+.about-contact-card {
+  background-color: rgb(238 238 238 / 70%);
+  margin: 10px 0;
+}
+
+.about-accordion {
+  background-color: #ffffffcf;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
 }
