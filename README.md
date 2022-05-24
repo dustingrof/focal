@@ -15,7 +15,7 @@ This app was built as a final project for the Lighthouse Labs web development pr
 
 ## Hosted Link
 The hosted app can be explored here:
-<>
+**to follow**
 
 ## Setup From Repo
 1. Locally clone the repo
