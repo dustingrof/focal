@@ -6,18 +6,13 @@
 - window scale to 
 
 
-
-- single driver for screen share
-
-
-
 overview of homepage, when first signed in (sign in), a user 
 overview of kanban page
 
 
 
 
-
+# Start
 
 Nicole: Hi, my name is Nicole
 
@@ -25,25 +20,29 @@ Iaan: My name is Iaan
 
 Dustin: My name is Dustin
 
-Nicole: ...and we are here to present our app "focal" -- a project management and time tracking tool that helps teams stay focused and get things done.
+...and we are here to present "focal" -- our app for project management and time tracking that we know will help teams stay focused and get things done.
 
-Our motivation for building this app was seeing existing kanban boards lacking features we wanted, like integrated communication and time tracking for specific cards.
+Our motivation for building this app was seeing existing kanban boards lacking features that we wanted, like integrated communication and built in task time tracking.
 
-We have deployed our app on Heroku if you'd like to check it out as we review it here, here is a link now in the chat.
+Our app is deployed on Heroku, we will send the link at the end of the presentation.
+
+**share before or after?**
 
 ## Homepage
 
-I'll start on the home page board. You can see the avatar in the top corner showing I am already signed in. I'm presented with some widgets--the weather widget uses the weather-API and the time tracking pie chart uses the chart-js API.
+I'll start on the home page board. You can see the avatar in the top corner showing I am already signed in.
 
-There is also a summary of tasks assigned to me, which I can expand to show more details like other assigned people, which board the task belongs to, and a description.
+I'm presented with some widgets--the weather widget uses a weather-API and the time tracking pie chart uses the chart-js API.
 
-Along the top header is the logo, which is linked to the homepage, as well as some other controls on the right.
+There is also a summary of tasks assigned to me.
 
-These controls include a pomodoro timer, a global task timer, a toggle for light and dark mode, a chat button, and a user avater.
+Along the top header is the logo, which is linked to this homepage, as well as some other controls on the right.
+
+These include a pomodoro timer, a global task timer, a toggle for light and dark mode, a chat button, and a user avater.
 
 While we are here, let's start the timer and change our theme to dark.
 
-Along the left nav bar is list of the boards, with a button at the top to create a new board.
+Along the left nav bar is list of the boards, with a button at the top to create a new one.
 
 I can position the mouse over to see the board name.
 
@@ -112,7 +111,12 @@ We can see that I'm logged in as ___
 
 When I open the chat, I can see my own messages and messges from others.
 
-**type something like "Hey Iaan" and Iaan responds "Hi there"**
+
+**type something like "Hey Iaan", close window, notification and Iaan responds "Hi there"**
+
+Because this chat was built using websockets, so messages pop up right away.
+
+If my chat is closed when I receive a message, I get a notification in the bottom and the icon also adds a  small red notification badge.
 
 ## About
 
