@@ -65,11 +65,13 @@ export default function NewBoardCardFocus(props) {
     setBoardName();
     setBoardDescription();
     setBoardImageUrl();
+    setAlert(false);
+    
   };
 
   // new board with save
   const newBoardSave = function () {
-    setAlert(false);
+   
     // build new board
     const boardToAdd = {
       name: boardName,
@@ -86,7 +88,9 @@ export default function NewBoardCardFocus(props) {
     setBoardName();
     setBoardDescription();
     setBoardImageUrl();
-
+    setAlert(false);
+ 
+   
     // send to backend
     if (boardToAdd.name) {
       // pass new card and make axios request (in boardProvider.js)
@@ -94,6 +98,7 @@ export default function NewBoardCardFocus(props) {
       // update modal prop
       const setModalState = () => setOpened(false);
       setModalState();
+      setAlert(false);
     } else {
       // Notification
       setAlert(true);
@@ -101,6 +106,10 @@ export default function NewBoardCardFocus(props) {
     }
   };
 
+  const titleHandler = ((e) => {
+    setBoardName(e.currentTarget.value);
+    setAlert(false);
+  })
   // const { boardList } = useBoardList();
   // const boardsArray = Object.values(boardList);
   // const boardChipList = boardsArray.map(board => {
@@ -141,7 +150,7 @@ export default function NewBoardCardFocus(props) {
         overlayOpacity={0.5}
         overlayBlur={3}
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={newBoardNoSave}
         // title='Register'
         padding='xl'
         size='xl'>
@@ -149,7 +158,7 @@ export default function NewBoardCardFocus(props) {
         <h4>Board name:</h4>
       
         <Textarea
-          onChange={event => setBoardName(event.currentTarget.value)}
+          onChange={titleHandler}
           placeholder='Enter text'
         />
           {alert ? (
@@ -158,7 +167,6 @@ export default function NewBoardCardFocus(props) {
             icon={<AlertCircle size={16} />}
             title='Please enter a title for your board!'
             color='red'
-            withCloseButton
             variant="filled"
           /></>
         ) : null}
