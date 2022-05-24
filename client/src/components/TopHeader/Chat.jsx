@@ -16,8 +16,8 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useHover } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
-import { UserCircle, MessageCircle2 } from "tabler-icons-react";
-import { BrandHipchat } from "tabler-icons-react";
+import { UserCircle, MessageCircle2, MessageCircle } from "tabler-icons-react";
+
 import React, { useEffect, useState, useContext } from "react";
 
 // Socket Connection
@@ -49,6 +49,7 @@ const Chat = () => {
   const { classes } = useStyles();
   const [message, setMessage] = useState("");
   const [opened, setOpened] = useState(false);
+  const [chatIcon, setChatIcon] = useState(false);
 
   const [messageList, setList] = useState([
     { userLS: "Dustin", message: "Hello" },
@@ -79,6 +80,8 @@ const Chat = () => {
 useEffect(()=>{
   socket.emit("getMessages");
   console.log("Get messages")
+  opened ? setChatIcon(true) : setChatIcon(false) 
+  
 },[opened])
 
   // Gets all messages from sever
@@ -93,15 +96,15 @@ useEffect(()=>{
   // Sends notification when message is received from another user
   useEffect(() => {
     socket.on("notification", (data) => {
+      console.log("notification")
       if (data.userLS !== localStorage.getItem("name")) {
-        showNotification({
-          title: "Message notification",
-          message: `Hey there, ${data.userLS} just sent a message! `,
-          icon: <MessageCircle2 size={20} />,
-        });
+        !opened ? setChatIcon(true) : setChatIcon(false) 
+      
       }
     });
-  }, []);
+  },[]);
+
+
 
   // Maps through messages and checks if the current user in local storage matches message user and changes message colour in list.
   const messageListMapped = messageList.map((item, index) => {
@@ -213,7 +216,7 @@ useEffect(()=>{
           autoComplete="off"
         />
       </Drawer>
-
+  
       <ActionIcon
         variant="outline"
         color={dark ? "#4dabf7" : "blue"}
@@ -221,8 +224,9 @@ useEffect(()=>{
         size={40}
         onClick={() => setOpened((o) => !o)}
       >
-        <BrandHipchat size={40} />
+       {chatIcon ? <MessageCircle size={40} color='navy'/> :<MessageCircle2 size={40}   />} 
       </ActionIcon>
+
     </React.Fragment>
   );
 };
