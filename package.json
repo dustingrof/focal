@@ -37,7 +37,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -50,11 +50,11 @@
     ]
   },
   "dialectOptions": {
-  "ssl": {
-    "require": true,
-    "rejectUnauthorized": false
-  }
-},
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -67,20 +67,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@asseinfo/react-kanban": "^2.2.0",
-    "@mantine/core": "^4.2.4",
-    "@mantine/dates": "^4.2.4",
-    "@mantine/dropzone": "^4.2.4",
-    "@mantine/form": "^4.2.4",
-    "@mantine/hooks": "^4.2.4",
-    "@mantine/modals": "^4.2.4",
-    "@mantine/notifications": "^4.2.4",
-    "@mantine/prism": "^4.2.4",
-    "@mantine/rte": "^4.2.4",
-    "@mantine/spotlight": "^4.2.4",
-    "dayjs": "^1.11.2",
-    "emailjs-com": "^3.2.0",
-    "sass": "^1.52.1"
-  }
+  "devDependencies": {}
 }
