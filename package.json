@@ -49,6 +49,12 @@
       "react-app/jest"
     ]
   },
+  "dialectOptions": {
+  "ssl": {
+    "require": true,
+    "rejectUnauthorized": false
+  }
+},
   "browserslist": {
     "production": [
       ">0.2%",
