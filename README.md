@@ -8,7 +8,9 @@ This app was built as a final project for the Lighthouse Labs web development pr
 
 
 ## Product Views
-!["Homepage"](https://llandscapes-10674.kxcdn.com/wp-content/uploads/2019/07/lighting.jpg)
+!["Homepage view"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal1.png?raw=true)
+!["Task focus view"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal2.png?raw=true)
+!["Homepage view in dark mode"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal3.png?raw=true)
 
 
 ## Hosted Link
