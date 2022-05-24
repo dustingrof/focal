@@ -127,6 +127,14 @@ io.on('connection', socket => {
     io.emit('allMessages', { allMessages });
   });
 
+  socket.on("getMessages", () =>{
+    db.query(`SELECT * FROM messages;`).then(response => {
+      const allMessages = response.rows;
+  
+      io.emit('allMessages', { allMessages });
+    });
+  })
+
   socket.on('sendMessage', data => {
     const { message, userLS, user_ls_avatar } = data;
 
