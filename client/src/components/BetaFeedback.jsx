@@ -96,19 +96,34 @@ export default function BoardView(props) {
           })}>
           <Grid gutter='xl' className='about-grid'>
             <Grid.Col span={6}>
-              <h1>The focal story</h1>
+              <Title>The back story</Title>
+              <Card shadow='xl' className='about-contact-card'>
               <Text>
                 A collaborative effort for the Lighthouse Labs web development
-                program. Built in the span of a week and a half, using React on
-                the frontend and Express/PostgreSQL on the backend.
+                program, built in the span of a week and a half
               </Text>
-              <Space h='xl' />
+              <Space h='xs' />
               <Text>
                 Please enjoy this beta release while we continue to dream up new
                 features.
               </Text>
-              <Space h='xl' />
-              <Space h='xl' />
+              <Space h='xs' />
+              <Grid columns={50}>
+                <Grid.Col span={10}>
+              <Text style={{ fontWeight: 'bold'}}>
+                Stack:
+              </Text>
+                </Grid.Col>
+                <Grid.Col span={40}>
+              <Text>
+               Javascript, React, Express, PostgreSQL, Mantine
+              </Text>
+                </Grid.Col>
+              </Grid>
+
+              </Card>
+
+              <Space h='xs' />
             </Grid.Col>
           </Grid>
           <Grid gutter='xl' className='about-grid'>
@@ -145,9 +160,11 @@ export default function BoardView(props) {
                       has been WordPress websites, hosting, HTML, CSS, PHP and
                       Javascript.
                     </Text>
+                    <Space h='xs' />
+
                     <Text>
                       <a href='https://www.linkedin.com/in/dustingrof/'>
-                        Connect with me on LinkedIn
+                        Connect on LinkedIn
                       </a>
                     </Text>
                   </div>
@@ -178,9 +195,11 @@ export default function BoardView(props) {
                     <Text size='sm' weight={400}>
                       I used to make whisky. Now I make websites.
                     </Text>
+                    <Space h='xs' />
+
                     <Text>
                       <a href='https://www.linkedin.com/in/nicole-maclean-501aa6b6/'>
-                        Connect with me on LinkedIn
+                        Connect on LinkedIn
                       </a>
                     </Text>
                   </div>
@@ -209,15 +228,12 @@ export default function BoardView(props) {
                   }>
                   <div>
                     <Text size='sm' weight={400}>
-                      Enthusiastic developer with a penchant for problem
-                      solving--proven by an established engineering work
-                      history. Keen to bring this experience and technical
-                      skillset to a team that values open communication,
-                      collaboration and growth.
+                      Full stack web developer, pivoting from 9 years of mechanical engineering. Experience leading teams, and taking projects from concept to completion.
                     </Text>
+                    <Space h='xs' />
                     <Text>
                       <a href='https://www.linkedin.com/in/iaanjohnston/'>
-                        Connect with me on LinkedIn
+                        Connect on LinkedIn
                       </a>
                     </Text>
                   </div>
@@ -271,7 +287,7 @@ export default function BoardView(props) {
                         name='message'
                         type='text'
                         required
-                        minRows={5}
+                        minRows={7}
                         size='md'
                       />
                       <Space h='md' />

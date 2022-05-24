@@ -122,6 +122,7 @@ export default function NewTaskCardFocus(props) {
         overlayOpacity={0.5}
         overlayBlur={3}
         size='lg'
+        radius='md'
         transition='pop'
         transitionDuration={200}
       >
@@ -131,30 +132,30 @@ export default function NewTaskCardFocus(props) {
           onChange={(event) => setRichTitleValueChange(event.currentTarget.value)}
           placeholder="Enter text"
         />
-        <Space h='xl' />
+        <Space h='xs' />
         <h4>Description:</h4>
         <Textarea
           onChange={(event) => setRichTextValueChange(event.currentTarget.value)}
           placeholder="Enter text"
         />
-        <Space h='xl' />
-        <h4>Select due date:</h4>
+        <Space h='xs' />
+        <h4>Due date:</h4>
         <DatePicker
           placeholder={"Select date"}
           value={dateToSave}
           onChange={setDateToSave}
         />
-        <Space h='xl' />
-        <h4>Select users:</h4>
+        <Space h='xs' />
+        <h4>Users:</h4>
         <CheckboxGroup onChange={setUserValue}>
           {formatUserData}
         </CheckboxGroup>
-        <Space h='xl' />
+        <Space h='xs' />
         <h4>Select board: *</h4>
         <Chips multiple={false} defaultValue={newTaskBoard} onChange={setNewTaskBoard}>
           {boardChipList}
         </Chips>
-        <Space h='xl' />
+        <Space h='xs' />
         <h4>Select initial status: *</h4>
         <Chips multiple={false} value={newTaskStatus} onChange={setNewTaskStatus}>
           <Chip key={-1} value="1">Backlog</Chip>
@@ -162,9 +163,9 @@ export default function NewTaskCardFocus(props) {
           <Chip key={-3} value="3">Pending</Chip>
           <Chip key={-4} value="4">Complete</Chip>
         </Chips>
-        <Space h='xl' />
-        <Space h='xl' />
-        <Space h='xl' />
+        <Space h='xs' />
+        <Space h='xs' />
+        <Space h='xs' />
         <Grid>
           <Grid.Col span={6}>
             <Center>

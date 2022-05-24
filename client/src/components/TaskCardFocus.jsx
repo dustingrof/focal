@@ -202,12 +202,12 @@ export default function TaskCardFocus(props) {
         overlayBlur={3}
         size='lg'
         padding='xl'
-        radius='lg'
+        radius='md'
         transition='pop'
         transitionDuration={200}>
-        <Grid style={{ display: 'flex' }}>
+        <Grid columns={30} style={{ display: 'flex' }}>
           {/* Column to hold Task Name */}
-          <Grid.Col span={10}>
+          <Grid.Col span={24}>
             <Title order={3} style={{ marginTop: 10 }}>
               {titleToUpdate}
               <ThemeIcon
@@ -229,7 +229,26 @@ export default function TaskCardFocus(props) {
               justifyContent: 'space-evenly',
             }}>
             <Edit onClick={() => setEditOpen(o => !o)} />
+
+          </Grid.Col>
+          <Grid.Col
+            span={2}
+            style={{
+              marginTop: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
             <MailForward onClick={() => setMailForward(o => !o)} />
+          </Grid.Col>
+          <Grid.Col
+            span={2}
+            style={{
+              marginTop: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
             <VideoChat />
           </Grid.Col>
         </Grid>
