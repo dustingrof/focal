@@ -34,12 +34,12 @@ td.task-board_name {
 }
 
 #root.light .mantine-AppShell-main {
-  background-image: url(https://github.com/dustingrof/focal/blob/fix/homepage-tasklist/client/public/images/Board-Background-Light.jpg?raw=true);
+  background-image: url(../../public/images/Board-Background-Light.png);
   background-size: cover;
 }
 
 #root.dark .mantine-AppShell-main {
-  background-image: url(https://github.com/dustingrof/focal/blob/main/client/public/images/Board-Background-Dark.png?raw=true);
+  background-image: url(../../public/images/Board-Background-Dark.png);
   background-size: cover;
 }
 
