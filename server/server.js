@@ -13,6 +13,9 @@ const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 const db = require('./db');
 
+const distDir = __dirname + '../client/';
+app.use(express.static(distDir));
+
 // // PostgreSQL database client/connection setup
 // const { Pool } = require("pg");
 // const dbParams = require("./lib/db.js");
