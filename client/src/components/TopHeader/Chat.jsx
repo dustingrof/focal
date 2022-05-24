@@ -81,6 +81,7 @@ useEffect(()=>{
   socket.emit("getMessages");
   console.log("Get messages")
   opened ? setChatIcon(true) : setChatIcon(false) 
+  
 },[opened])
 
   // Gets all messages from sever
@@ -98,7 +99,7 @@ useEffect(()=>{
       console.log("notification")
       if (data.userLS !== localStorage.getItem("name")) {
         !opened ? setChatIcon(true) : setChatIcon(false) 
-       
+      
       }
     });
   },[]);
@@ -215,7 +216,7 @@ useEffect(()=>{
           autoComplete="off"
         />
       </Drawer>
-
+  
       <ActionIcon
         variant="outline"
         color={dark ? "#4dabf7" : "blue"}
@@ -223,8 +224,9 @@ useEffect(()=>{
         size={40}
         onClick={() => setOpened((o) => !o)}
       >
-       {chatIcon ? <MessageCircle size={40}/> :<MessageCircle2 size={40}   />} 
+       {chatIcon ? <MessageCircle size={40} color='navy'/> :<MessageCircle2 size={40}   />} 
       </ActionIcon>
+
     </React.Fragment>
   );
 };
