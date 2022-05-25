@@ -106,15 +106,25 @@ svg.nav-buttons:hover {
   margin: 0 1em;
 }
 
-.about-contact-card {
+#root.light .about-contact-card {
   background-color: rgb(238 238 238 / 90%);
   margin: 10px 0;
 }
+#root.dark .about-contact-card {
+  margin: 10px 0;
+}
 
-.about-accordion {
+#root.light .about-accordion {
   background-color: rgb(238 238 238 / 90%);
   padding: 10px 20px;
-  margin: 10px 0;
+  margin: 10px 0 10px 0;
+  border-radius: 5px;
+}
+
+#root.dark .about-accordion {
+  background-color: #25262b;
+  padding: 10px 20px;
+  margin: 10px 0 10px 0;
   border-radius: 5px;
 }
 
@@ -122,7 +132,7 @@ svg.nav-buttons:hover {
 //   display: 'flex';
 //   justify-content: 'flex-end'
 // }
-.footable {
+#root.light .footable {
   background-color: rgb(255 255 255 / 70%);
   border-radius: 8px;
 }

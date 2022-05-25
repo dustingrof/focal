@@ -15,7 +15,7 @@ import {
   MantineProvider,
   ColorSchemeProvider,
   Grid,
-  Stack
+  Stack,
 } from '@mantine/core';
 import { Sun, MoonStars } from 'tabler-icons-react';
 
@@ -36,18 +36,18 @@ export default function BoardView(props) {
   const params = useParams();
   // console.log('THESE PARAMS', params);
 
-  const { board, onMoveCard, setUrlBoardId, boardInfo } = useContext(boardContext);
+  const { board, onMoveCard, setUrlBoardId, boardInfo } =
+    useContext(boardContext);
 
   useEffect(() => {
     setUrlBoardId(params.board_id);
   }, [setUrlBoardId, params.board_id]);
 
-
   // console.log('Board State <<<<<<<', board);
   const { colorScheme, setColorScheme } = useContext(colourListContext);
   const toggleColorScheme = ColorScheme =>
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
-  
+
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -74,38 +74,41 @@ export default function BoardView(props) {
 
           {/* <Title order={1}>{boardInfo['name']}</Title> */}
           {/* <Text size='md'>{boardInfo['description']}</Text> */}
-          <Grid align="flex-start"  style={{ marginTop: 7 }}>
-            <Grid.Col span={12} style={{display:'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-              
+          <Grid align='flex-start' style={{ marginTop: 7 }}>
+            <Grid.Col
+              span={12}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
               <BoardCardFocus props={boardInfo}>
-              {boardInfo.name}
+                {boardInfo.name}
               </BoardCardFocus>
-            <NewTaskCardFocus/>
+              <NewTaskCardFocus />
             </Grid.Col>
 
             {/* <Grid.Col span={2}> */}
-              {/* <Text size='xl' style={{ fontWeight: 700 }}>
+            {/* <Text size='xl' style={{ fontWeight: 700 }}>
               {boardInfo['name']}
               </Text> */}
             {/* </Grid.Col> */}
-          
-            </Grid>
+          </Grid>
 
           <Space h='lg' />
-          
+
           <Board
-          
             onCardDragEnd={onMoveCard}
             disableColumnDrag
-            allowAddCard={{ on: "top" }}
+            allowAddCard={{ on: 'top' }}
             renderCard={(cardData, { dragging }) => {
               // console.log('arguments:', arguments)
               // console.log('content:', cardData);
               return (
                 <MiniTaskCard dragging={dragging} cardData={{ ...cardData }} />
               );
-            }}
-            >
+            }}>
             {board}
           </Board>
           <Space h='xl' />

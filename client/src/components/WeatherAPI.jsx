@@ -38,10 +38,14 @@ export default function WeatherAPI() {
               align='center'
               position='apart'
               style={{ marginBottom: 5, marginTop: 5 }}>
-              <Avatar src={weather.current.condition.icon} alt="Weather Icon" size="lg" />
+              <Avatar
+                src={weather.current.condition.icon}
+                alt='Weather Icon'
+                size='lg'
+              />
               {weather.current.condition.text}
               <Badge
-                size="xl"
+                size='xl'
                 color={weather.current.temp_c > 15 ? 'red' : 'blue'}
                 variant='light'>
                 {weather.current.temp_c} °C
