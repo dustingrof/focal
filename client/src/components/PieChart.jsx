@@ -37,15 +37,15 @@ export const data = {
 
 export default function PieChart() {
   const [chartData, setChartData] = useState(data);
-  console.log('chartData', chartData);
+  // console.log('chartData', chartData);
   useEffect(() => {
     axios
       .get(`/reports/`)
       .then(results => {
         const resultsArray = Object.values(results.data);
-        console.log('results', resultsArray);
+        // console.log('results', resultsArray);
         for (const result of resultsArray) {
-          console.log('result', result);
+          // console.log('result', result);
           data.labels.push(result.board_name);
           data.datasets[0].data.push(result.board_time);
         }
@@ -55,7 +55,7 @@ export default function PieChart() {
       });
   }, []);
 
-  console.log('DADA', data);
+  // console.log('DADA', data);
 
   return (
     <Card shadow='xl' p='lg' className='report-data' radius='md'>

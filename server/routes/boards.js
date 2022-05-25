@@ -125,7 +125,7 @@ module.exports = db => {
   router.get('/:board_id/tasks', (req, res) => {
     const boardID = Number(req.params.board_id);
 
-    console.log('req.params', req.params);
+    // console.log('req.params', req.params);
 
     db.query(
       `

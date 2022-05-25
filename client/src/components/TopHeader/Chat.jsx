@@ -77,7 +77,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.emit('getMessages');
-    console.log('Get messages');
+    // console.log('Get messages');
     opened ? setChatIcon(true) : setChatIcon(false);
   }, [opened]);
 
@@ -85,7 +85,7 @@ const Chat = () => {
   useEffect(() => {
     socket.on('allMessages', data => {
       const updatedmessages = data.allMessages;
-      console.log('All messages', updatedmessages);
+      // console.log('All messages', updatedmessages);
       setList(updatedmessages);
     });
   }, [opened]);
@@ -93,7 +93,7 @@ const Chat = () => {
   // Sends notification when message is received from another user
   useEffect(() => {
     socket.on('notification', data => {
-      console.log('notification');
+      // console.log('notification');
       if (data.userLS !== localStorage.getItem('name')) {
         !opened ? setChatIcon(true) : setChatIcon(false);
       }

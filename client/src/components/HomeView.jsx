@@ -112,7 +112,7 @@ export default function HomeView() {
           },
         ],
       };
-      console.log('task.description', task.description);
+      // console.log('task.description', task.description);
 
       return (
         <tr key={uuidv4()}>
