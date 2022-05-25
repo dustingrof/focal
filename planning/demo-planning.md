@@ -11,17 +11,20 @@ overview of kanban page
 # Start
 
 Dustin: Hi, my name is Dustin. I came into this program with 10 years experience developing WordPress websites, and I am happy to say that I am now a full-stack developer.
+Nicole: Hi, my name is Nicole & background
 
-Iaan: My name is Iaan
+Iaan: My name is Iaan & background
 
 Nicole: Hi, my name is Nicole.
 
+Dustin: My name is Dustin & background
+
+Stack goes here
 
 ...and we are here to present "focal" -- our app for project management and time tracking that we know will help teams stay focused and get things done.
 
-Our motivation for building this app was seeing existing kanban boards lacking features that we wanted, like integrated communication and built in task time tracking.
+Our motivation for building this app was seeing existing kanban boards lacking features that we wanted, like integrated communication and built in time tracking.
 
-Our app is deployed on Heroku, we will send the link at the end of the presentation.
 
 **share before or after?**
 
@@ -29,13 +32,14 @@ Our app is deployed on Heroku, we will send the link at the end of the presentat
 
 I'll start on the home page board. You can see the avatar in the top corner showing I am already signed in.
 
-I'm presented with some widgets--the weather widget uses a weather-API and the time tracking pie chart uses the chart-js API.
+I'm presented with some widgets--the weather widget uses weather-API and the time tracking chart uses the chart-js library.
 
-There is also a summary of tasks assigned to me.
+There is also a summary of tasks assigned to us.
 
 Along the top header is the logo, which is linked to this homepage, as well as some other controls on the right.
 
 These include a pomodoro timer, a global task timer, a toggle for light and dark mode, a chat button, and a user avatar.
+These include a pomodoro timer, a global task timer, a toggle for light and dark mode, a chat button that we will circle back to, and a user avater.
 
 While we are here, let's start the timer and change our theme to dark.
 
@@ -87,6 +91,8 @@ It is important keep track of time on our projects for many reasons. But billing
 
 We then see the task time update to reflect our addition, and the global timer resets. We can also restart the time from here for our next task we are working on.
 
+The description handles rich text as well as embedded images.
+
 We could delete the card if need be, but in this case I will just exit by clicking off the card. Changes are automatically saved.
 
 I will now pass it over to Iaan
@@ -98,7 +104,9 @@ To create a new board, I can click on the plus button here. If I try to save wit
 Let's make a new board:
 **name**
 **desc**
-**image** (something really obvious)
+**image**
+
+https://media.istockphoto.com/photos/shiny-red-ball-with-shadow-on-a-white-background-picture-id172290409?b=1&k=20&m=172290409&s=170667a&w=0&h=GSsss-rYlO7cSqvxe3ju-sdfAGg-cXKN_6kA6ia7zJY=
 
 We can see our new board has been added to the board list. Let's check it out.
 
@@ -120,14 +128,20 @@ When I open the chat, I can see my own messages and messges from others.
 
 **type something like "Hey Iaan", close window, notification and Iaan responds "Hi there"**
 
-Because this chat was built using websockets, so messages pop up right away.
+This chat was built using websockets, so messages pop up right away.
 
 If my chat is closed when I receive a message, I get a notification in the bottom and the icon also adds a small red notification badge.
+If my chat is closed when I receive a message, I get a notification on the chat icon.
 
 ## About
 
-Lastly, we have an about page which outlines the stack used, our contact information and an email form if you want to get in touch with us.
+Lastly, we have an about page which outlines the stack we used, our contact information and an email form if you want to get in touch with us.
 
-As mentioned at the beginning, our app is deployed on heroku if you'd like to go check it out! Here is the link again in the chat.
+Our app is deployed on heroku if you'd like to go check it out! Here is the link now in the chat.
+
+
+Challenges
+
+Future objectives (deploy worldwide and get 1M users)
 
 Thanks for letting us walk you through our app -- this was a very fun and challenging project and we look forward

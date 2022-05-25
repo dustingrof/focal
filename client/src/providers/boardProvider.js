@@ -54,93 +54,92 @@ export default function BoardProvider(props) {
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
 
 
+    // useEffect(() => {
+    //   console.log('board', board);
+    // }, [board]);
 
-  // useEffect(() => {
-  //   console.log('board', board);
-  // }, [board]);
-
-  useEffect(() => {
+    useEffect(() => {
 
 
-    axios
-      .get(`/boards/${urlBoardId}/tasks`)
-      .then(results => {
-        const incomingColumns = [
-          {
-            id: 1,
-            title: 'Backlog',
-            cards: [],
-          },
-          {
-            id: 2,
-            title: 'Doing',
-            cards: [],
-          },
-          {
-            id: 3,
-            title: 'Pending',
-            cards: [],
-          },
-          {
-            id: 4,
-            title: 'Complete',
-            cards: [],
-          },
-        ];
+      axios
+        .get(`/boards/${urlBoardId}/tasks`)
+        .then(results => {
+          const incomingColumns = [
+            {
+              id: 1,
+              title: 'Backlog',
+              cards: [],
+            },
+            {
+              id: 2,
+              title: 'Doing',
+              cards: [],
+            },
+            {
+              id: 3,
+              title: 'Pending',
+              cards: [],
+            },
+            {
+              id: 4,
+              title: 'Complete',
+              cards: [],
+            },
+          ];
 
-        // TODO update to use if/else-if
+          // TODO update to use if/else-if
 
-        for (const result in results.data) {
-          if (results.data[result].status === 1) {
-            incomingColumns[0].cards.push(results.data[result]);
+          for (const result in results.data) {
+            if (results.data[result].status === 1) {
+              incomingColumns[0].cards.push(results.data[result]);
+            }
+            if (results.data[result].status === 2) {
+              incomingColumns[1].cards.push(results.data[result]);
+            }
+            if (results.data[result].status === 3) {
+              incomingColumns[2].cards.push(results.data[result]);
+            }
+            if (results.data[result].status === 4) {
+              incomingColumns[3].cards.push(results.data[result]);
+            }
           }
-          if (results.data[result].status === 2) {
-            incomingColumns[1].cards.push(results.data[result]);
-          }
-          if (results.data[result].status === 3) {
-            incomingColumns[2].cards.push(results.data[result]);
-          }
-          if (results.data[result].status === 4) {
-            incomingColumns[3].cards.push(results.data[result]);
-          }
-        }
 
-        setBoard(prev => ({ ...prev, columns: incomingColumns }));
-        // setBoard({ ...board, columns: incomingColumns });
-      })
-      .catch(error => {
-        console.log(`Board cards: Request failed with error ${error}`);
-      });
+          setBoard(prev => ({ ...prev, columns: incomingColumns }));
+          // setBoard({ ...board, columns: incomingColumns });
+        })
+        .catch(error => {
+          console.log(`Board cards: Request failed with error ${error}`);
+        });
 
 
-    axios
-      .get(`/boards/${urlBoardId}`, { urlBoardId })
-      .then(results => {
+      axios
+        .get(`/boards/${urlBoardId}`, { urlBoardId })
+        .then(results => {
 
 
 
 
-        // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
+          // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
 
-        const name = results.data[urlBoardId].name;
-        const description = results.data[urlBoardId].description;
-        const image_url = results.data[urlBoardId].image_url;
+          const name = results.data[urlBoardId].name;
+          const description = results.data[urlBoardId].description;
+          const image_url = results.data[urlBoardId].image_url;
 
-        // console.log('newBoardInfo', newBoardInfo);
+          // console.log('newBoardInfo', newBoardInfo);
 
-        const newBoardInfo = {
-          name,
-          description,
-          image_url,
-        };
-        // console.log('newBoardInfo', newBoardInfo);
+          const newBoardInfo = {
+            name,
+            description,
+            image_url,
+          };
+          // console.log('newBoardInfo', newBoardInfo);
 
-        setBoardInfo(newBoardInfo);
+          setBoardInfo(newBoardInfo);
 
-      })
-      .catch(error => {
-        console.log(`Board info: Request failed with error ${error}`);
-      });
+        })
+        .catch(error => {
+          console.log(`Board info: Request failed with error ${error}`);
+        });
 
 
 
@@ -148,7 +147,7 @@ export default function BoardProvider(props) {
 
 
 
-  }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard, setBoardInfo]);
+    }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard, setBoardInfo]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {

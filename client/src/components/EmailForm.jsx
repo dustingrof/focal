@@ -9,15 +9,22 @@ import {
   Box,
   Textarea,
   Collapse,
-  Space,
+  Space
 } from '@mantine/core';
+import { showNotification } from '@mantine/notifications'
 import { MailForward } from 'tabler-icons-react';
 import { useForm } from '@mantine/form';
 
 export default function EmailForm(props) {
   // const [mailForwardOpened, setMailForward] = useState(false);
 
+
+
   function sendEmail(e) {
+
+
+
+
     e.preventDefault();
 
     emailjs
@@ -88,11 +95,18 @@ export default function EmailForm(props) {
           required
         />
         <Space h='md' />
-        <Button type='submit' className='btn btn-info' value='Send Message'>
-          Submit
+        <Button
+          type='submit'
+          className='btn btn-info'
+          value='Send Message'
+          onClick={() =>
+            showNotification({
+              title: 'Email sent!',
+            }) }>
+            Submit
         </Button>
-      </form>
-      {/* </Collapse> */}
-    </Box>
+    </form>
+      {/* </Collapse> */ }
+    </Box >
   );
 }
