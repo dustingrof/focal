@@ -83,6 +83,16 @@ td.task-board_name {
 nav.mantine-Navbar-root.mantine-1hxzrnp {
   background-color: #33495b;
 }
+//stops the background color scroll issue
+.mantine-AppShell-body {
+  background-color: #33495b;
+  border-right: initial;
+}
+//stops the background color scroll issue
+#root.dark .mantine-AppShell-body {
+  background-color: initial;
+  border-right: initial;
+}
 .mantine-Header-root button {
   color: #89a3bf;
   border: none;
@@ -135,4 +145,50 @@ svg.nav-buttons:hover {
 #root.light .footable {
   background-color: rgb(255 255 255 / 70%);
   border-radius: 8px;
+}
+
+//reverse message order
+.mantine-ScrollArea-viewport .mantine-List-root {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+// Modify chat bubbles
+.chat-message .mantine-Badge-inner {
+  font-size: 24px;
+  text-transform: initial;
+}
+
+.current-user .chat-message .mantine-List-itemWrapper {
+  flex-direction: row-reverse;
+}
+
+.mantine-ScrollArea-viewport .mantine-List-root > .current-user {
+  align-self: flex-end;
+}
+
+.mantine-ScrollArea-root {
+  justify-content: flex-start;
+  flex-direction: column-reverse;
+}
+
+.current-user .chat-message .message-content {
+  background-color: #33495b;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-weight: 700;
+  margin-right: 8px;
+  margin-left: 50px;
+}
+
+.other-users .chat-message .message-content {
+  background-color: #868686;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-weight: 700;
+  margin-right: 8px;
+
+  margin-right: 50px;
 }

@@ -9,9 +9,7 @@ import {
   useMantineTheme,
   Avatar,
   Tooltip,
-  Badge,
-  Grid,
-  Title,
+  Text,
 } from '@mantine/core';
 import { v4 as uuidv4 } from 'uuid';
 import { useHover } from '@mantine/hooks';
@@ -105,7 +103,7 @@ const Chat = () => {
   // Maps through messages and checks if the current user in local storage matches message user and changes message colour in list.
   const messageListMapped = messageList.map((item, index) => {
     return (
-      <div>
+      <div className={item.userls === userLS ? 'current-user' : 'other-users'}>
         {hovered ? (
           <Tooltip label={item.userls} color='blue' position='left' opened>
             <List.Item
@@ -117,18 +115,18 @@ const Chat = () => {
               key={uuidv4()}
               icon={
                 <Avatar
-                  size={20}
+                  size={40}
                   radius='xl'
                   src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
               }>
-              <Badge
+              {/* <Badge
                 align='right'
                 fullWidth
-                color={item.userls === userLS ? 'blue' : 'indigo'}>
-                {item.message}
-              </Badge>
+                color={item.userls === userLS ? 'blue' : 'indigo'}> */}
+              <Text className='message-content'>{item.message}</Text>
+              {/* </Badge> */}
             </List.Item>
           </Tooltip>
         ) : (
@@ -142,18 +140,18 @@ const Chat = () => {
               key={uuidv4()}
               icon={
                 <Avatar
-                  size={20}
+                  size={40}
                   radius='xl'
                   src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
               }>
-              <Badge
+              {/* <Badge
                 align='right'
                 fullWidth
-                color={item.userls === userLS ? 'blue' : 'indigo'}>
-                {item.message}
-              </Badge>
+                color={item.userls === userLS ? 'blue' : 'indigo'}> */}
+              <Text className='message-content'>{item.message}</Text>
+              {/* </Badge> */}
             </List.Item>
           </Tooltip>
         )}
@@ -172,7 +170,7 @@ const Chat = () => {
         opened={opened}
         onClose={() => setOpened(false)}
         padding='lg'
-        size='18%'
+        size='30%'
         position='right'
         transition='pop'
         transitionDuration={200}

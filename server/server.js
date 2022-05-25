@@ -121,19 +121,19 @@ const io = new Server(server, {
 io.on('connection', socket => {
   console.log('User connected:', socket.id);
 
-  db.query(`SELECT * FROM messages;`).then(response => {
+  db.query(`SELECT * FROM messages ORDER BY id DESC;`).then(response => {
     const allMessages = response.rows;
 
     io.emit('allMessages', { allMessages });
   });
 
-  socket.on("getMessages", () =>{
-    db.query(`SELECT * FROM messages;`).then(response => {
+  socket.on('getMessages', () => {
+    db.query(`SELECT * FROM messages ORDER BY id DESC;`).then(response => {
       const allMessages = response.rows;
-  
+
       io.emit('allMessages', { allMessages });
     });
-  })
+  });
 
   socket.on('sendMessage', data => {
     const { message, userLS, user_ls_avatar } = data;
@@ -142,7 +142,7 @@ io.on('connection', socket => {
       `insert into messages (userLS, message, user_ls_avatar) values ($1, $2, $3);`,
       [userLS, message, user_ls_avatar]
     ).then(
-      db.query(`SELECT * FROM messages;`).then(response => {
+      db.query(`SELECT * FROM messages ORDER BY id DESC;`).then(response => {
         const allMessages = response.rows;
 
         io.emit('allMessages', { allMessages });
@@ -153,7 +153,7 @@ io.on('connection', socket => {
       userLS: data.userLS,
       user_ls_avatar: data.user_ls_avatar,
     });
-    console.log("emit notification")
+    console.log('emit notification');
   });
 
   socket.on('disconnect', () => {
