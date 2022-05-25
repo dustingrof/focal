@@ -58,7 +58,7 @@ export default function PieChart() {
   console.log('DADA', data);
 
   return (
-    <Card shadow='xl' p='lg' className='report-data'>
+    <Card shadow='xl' p='lg' className='report-data' radius='md'>
       <Card.Section>
         <Title order={3} align='center'>
           Time Tracker Overview

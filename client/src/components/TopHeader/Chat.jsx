@@ -11,34 +11,34 @@ import {
   Tooltip,
   Badge,
   Grid,
-  Title
-} from "@mantine/core";
-import { v4 as uuidv4 } from "uuid";
-import { useHover } from "@mantine/hooks";
-import { showNotification } from "@mantine/notifications";
-import { UserCircle, MessageCircle2, MessageCircle } from "tabler-icons-react";
+  Title,
+} from '@mantine/core';
+import { v4 as uuidv4 } from 'uuid';
+import { useHover } from '@mantine/hooks';
+import { showNotification } from '@mantine/notifications';
+import { UserCircle, MessageCircle2, MessageCircle } from 'tabler-icons-react';
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react';
 
 // Socket Connection
-import io from "socket.io-client";
-import { colourListContext } from "../../providers/colourSchemeProvider";
-const socket = io.connect("http://localhost:3322");
+import io from 'socket.io-client';
+import { colourListContext } from '../../providers/colourSchemeProvider';
+const socket = io.connect('http://localhost:3322');
 
 //CSS
 const useStyles = createStyles((theme, _params, getRef) => ({
   container: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     backgroundColor:
-      theme.colorScheme === "dark"
+      theme.colorScheme === 'dark'
         ? theme.colors.dark[8]
         : theme.colors.gray[1],
     padding: theme.spacing.xl,
     borderRadius: theme.radius.xl,
 
     // reference button with nested selector
-    [`&:hover .${getRef("button")}`]: {
+    [`&:hover .${getRef('button')}`]: {
       backgroundColor: theme.colors.violet[6],
     },
   },
@@ -47,131 +47,123 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 const Chat = () => {
   // Set State
   const { classes } = useStyles();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
   const [chatIcon, setChatIcon] = useState(false);
 
   const [messageList, setList] = useState([
-    { userLS: "Dustin", message: "Hello" },
-    { userLS: "Iaan", message: "Hello Dustin" },
+    { userLS: 'Dustin', message: 'Hello' },
+    { userLS: 'Iaan', message: 'Hello Dustin' },
   ]);
 
   // Gets user name from local storage for sendMessage function
-  const userLS = localStorage.getItem("name");
-  const user_ls_avatar = localStorage.getItem("avatar");
+  const userLS = localStorage.getItem('name');
+  const user_ls_avatar = localStorage.getItem('avatar');
 
   // Style functionality
   const { hovered, ref } = useHover();
   const theme = useMantineTheme();
 
   // Handles chat input
-  const inputHandler = (e) => {
+  const inputHandler = e => {
     setMessage(e.target.value);
   };
 
   // On enter sends message and user to server
-  const enterHandler = (e) => {
-    if (e.key === "Enter" && e.target.value !== "") {
-      socket.emit("sendMessage", { message, userLS, user_ls_avatar });
-      setMessage("");
+  const enterHandler = e => {
+    if (e.key === 'Enter' && e.target.value !== '') {
+      socket.emit('sendMessage', { message, userLS, user_ls_avatar });
+      setMessage('');
     }
   };
 
-useEffect(()=>{
-  socket.emit("getMessages");
-  console.log("Get messages")
-  opened ? setChatIcon(true) : setChatIcon(false) 
-  
-},[opened])
+  useEffect(() => {
+    socket.emit('getMessages');
+    console.log('Get messages');
+    opened ? setChatIcon(true) : setChatIcon(false);
+  }, [opened]);
 
   // Gets all messages from sever
   useEffect(() => {
-    socket.on("allMessages", (data) => {
+    socket.on('allMessages', data => {
       const updatedmessages = data.allMessages;
-      console.log("All messages", updatedmessages)
+      console.log('All messages', updatedmessages);
       setList(updatedmessages);
     });
-  },[opened]);
+  }, [opened]);
 
   // Sends notification when message is received from another user
   useEffect(() => {
-    socket.on("notification", (data) => {
-      console.log("notification")
-      if (data.userLS !== localStorage.getItem("name")) {
-        !opened ? setChatIcon(true) : setChatIcon(false) 
-      
+    socket.on('notification', data => {
+      console.log('notification');
+      if (data.userLS !== localStorage.getItem('name')) {
+        !opened ? setChatIcon(true) : setChatIcon(false);
       }
     });
-  },[]);
-
-
+  }, []);
 
   // Maps through messages and checks if the current user in local storage matches message user and changes message colour in list.
   const messageListMapped = messageList.map((item, index) => {
     return (
       <div>
         {hovered ? (
-          <Tooltip label={item.userls} color="blue" position="left" opened>
+          <Tooltip label={item.userls} color='blue' position='left' opened>
             <List.Item
-              className="chat-message"
-              display="flex"
+              className='chat-message'
+              display='flex'
               justifyContent={
-                item.userls === userLS ? "flex-start" : "flex-end"
+                item.userls === userLS ? 'flex-start' : 'flex-end'
               }
               key={uuidv4()}
               icon={
                 <Avatar
                   size={20}
-                  radius="xl"
+                  radius='xl'
                   src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
-              }
-            >
+              }>
               <Badge
-                align="right"
+                align='right'
                 fullWidth
-                color={item.userls === userLS ? "blue" : "indigo"}
-              >
+                color={item.userls === userLS ? 'blue' : 'indigo'}>
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>
         ) : (
-          <Tooltip label={item.userls} color="blue" position="left">
+          <Tooltip label={item.userls} color='blue' position='left'>
             <List.Item
-              className="chat-message"
-              display="flex"
+              className='chat-message'
+              display='flex'
               justifyContent={
-                item.userls === userLS ? "flex-start" : "flex-end"
+                item.userls === userLS ? 'flex-start' : 'flex-end'
               }
               key={uuidv4()}
               icon={
                 <Avatar
                   size={20}
-                  radius="xl"
+                  radius='xl'
                   src={item.user_ls_avatar ? item.user_ls_avatar : UserCircle}
                   ref={ref}
                 />
-              }
-            >
+              }>
               <Badge
-                align="right"
+                align='right'
                 fullWidth
-                color={item.userls === userLS ? "blue" : "indigo"}
-              >
+                color={item.userls === userLS ? 'blue' : 'indigo'}>
                 {item.message}
               </Badge>
             </List.Item>
           </Tooltip>
         )}
-        <Space h="sm" />
+        <Space h='sm' />
       </div>
     );
   });
 
   const { colorScheme, setColorScheme } = useContext(colourListContext);
-  const dark = colorScheme === "dark";
+  const dark = colorScheme === 'dark';
 
   return (
     <React.Fragment>
@@ -179,54 +171,53 @@ useEffect(()=>{
         withCloseButton={false}
         opened={opened}
         onClose={() => setOpened(false)}
-        padding="lg"
-        size="18%"
-        position="right"
-        transition="pop"
+        padding='lg'
+        size='18%'
+        position='right'
+        transition='pop'
         transitionDuration={200}
-        transitionTimingFunction="ease"
+        transitionTimingFunction='ease'
         overlayColor={
-          theme.colorScheme === "dark"
+          theme.colorScheme === 'dark'
             ? theme.colors.dark[1]
             : theme.colors.dark[10]
         }
         overlayOpacity={0.5}
-        overlayBlur={3}
-      >
-
+        overlayBlur={3}>
         <ScrollArea
           className={classes.container}
-          style={{ height: "auto", minHeight: "90%" }}
-        >
-          <List display="flex" spacing="xs" size="sm" center key={"432"}>
+          style={{ height: 'auto', minHeight: '90%' }}>
+          <List display='flex' spacing='xs' size='sm' center key={'432'}>
             {messageListMapped}
           </List>
         </ScrollArea>
-        <Space h="lg" />
+        <Space h='lg' />
 
         <TextInput
-          id="chat-message-input"
-          placeholder="Hit enter to send your message..."
-          radius="lg"
+          id='chat-message-input'
+          placeholder='Hit enter to send your message...'
+          radius='lg'
           onChange={inputHandler}
           onKeyUp={enterHandler}
-          justify="flex-end"
+          justify='flex-end'
           value={message}
           multiline={true}
-          autoComplete="off"
+          autoComplete='off'
         />
       </Drawer>
-  
-      <ActionIcon
-        variant="outline"
-        color={dark ? "#4dabf7" : "blue"}
-        title="Open Chat"
-        size={40}
-        onClick={() => setOpened((o) => !o)}
-      >
-       {chatIcon ? <MessageCircle size={40} color='navy'/> :<MessageCircle2 size={40}   />} 
-      </ActionIcon>
 
+      <ActionIcon
+        variant='transparent'
+        color={dark ? '#4dabf7' : 'blue'}
+        title='Open Chat'
+        size={40}
+        onClick={() => setOpened(o => !o)}>
+        {chatIcon ? (
+          <MessageCircle size={40} color='navy' className='nav-buttons' />
+        ) : (
+          <MessageCircle2 size={40} className='nav-buttons' />
+        )}
+      </ActionIcon>
     </React.Fragment>
   );
 };

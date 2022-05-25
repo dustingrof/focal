@@ -10,7 +10,7 @@ import {
   MantineProvider,
   ColorSchemeProvider,
   Button,
-  Badge
+  Badge,
 } from '@mantine/core';
 import { Sun, MoonStars, Files } from 'tabler-icons-react';
 import Chat from './Chat';
@@ -20,7 +20,7 @@ import TimerDisplay from './TimerDisplay';
 import { colourListContext } from '../../providers/colourSchemeProvider';
 
 import NewBoardCardFocus from '../LeftNavbar/NewBoardCardFocus';
-import HeaderAvatar from './HeaderAvatar';
+// import HeaderAvatar from './HeaderAvatar';
 
 export default function TopHeader() {
   const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -36,28 +36,33 @@ export default function TopHeader() {
         <Grid.Col span={3}>
           <Text
             component='span'
+            className='focal-logo'
             align='center'
             variant='gradient'
             gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
             // size={'xl'}
             weight={700}
-            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: 28 }}>
+            style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: 32 }}>
             <a href='/'>focal</a>
           </Text>
-          <Badge variant='filled' size='xs' color="cyan">
+          {/* <Badge variant='filled' size='xs' color='cyan'>
             beta
-          </Badge>
+          </Badge> */}
         </Grid.Col>
 
         <Grid.Col span={9} className='header-icons'>
           <Pomodoro />
           <ActionIcon
-            variant='outline'
+            variant='transparent'
             size={40}
             color={dark ? '#4dabf7' : 'blue'}
             onClick={() => toggleColorScheme()}
             title='Toggle color scheme'>
-            {dark ? <Sun size={35} /> : <MoonStars size={35} />}
+            {dark ? (
+              <Sun size={35} className='nav-buttons' />
+            ) : (
+              <MoonStars size={35} className='nav-buttons' />
+            )}
           </ActionIcon>
           <Chat />
           <Login />

@@ -100,29 +100,27 @@ const Login = () => {
       withCloseButton
       title='Change user'
       transition='pop-top-right'
-      target =
-      {!user ?
-        (<ActionIcon
-        variant='outline'
-        color={dark ? '#4dabf7' : 'blue'}
-        size={40}
-        onClick={() => setOpened(o => !o)}>
-        <User size={40} />
-      </ActionIcon>) :
-      (
-      <ActionIcon
-      size={40}
-      >
-        <Avatar
-        radius="sm"
-        size={40}
-        src={currentAvatar}
-        onClick={() => setOpened(o => !o)}
-        />
-        </ActionIcon>)}
-
-
-      >
+      target={
+        !user ? (
+          <ActionIcon
+            // variant='outline'
+            color={dark ? '#4dabf7' : 'blue'}
+            size={40}
+            variant='transparent'
+            onClick={() => setOpened(o => !o)}>
+            <User size={40} className='nav-buttons' />
+          </ActionIcon>
+        ) : (
+          <ActionIcon size={40}>
+            <Avatar
+              radius='sm'
+              size={40}
+              src={currentAvatar}
+              onClick={() => setOpened(o => !o)}
+            />
+          </ActionIcon>
+        )
+      }>
       <Group position='center' spacing='sm'>
         <Select
           placeholder='Login as ...'

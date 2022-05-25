@@ -12,17 +12,8 @@ import {
   Grid,
   Space,
   List,
-  ThemeIcon,
-  Text,
-  Input,
-  ActionIcon,
-  Collapse,
   Textarea,
-  TextInput,
-  Chips,
-  Chip,
   Drawer,
-  Theme,
   Alert,
   Tooltip,
 } from '@mantine/core';
@@ -66,12 +57,10 @@ export default function NewBoardCardFocus(props) {
     setBoardDescription();
     setBoardImageUrl();
     setAlert(false);
-    
   };
 
   // new board with save
   const newBoardSave = function () {
-   
     // build new board
     const boardToAdd = {
       name: boardName,
@@ -89,8 +78,7 @@ export default function NewBoardCardFocus(props) {
     setBoardDescription();
     setBoardImageUrl();
     setAlert(false);
- 
-   
+
     // send to backend
     if (boardToAdd.name) {
       // pass new card and make axios request (in boardProvider.js)
@@ -106,10 +94,10 @@ export default function NewBoardCardFocus(props) {
     }
   };
 
-  const titleHandler = ((e) => {
+  const titleHandler = e => {
     setBoardName(e.currentTarget.value);
     setAlert(false);
-  })
+  };
   // const { boardList } = useBoardList();
   // const boardsArray = Object.values(boardList);
   // const boardChipList = boardsArray.map(board => {
@@ -156,19 +144,18 @@ export default function NewBoardCardFocus(props) {
         size='xl'>
         <h2>Create a new board</h2>
         <h4>Board name:</h4>
-      
-        <Textarea
-          onChange={titleHandler}
-          placeholder='Enter text'
-        />
-          {alert ? (
-             <><Space h='xl' />
-          <Alert
-            icon={<AlertCircle size={16} />}
-            title='Please enter a title for your board!'
-            color='red'
-            variant="filled"
-          /></>
+
+        <Textarea onChange={titleHandler} placeholder='Enter text' />
+        {alert ? (
+          <>
+            <Space h='xl' />
+            <Alert
+              icon={<AlertCircle size={16} />}
+              title='Please enter a title for your board!'
+              color='red'
+              variant='filled'
+            />
+          </>
         ) : null}
         <Space h='xl' />
         <h4>Description:</h4>
@@ -205,7 +192,6 @@ export default function NewBoardCardFocus(props) {
 
         <Space h='xl' />
         <Space h='xl' />
-      
       </Drawer>
 
       <List.Item
@@ -223,8 +209,9 @@ export default function NewBoardCardFocus(props) {
               <Adjustments />
             </ActionIcon> */}
             <Plus
+              className='nav-buttons'
               size={55}
-              strokeWidth={1}
+              strokeWidth={2}
               onClick={() => setOpened(true)}
               style={{
                 margin: 3,

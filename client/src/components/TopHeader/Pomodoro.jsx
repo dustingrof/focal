@@ -125,10 +125,10 @@ export default function Pomodoro() {
         target={
           <ActionIcon
             size={40}
-            variant='outline'
+            variant='transparent'
             color={dark ? '#4dabf7s' : 'blue'}
             onClick={() => setOpened(o => !o)}>
-            <Clock size={40} />
+            <Clock size={40} className='nav-buttons' />
           </ActionIcon>
         }>
         <Accordion iconPosition='right' offsetIcon={false} multiple>

@@ -27,7 +27,7 @@ td.task-board_name {
   text-transform: capitalize;
 }
 .react-kanban-column {
-  background-color: rgb(238 238 238 / 70%);
+  background-color: rgb(180 180 180 / 70%);
 }
 #root.dark .react-kanban-column {
   background-color: rgb(109 109 109 / 60%);
@@ -58,7 +58,7 @@ td.task-board_name {
 .weather-widget {
   // padding: 20px;
   // width: 100%;
-  margin: 20px;
+  margin: 0 20px;
 }
 .report-data .mantine-Card-cardSection {
   padding: 20px 10px;
@@ -76,16 +76,25 @@ td.task-board_name {
   background-color: rgb(109 109 109 / 60%);
 }
 
-.mantine-Header-root {
+#root.light .mantine-Header-root {
   border-bottom: 1px solid #89a3bf;
+  background-color: #33495b;
+}
+nav.mantine-Navbar-root.mantine-1hxzrnp {
+  background-color: #33495b;
 }
 .mantine-Header-root button {
   color: #89a3bf;
   border: none;
+  margin-right: 10px;
 }
 .mantine-Tooltip-root.mantine-gc2cx1 svg {
   border: none !important;
-  stroke: #ddb444;
+  stroke: #8aa3bf;
+}
+svg.nav-buttons:hover {
+  stroke: #fff;
+  background: none;
 }
 
 .mantine-Popover-root button {
@@ -113,3 +122,7 @@ td.task-board_name {
 //   display: 'flex';
 //   justify-content: 'flex-end'
 // }
+.footable {
+  background-color: rgb(255 255 255 / 70%);
+  border-radius: 8px;
+}
