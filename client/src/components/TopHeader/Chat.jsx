@@ -168,9 +168,7 @@ const Chat = () => {
         }
         overlayOpacity={0.5}
         overlayBlur={3}>
-        <ScrollArea
-          className={classes.container}
-          style={{ height: 'auto', maxHeight: '90%' }}>
+        <ScrollArea className={classes.container} style={{ height: '90%' }}>
           <List display='flex' spacing='xs' size='sm' center key={'432'}>
             {messageListMapped}
           </List>

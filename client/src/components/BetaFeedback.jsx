@@ -98,29 +98,26 @@ export default function BoardView(props) {
             <Grid.Col span={6}>
               <Title>The back story</Title>
               <Card shadow='xl' className='about-contact-card'>
-              <Text>
-                A collaborative effort for the Lighthouse Labs web development
-                program, built in the span of a week and a half
-              </Text>
-              <Space h='xs' />
-              <Text>
-                Please enjoy this beta release while we continue to dream up new
-                features.
-              </Text>
-              <Space h='xs' />
-              <Grid columns={50}>
-                <Grid.Col span={10}>
-              <Text style={{ fontWeight: 'bold'}}>
-                Stack:
-              </Text>
-                </Grid.Col>
-                <Grid.Col span={40}>
-              <Text>
-               Javascript, React, Express, PostgreSQL, Mantine
-              </Text>
-                </Grid.Col>
-              </Grid>
-
+                <Text>
+                  A collaborative effort for the Lighthouse Labs web development
+                  program, built in the span of a week and a half
+                </Text>
+                <Space h='xs' />
+                <Text>
+                  Please enjoy this beta release while we continue to dream up
+                  new features.
+                </Text>
+                <Space h='xs' />
+                <Grid columns={50}>
+                  <Grid.Col span={10}>
+                    <Text style={{ fontWeight: 'bold' }}>Stack:</Text>
+                  </Grid.Col>
+                  <Grid.Col span={40}>
+                    <Text>
+                      Javascript, React, Express, PostgreSQL, Mantine, SASS
+                    </Text>
+                  </Grid.Col>
+                </Grid>
               </Card>
 
               <Space h='xs' />
@@ -228,7 +225,9 @@ export default function BoardView(props) {
                   }>
                   <div>
                     <Text size='sm' weight={400}>
-                      Full stack web developer, pivoting from 9 years of mechanical engineering. Experience leading teams, and taking projects from concept to completion.
+                      Full stack web developer, pivoting from 9 years of
+                      mechanical engineering. Experience leading teams, and
+                      taking projects from concept to completion.
                     </Text>
                     <Space h='xs' />
                     <Text>
