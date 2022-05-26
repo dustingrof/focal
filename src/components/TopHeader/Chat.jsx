@@ -21,7 +21,7 @@ import React, { useEffect, useState, useContext } from 'react';
 // Socket Connection
 import io from 'socket.io-client';
 import { colourListContext } from '../../providers/colourSchemeProvider';
-const socket = io.connect('/');
+const socket = io.connect('https://lhl-final-project-focal.herokuapp.com/');
 
 //CSS
 const useStyles = createStyles((theme, _params, getRef) => ({

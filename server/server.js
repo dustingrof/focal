@@ -114,7 +114,7 @@ app.get('/focal', (req, res) => {
 // For sockets change from app.listen to server.listen
 const io = new Server(server, {
   cors: {
-    origin: '/',
+    origin: 'https://lhl-final-project-focal.herokuapp.com/',
     method: ['GET', 'POST'],
   },
 });
