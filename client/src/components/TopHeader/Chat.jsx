@@ -195,7 +195,7 @@ const Chat = () => {
         size={40}
         onClick={() => setOpened(o => !o)}>
         {chatIcon ? (
-          <MessageCircle size={40} color='navy' className='nav-buttons' />
+          <MessageCircle size={40} color='orange' className='nav-buttons' />
         ) : (
           <MessageCircle2 size={40} className='nav-buttons' />
         )}
