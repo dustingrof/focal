@@ -122,6 +122,21 @@ export default function BoardView(props) {
 
               <Space h='xs' />
             </Grid.Col>
+            <Grid.Col span={6} className='redirect-url'>
+              <Text
+                component='span'
+                className='focal-logo'
+                variant='gradient'
+                gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+                // size={'xl'}
+                weight={700}
+                style={{
+                  fontFamily: 'Greycliff CF, sans-serif',
+                  fontSize: 32,
+                }}>
+                <a href='/'>focal-project.dev</a>
+              </Text>
+            </Grid.Col>
           </Grid>
           <Grid gutter='xl' className='about-grid'>
             <Grid.Col span={6}>

@@ -197,7 +197,9 @@ svg.nav-buttons:hover {
   display: flex;
   flex-direction: column-reverse;
 }
-// .mantine-xlwgkm.mantine-ScrollArea-viewport {
-//   display: flex;
-//   align-content: flex-end;
-// }
+
+.redirect-url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
