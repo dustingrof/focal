@@ -40,7 +40,7 @@ export default function PieChart() {
   // console.log('chartData', chartData);
   useEffect(() => {
     axios
-      .get(`/reports/`)
+      .get(`/api/reports/`)
       .then(results => {
         const resultsArray = Object.values(results.data);
         // console.log('results', resultsArray);

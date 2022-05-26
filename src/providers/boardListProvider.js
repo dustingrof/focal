@@ -6,10 +6,6 @@ import axios from 'axios';
 export const boardListContext = createContext();
 export const useBoardList = () => useContext(boardListContext);
 
-
-
-
-
 // Create a Component wrapper from Context.Provider
 export default function BoardListProvider(props) {
   // here is our shared state object
@@ -21,11 +17,11 @@ export default function BoardListProvider(props) {
   // If statement checks if object has been rendered yet
 
   useEffect(() => {
-    axios.get('/boards/').then(results => {
+    axios.get('/api/boards/').then(results => {
       const listOfBoards = results.data;
       setBoardList(listOfBoards);
     });
-    axios.get('/users/').then(results => {
+    axios.get('/api/users/').then(results => {
       setListOfUsers(Object.values(results.data));
     });
   }, [focusIsClosed]);
@@ -33,23 +29,23 @@ export default function BoardListProvider(props) {
   const onBoardDelete = boardToDelete => {
     const board_id = boardToDelete.board_id;
     setFocusIsClosed(true);
-    return axios.delete(`/boards/${board_id}`, { board_id }).then(results => {
-      // setUrlBoardId(board_id);
-      setFocusIsClosed(false);
-      // const moveToBoard = board_id - 1;
-      // setUrlBoardId(moveToBoard);
+    return axios
+      .delete(`/api/boards/${board_id}`, { board_id })
+      .then(results => {
+        // setUrlBoardId(board_id);
+        setFocusIsClosed(false);
+        // const moveToBoard = board_id - 1;
+        // setUrlBoardId(moveToBoard);
 
-      // TODO re-direct to home page here?
-    });
+        // TODO re-direct to home page here?
+      });
   };
-
 
   // const onBoardModalClose = (boardDataToUpdate) => {
 
   //   const board_id = Number(boardDataToUpdate.id);
 
   //   console.log('here?');
-
 
   //   setFocusIsClosed(true);
   //   return axios
@@ -64,9 +60,6 @@ export default function BoardListProvider(props) {
   //     });
 
   // };
-
-
-
 
   const onNewBoard = boardToAdd => {
     setFocusIsClosed(true);

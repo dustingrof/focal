@@ -41,9 +41,9 @@ app.use(cors());
 // app.use(helmet()); // needed?
 app.use(bodyparser.json()); // needed?
 
-app.use('/users', users(db));
-app.use('/boards', boards(db));
-app.use('/reports', reports(db));
+app.use('/api/users', users(db));
+app.use('/api/boards', boards(db));
+app.use('/api/reports', reports(db));
 // app.use("/tasks", tasks(db));
 // app.use("/users_tasks", users_tasks(db))
 

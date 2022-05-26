@@ -41,10 +41,6 @@ const initialBoardInfo = {
 
 // Create a Component wrapper from Context.Provider
 export default function BoardProvider(props) {
-
-
-
-
   // here is our shared state object
   const [boardInfo, setBoardInfo] = useState(initialBoardInfo);
   const [board, setBoard] = useState(initialBoardState);
@@ -53,101 +49,85 @@ export default function BoardProvider(props) {
 
   const { urlBoardId, setUrlBoardId } = useContext(UrlBoardIdContext);
 
+  // useEffect(() => {
+  //   console.log('board', board);
+  // }, [board]);
 
-    // useEffect(() => {
-    //   console.log('board', board);
-    // }, [board]);
+  useEffect(() => {
+    axios
+      .get(`/api/boards/${urlBoardId}/tasks`)
+      .then(results => {
+        const incomingColumns = [
+          {
+            id: 1,
+            title: 'Backlog',
+            cards: [],
+          },
+          {
+            id: 2,
+            title: 'Doing',
+            cards: [],
+          },
+          {
+            id: 3,
+            title: 'Pending',
+            cards: [],
+          },
+          {
+            id: 4,
+            title: 'Complete',
+            cards: [],
+          },
+        ];
 
-    useEffect(() => {
+        // TODO update to use if/else-if
 
-
-      axios
-        .get(`/boards/${urlBoardId}/tasks`)
-        .then(results => {
-          const incomingColumns = [
-            {
-              id: 1,
-              title: 'Backlog',
-              cards: [],
-            },
-            {
-              id: 2,
-              title: 'Doing',
-              cards: [],
-            },
-            {
-              id: 3,
-              title: 'Pending',
-              cards: [],
-            },
-            {
-              id: 4,
-              title: 'Complete',
-              cards: [],
-            },
-          ];
-
-          // TODO update to use if/else-if
-
-          for (const result in results.data) {
-            if (results.data[result].status === 1) {
-              incomingColumns[0].cards.push(results.data[result]);
-            }
-            if (results.data[result].status === 2) {
-              incomingColumns[1].cards.push(results.data[result]);
-            }
-            if (results.data[result].status === 3) {
-              incomingColumns[2].cards.push(results.data[result]);
-            }
-            if (results.data[result].status === 4) {
-              incomingColumns[3].cards.push(results.data[result]);
-            }
+        for (const result in results.data) {
+          if (results.data[result].status === 1) {
+            incomingColumns[0].cards.push(results.data[result]);
           }
+          if (results.data[result].status === 2) {
+            incomingColumns[1].cards.push(results.data[result]);
+          }
+          if (results.data[result].status === 3) {
+            incomingColumns[2].cards.push(results.data[result]);
+          }
+          if (results.data[result].status === 4) {
+            incomingColumns[3].cards.push(results.data[result]);
+          }
+        }
 
-          setBoard(prev => ({ ...prev, columns: incomingColumns }));
-          // setBoard({ ...board, columns: incomingColumns });
-        })
-        .catch(error => {
-          console.log(`Board cards: Request failed with error ${error}`);
-        });
+        setBoard(prev => ({ ...prev, columns: incomingColumns }));
+        // setBoard({ ...board, columns: incomingColumns });
+      })
+      .catch(error => {
+        console.log(`Board cards: Request failed with error ${error}`);
+      });
 
+    axios
+      .get(`/api/boards/${urlBoardId}`, { urlBoardId })
+      .then(results => {
+        // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
 
-      axios
-        .get(`/boards/${urlBoardId}`, { urlBoardId })
-        .then(results => {
+        const name = results.data[urlBoardId].name;
+        const description = results.data[urlBoardId].description;
+        const image_url = results.data[urlBoardId].image_url;
 
+        // console.log('newBoardInfo', newBoardInfo);
 
+        const newBoardInfo = {
+          name,
+          description,
+          image_url,
+        };
+        // console.log('newBoardInfo', newBoardInfo);
 
-
-          // console.log('results.data[urlBoardId].name', results.data[urlBoardId].name);
-
-          const name = results.data[urlBoardId].name;
-          const description = results.data[urlBoardId].description;
-          const image_url = results.data[urlBoardId].image_url;
-
-          // console.log('newBoardInfo', newBoardInfo);
-
-          const newBoardInfo = {
-            name,
-            description,
-            image_url,
-          };
-          // console.log('newBoardInfo', newBoardInfo);
-
-          setBoardInfo(newBoardInfo);
-
-        })
-        .catch(error => {
-          console.log(`Board info: Request failed with error ${error}`);
-        });
-
-
-
-
-
-
-
-    }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard, setBoardInfo]);
+        setBoardInfo(newBoardInfo);
+      })
+      .catch(error => {
+        console.log(`Board info: Request failed with error ${error}`);
+      });
+  }, [urlBoardId, focusIsClosed, setFocusIsClosed, setBoard, setBoardInfo]);
 
   // TODO replace board and task ID hardcoded values to be dynamic
   const onMoveCard = (_card, source, destination) => {
@@ -171,9 +151,8 @@ export default function BoardProvider(props) {
     // TODO add "/" before boards
     return axios
       .put(`/boards/${board_id}/tasks/${_card.id}`, { updatedCard })
-      .then(results => { });
+      .then(results => {});
   };
-
 
   const onTaskDelete = taskToDelete => {
     const task_id = taskToDelete.task_id;
@@ -188,7 +167,6 @@ export default function BoardProvider(props) {
       });
   };
 
-
   // const onBoardDelete = boardToDelete => {
   //   const board_id = boardToDelete.board_id;
   //   setFocusIsClosed(true);
@@ -202,10 +180,8 @@ export default function BoardProvider(props) {
 
   //       // TODO re-direct to home page here?
 
-
   //     });
   // };
-
 
   const onFocusModalClose = updatedCard => {
     const card_id = updatedCard.id;
@@ -219,7 +195,6 @@ export default function BoardProvider(props) {
       });
   };
 
-
   const onNewFocusModalClose = newCard => {
     const board_id = newCard.board_id;
     setFocusIsClosed(true);
@@ -230,16 +205,10 @@ export default function BoardProvider(props) {
       });
   };
 
-
-
-
-
-  const onBoardModalClose = (boardDataToUpdate) => {
-
+  const onBoardModalClose = boardDataToUpdate => {
     const board_id = Number(boardDataToUpdate.id);
 
     // console.log('here?');
-
 
     setFocusIsClosed(true);
     return axios
@@ -247,15 +216,24 @@ export default function BoardProvider(props) {
       .then(results => {
         setFocusIsClosed(false);
         // onBoardModalCloseBoardView();
-
       })
       .catch(error => {
         console.log(`Request failed with error ${error}`);
       });
   };
 
-
-  const providerData = { userAvatar, urlBoardId, setUrlBoardId, board, onMoveCard, onFocusModalClose, onNewFocusModalClose, onTaskDelete, boardInfo, onBoardModalClose };
+  const providerData = {
+    userAvatar,
+    urlBoardId,
+    setUrlBoardId,
+    board,
+    onMoveCard,
+    onFocusModalClose,
+    onNewFocusModalClose,
+    onTaskDelete,
+    boardInfo,
+    onBoardModalClose,
+  };
 
   return (
     <boardContext.Provider value={providerData}>

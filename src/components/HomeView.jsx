@@ -36,7 +36,7 @@ export default function HomeView() {
 
   useEffect(() => {
     axios
-      .get(`/users/${currentUserId}/tasks`, { currentUserId })
+      .get(`/api/users/${currentUserId}/tasks`, { currentUserId })
       .then(results => {
         // console.log('results.data', results.data);
         setUsersListOfTasks(Object.values(results.data));
