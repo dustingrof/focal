@@ -114,7 +114,7 @@ app.get('/focal', (req, res) => {
 // For sockets change from app.listen to server.listen
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3006',
+    origin: '/',
     method: ['GET', 'POST'],
   },
 });
