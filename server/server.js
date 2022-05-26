@@ -1,5 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
+const path = require('path');
 
 // Web server config
 const PORT = process.env.PORT || 3322;
@@ -162,6 +163,9 @@ io.on('connection', socket => {
   });
   // socket.disconnect(); // This line to be commented out when chat is used.
 });
+
+app.use('*', express.static(path.join(dirname, '../build')));
+app.use('/', express.static(path.join(dirname, '../build')));
 
 server.listen(PORT, () => {
   console.log(`Focal app listening on port ${PORT}`);
