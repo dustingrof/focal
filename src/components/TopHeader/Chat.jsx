@@ -188,18 +188,22 @@ const Chat = () => {
         />
       </Drawer>
 
-      <ActionIcon
-        variant='transparent'
-        color={dark ? '#4dabf7' : 'blue'}
-        title='Open Chat'
-        size={40}
-        onClick={() => setOpened(o => !o)}>
-        {chatIcon ? (
-          <MessageCircle size={40} color='orange' className='nav-buttons' />
-        ) : (
-          <MessageCircle2 size={40} className='nav-buttons' />
-        )}
-      </ActionIcon>
+      {userLS ? (
+        <ActionIcon
+          variant='transparent'
+          color={dark ? '#4dabf7' : 'blue'}
+          title='Open Chat'
+          size={40}
+          onClick={() => setOpened(o => !o)}>
+          {chatIcon ? (
+            <MessageCircle size={40} color='orange' className='nav-buttons' />
+          ) : (
+            <MessageCircle2 size={40} className='nav-buttons' />
+          )}
+        </ActionIcon>
+      ) : (
+        ''
+      )}
     </React.Fragment>
   );
 };
