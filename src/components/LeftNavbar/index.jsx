@@ -6,6 +6,7 @@ import Chat from '../TopHeader/Chat';
 
 import { Navbar, Text, Center } from '@mantine/core';
 import NewBoardCardFocus from './NewBoardCardFocus';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function LeftNavbar() {
   // const { colorScheme, setColorScheme } = useContext(colourListContext);
@@ -25,7 +26,7 @@ export default function LeftNavbar() {
             // size={'xl'}
             weight={700}
             style={{ fontFamily: 'Greycliff CF, sans-serif', fontSize: 18 }}>
-            <a href='/about'>about</a>
+            <Link to={'/about'}>about</Link>
           </Text>
         </Center>
       </Navbar.Section>
