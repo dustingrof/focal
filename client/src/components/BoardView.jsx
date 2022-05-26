@@ -6,6 +6,7 @@ import { boardContext } from '../providers/boardProvider';
 import { colourListContext } from '../providers/colourSchemeProvider';
 import { useParams, useNavigate } from 'react-router-dom';
 import '@asseinfo/react-kanban/dist/styles.css';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   Text,
@@ -81,7 +82,7 @@ export default function BoardView(props) {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                // justifyContent: 'space-between',
               }}>
               <BoardCardFocus props={boardInfo}>
                 {boardInfo.name}
@@ -106,7 +107,11 @@ export default function BoardView(props) {
               // console.log('arguments:', arguments)
               // console.log('content:', cardData);
               return (
-                <MiniTaskCard dragging={dragging} cardData={{ ...cardData }} />
+                <MiniTaskCard
+                  dragging={dragging}
+                  cardData={{ ...cardData }}
+                  key={uuidv4()}
+                />
               );
             }}>
             {board}

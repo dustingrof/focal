@@ -41,7 +41,7 @@ import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
 import { useHeader } from '../providers/headerProvider';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 // key={uuidv4()}
 export default function HomeTaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -73,8 +73,13 @@ export default function HomeTaskCardFocus(props) {
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
-      return <Checkbox key={uuidv4()}
-      value={user.first_name} label={user.first_name} />;
+      return (
+        <Checkbox
+          key={uuidv4()}
+          value={user.first_name}
+          label={user.first_name}
+        />
+      );
     });
   }
 
@@ -172,12 +177,15 @@ export default function HomeTaskCardFocus(props) {
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
-    return <Chip key={uuidv4()}
-    value={String(boardId)}>{boardTitle}</Chip>;
+    return (
+      <Chip key={uuidv4()} value={String(boardId)}>
+        {boardTitle}
+      </Chip>
+    );
   });
 
   return (
-    <React.Fragment  key={uuidv4()}>
+    <React.Fragment key={uuidv4()}>
       <Modal
         withCloseButton={false}
         opened={opened}
@@ -215,7 +223,7 @@ export default function HomeTaskCardFocus(props) {
               marginTop: 10,
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'space-evenly',
+              // justifyContent: 'space-evenly',
             }}>
             <Edit onClick={() => setEditOpen(o => !o)} />
             <MailForward onClick={() => setMailForward(o => !o)} />
@@ -346,7 +354,7 @@ export default function HomeTaskCardFocus(props) {
 
       <List>
         <List.Item
-        key={uuidv4()}
+          key={uuidv4()}
           icon={
             <ThemeIcon
               variant='outline'

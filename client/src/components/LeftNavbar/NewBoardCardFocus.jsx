@@ -110,24 +110,6 @@ export default function NewBoardCardFocus(props) {
 
   return (
     <React.Fragment>
-      {/* <Modal
-        withCloseButton={false}
-        closeOnEscape={true}
-        closeOnClickOutside={true}
-        opened={opened}
-        onClose={newBoardNoSave}
-        overlayColor={
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
-        }
-        overlayOpacity={0.55}
-        overlayBlur={3}
-        size='lg'
-        transition='pop'
-        transitionDuration={200}
-        transitionTimingFunction='ease'> */}
-
       <Drawer
         overlayColor={
           theme.colorScheme === 'dark'
@@ -198,6 +180,7 @@ export default function NewBoardCardFocus(props) {
         icon={
           <Tooltip
             label='Create a new board'
+            key={uuidv4()}
             closeDelay={100}
             position='right'
             withArrow

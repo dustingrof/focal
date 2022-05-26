@@ -103,15 +103,14 @@ const Chat = () => {
   // Maps through messages and checks if the current user in local storage matches message user and changes message colour in list.
   const messageListMapped = messageList.map((item, index) => {
     return (
-      <div className={item.userls === userLS ? 'current-user' : 'other-users'}>
+      <div
+        className={item.userls === userLS ? 'current-user' : 'other-users'}
+        key={uuidv4()}>
         {hovered ? (
           <Tooltip label={item.userls} color='blue' position='left' opened>
             <List.Item
               className='chat-message'
               display='flex'
-              justifyContent={
-                item.userls === userLS ? 'flex-start' : 'flex-end'
-              }
               key={uuidv4()}
               icon={
                 <Avatar
@@ -121,12 +120,7 @@ const Chat = () => {
                   ref={ref}
                 />
               }>
-              {/* <Badge
-                align='right'
-                fullWidth
-                color={item.userls === userLS ? 'blue' : 'indigo'}> */}
               <Text className='message-content'>{item.message}</Text>
-              {/* </Badge> */}
             </List.Item>
           </Tooltip>
         ) : (
@@ -134,9 +128,6 @@ const Chat = () => {
             <List.Item
               className='chat-message'
               display='flex'
-              justifyContent={
-                item.userls === userLS ? 'flex-start' : 'flex-end'
-              }
               key={uuidv4()}
               icon={
                 <Avatar
@@ -146,12 +137,7 @@ const Chat = () => {
                   ref={ref}
                 />
               }>
-              {/* <Badge
-                align='right'
-                fullWidth
-                color={item.userls === userLS ? 'blue' : 'indigo'}> */}
               <Text className='message-content'>{item.message}</Text>
-              {/* </Badge> */}
             </List.Item>
           </Tooltip>
         )}
@@ -184,7 +170,7 @@ const Chat = () => {
         overlayBlur={3}>
         <ScrollArea
           className={classes.container}
-          style={{ height: 'auto', minHeight: '90%' }}>
+          style={{ height: 'auto', maxHeight: '90%' }}>
           <List display='flex' spacing='xs' size='sm' center key={'432'}>
             {messageListMapped}
           </List>

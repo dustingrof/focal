@@ -44,7 +44,7 @@ import axios from 'axios';
 import { timerContext, useTimer } from '../providers/timerProvider';
 import { useBoardList } from '../providers/boardListProvider';
 import { useHeader } from '../providers/headerProvider';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function TaskCardFocus(props) {
   const { cardData } = props; // onFocusModalClose(cardData);
@@ -76,7 +76,13 @@ export default function TaskCardFocus(props) {
   let formatUserData;
   if (listOfUsers) {
     formatUserData = listOfUsers.map(user => {
-      return <Checkbox value={user.first_name} label={user.first_name} key={uuidv4()}/>;
+      return (
+        <Checkbox
+          value={user.first_name}
+          label={user.first_name}
+          key={uuidv4()}
+        />
+      );
     });
   }
 
@@ -113,7 +119,7 @@ export default function TaskCardFocus(props) {
     setTimeUpdated(newTime);
     reset();
     stop();
-    // showNotification({title: 'Message', message: "Time added to task.", icon={<Check size={18} />}, color="teal", title="Teal notification"}); 
+    // showNotification({title: 'Message', message: "Time added to task.", icon={<Check size={18} />}, color="teal", title="Teal notification"});
     showNotification({
       id: 'load-data',
       color: 'teal',
@@ -121,8 +127,7 @@ export default function TaskCardFocus(props) {
       // message: '!',
       icon: <CheckIcon />,
       autoClose: 3000,
-    } ); 
-
+    });
   };
 
   // delete task
@@ -184,11 +189,15 @@ export default function TaskCardFocus(props) {
   const boardChipList = boardsArray.map(board => {
     const boardId = board.id;
     const boardTitle = board.name;
-    return <Chip key={uuidv4()} value={String(boardId)}>{boardTitle}</Chip>;
+    return (
+      <Chip key={uuidv4()} value={String(boardId)}>
+        {boardTitle}
+      </Chip>
+    );
   });
 
   return (
-    <React.Fragment  >
+    <React.Fragment>
       <Modal
         withCloseButton={false}
         opened={opened}
@@ -229,7 +238,6 @@ export default function TaskCardFocus(props) {
               justifyContent: 'space-evenly',
             }}>
             <Edit onClick={() => setEditOpen(o => !o)} />
-
           </Grid.Col>
           <Grid.Col
             span={2}
@@ -283,7 +291,7 @@ export default function TaskCardFocus(props) {
               // description='This is anonymous'
               // value={userArray}
               onChange={setUserValue}
-            // required
+              // required
             >
               {formatUserData}
             </CheckboxGroup>
@@ -372,31 +380,25 @@ export default function TaskCardFocus(props) {
         </Button>
       </Group> */}
 
-
       {/* <Container style={{ marginLeft: 10, display: "flex", flexDirection: "row" }}> */}
 
-        <List  key={uuidv4()} >
-
-          <List.Item 
+      <List key={uuidv4()}>
+        <List.Item
           key={uuidv4()}
           icon={
-          <Button
-          color="dark"
-            variant='subtle'
-            size='xs'
-            style={{ marginRight: 0, marginLeft: 0 }}
-            onClick={() => setOpened(true)}>
-            <EditCircle size={24} />
-          </Button>
-        }>
-              {titleToUpdate}
-          </List.Item>
-        </List>
+            <Button
+              color='dark'
+              variant='subtle'
+              size='xs'
+              style={{ marginRight: 0, marginLeft: 0 }}
+              onClick={() => setOpened(true)}>
+              <EditCircle size={24} />
+            </Button>
+          }>
+          {titleToUpdate}
+        </List.Item>
+      </List>
       {/* </Container> */}
-
-
-
-
     </React.Fragment>
   );
 }

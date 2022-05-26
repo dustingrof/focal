@@ -153,7 +153,7 @@ io.on('connection', socket => {
       userLS: data.userLS,
       user_ls_avatar: data.user_ls_avatar,
     });
-    console.log('emit notification');
+    // console.log('emit notification');
   });
 
   socket.on('disconnect', () => {
