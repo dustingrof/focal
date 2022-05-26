@@ -21,7 +21,7 @@ import React, { useEffect, useState, useContext } from 'react';
 // Socket Connection
 import io from 'socket.io-client';
 import { colourListContext } from '../../providers/colourSchemeProvider';
-const socket = io.connect('http://localhost:3322');
+const socket = io.connect('/');
 
 //CSS
 const useStyles = createStyles((theme, _params, getRef) => ({
