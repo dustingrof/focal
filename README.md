@@ -7,15 +7,21 @@ This app was built as a final project for the Lighthouse Labs web development pr
 * Iaan Johnston [[LinkedIn](https://www.linkedin.com/in/iaanjohnston/)] [[Github](https://github.com/double-slide)]
 
 
-## Product Views
-!["Homepage view"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal1.png?raw=true)
-!["Task focus view"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal2.png?raw=true)
-!["Homepage view in dark mode"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal3.png?raw=true)
+## Product Views (Light Mode)
+!["Kanban Board View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal1-light.png?raw=true)
+!["Edit Card View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal2-light.png?raw=true)
+!["Slideout Chat View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal3-light.png?raw=true)
+!["About Page View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal4-light.png?raw=true)
 
+## Product Views (Dark Mode)
+!["Kanban Board View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal1-dark.png?raw=true)
+!["Edit Card View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal2-dark.png?raw=true)
+!["Slideout Chat View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal3-dark.png?raw=true)
+!["About Page View"](https://github.com/dustingrof/focal/blob/main/client/public/images/focal4-dark.png?raw=true)
 
 ## Hosted Link
 The hosted app can be explored here:
-**to follow**
+[http://focal-project.ca](http://focal-project.ca)
 
 ## Setup From Repo
 1. Locally clone the repo
