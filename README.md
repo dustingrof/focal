@@ -6,6 +6,9 @@ This app was built as a final project for the Lighthouse Labs web development pr
 * Dustin Grof [[LinkedIn](https://www.linkedin.com/in/dustingrof/)] [[Github](https://github.com/dustingrof)]
 * Iaan Johnston [[LinkedIn](https://www.linkedin.com/in/iaanjohnston/)] [[Github](https://github.com/double-slide)]
 
+## Video Link
+Project Demo
+[on LinkedIn](https://www.linkedin.com/posts/iaanjohnston_webdevelopment-teamworkmakesthedreamwork-activity-6945849088844197888-TMt2/?utm_source=linkedin_share&utm_medium=member_desktop_web)
 
 ## Product Views (Light Mode)
 !["Kanban Board View"](https://github.com/dustingrof/focal/blob/main/public/images/focal1-light.png?raw=true)
@@ -18,10 +21,6 @@ This app was built as a final project for the Lighthouse Labs web development pr
 !["Edit Card View"](https://github.com/dustingrof/focal/blob/main/public/images/focal2-dark.png?raw=true)
 !["Slideout Chat View"](https://github.com/dustingrof/focal/blob/main/public/images/focal3-dark.png?raw=true)
 !["About Page View"](https://github.com/dustingrof/focal/blob/main/public/images/focal4-dark.png?raw=true)
-
-## Hosted Link
-The hosted app can be explored here:
-[http://focal-project.ca](http://focal-project.ca)
 
 ## Setup From Repo
 1. Locally clone the repo
